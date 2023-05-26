@@ -1,8 +1,11 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
-	cvntypes "github.com/cvn-network/cvn/v1/types"
 	"github.com/ethereum/go-ethereum/common"
+	evmostypes "github.com/evmos/evmos/v13/types"
 )
 
 // NewGasMeter returns an instance of GasMeter
@@ -20,9 +23,9 @@ func NewGasMeter(
 
 // Validate performs a stateless validation of a Incentive
 func (gm GasMeter) Validate() error {
-	if err := cvntypes.ValidateAddress(gm.Contract); err != nil {
+	if err := evmostypes.ValidateAddress(gm.Contract); err != nil {
 		return err
 	}
 
-	return cvntypes.ValidateAddress(gm.Participant)
+	return evmostypes.ValidateAddress(gm.Participant)
 }

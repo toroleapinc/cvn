@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package recovery
 
 import (
@@ -9,8 +12,8 @@ import (
 
 	clienttypes "github.com/cosmos/ibc-go/v6/modules/core/02-client/types"
 
-	"github.com/cvn-network/cvn/v1/ibc"
-	"github.com/cvn-network/cvn/v1/x/recovery/keeper"
+	"github.com/evmos/evmos/v13/ibc"
+	"github.com/evmos/evmos/v13/x/recovery/keeper"
 )
 
 var _ porttypes.Middleware = &IBCMiddleware{}

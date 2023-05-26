@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/tendermint/tendermint/libs/rand"
+	rand "github.com/tendermint/tendermint/libs/rand"
 
-	"github.com/cvn-network/cvn/v1/ethereum/eip712"
+	"github.com/evmos/evmos/v13/ethereum/eip712"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
 )

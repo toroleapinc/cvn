@@ -8,14 +8,14 @@ import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/x/evm/keeper"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/params"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/x/evm/keeper"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	"github.com/evmos/evmos/v13/x/evm/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmtypes "github.com/tendermint/tendermint/types"
@@ -518,13 +518,13 @@ func (suite *KeeperTestSuite) TestResetGasMeterAndConsumeGas() {
 
 func (suite *KeeperTestSuite) TestEVMConfig() {
 	proposerAddress := suite.ctx.BlockHeader().ProposerAddress
-	cfg, err := suite.app.EvmKeeper.EVMConfig(suite.ctx, proposerAddress, big.NewInt(2031))
+	cfg, err := suite.app.EvmKeeper.EVMConfig(suite.ctx, proposerAddress, big.NewInt(9000))
 	suite.Require().NoError(err)
 	suite.Require().Equal(types.DefaultParams(), cfg.Params)
 	// london hardfork is enabled by default
 	suite.Require().Equal(big.NewInt(0), cfg.BaseFee)
 	suite.Require().Equal(suite.address, cfg.CoinBase)
-	suite.Require().Equal(types.DefaultParams().ChainConfig.EthereumConfig(big.NewInt(2031)), cfg.ChainConfig)
+	suite.Require().Equal(types.DefaultParams().ChainConfig.EthereumConfig(big.NewInt(9000)), cfg.ChainConfig)
 }
 
 func (suite *KeeperTestSuite) TestContractDeployment() {
@@ -538,7 +538,7 @@ func (suite *KeeperTestSuite) TestApplyMessage() {
 	var msg core.Message
 
 	proposerAddress := suite.ctx.BlockHeader().ProposerAddress
-	config, err := suite.app.EvmKeeper.EVMConfig(suite.ctx, proposerAddress, big.NewInt(2031))
+	config, err := suite.app.EvmKeeper.EVMConfig(suite.ctx, proposerAddress, big.NewInt(9000))
 	suite.Require().NoError(err)
 
 	keeperParams := suite.app.EvmKeeper.GetParams(suite.ctx)
@@ -639,7 +639,7 @@ func (suite *KeeperTestSuite) TestApplyMessageWithConfig() {
 			expectedGasUsed = params.TxGas
 
 			proposerAddress := suite.ctx.BlockHeader().ProposerAddress
-			config, err = suite.app.EvmKeeper.EVMConfig(suite.ctx, proposerAddress, big.NewInt(2031))
+			config, err = suite.app.EvmKeeper.EVMConfig(suite.ctx, proposerAddress, big.NewInt(9000))
 			suite.Require().NoError(err)
 
 			keeperParams = suite.app.EvmKeeper.GetParams(suite.ctx)

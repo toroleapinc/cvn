@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package client
 
 import (
@@ -12,7 +14,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/flags"
 
-	"github.com/cvn-network/cvn/v1/types"
+	"github.com/evmos/evmos/v13/types"
 )
 
 // InitConfig adds the chain-id, encoding and output flags to the persistent flag set.

@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package eth
 
 import (
@@ -13,11 +15,11 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/cvn-network/cvn/v1/rpc/backend"
+	"github.com/evmos/evmos/v13/rpc/backend"
 
-	rpctypes "github.com/cvn-network/cvn/v1/rpc/types"
-	"github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	rpctypes "github.com/evmos/evmos/v13/rpc/types"
+	"github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // The Ethereum API allows applications to connect to an Evmos node that is
@@ -338,22 +340,22 @@ func (e *PublicAPI) ChainId() (*hexutil.Big, error) { //nolint
 ///////////////////////////////////////////////////////////////////////////////
 
 // GetUncleByBlockHashAndIndex returns the uncle identified by hash and index. Always returns nil.
-func (e *PublicAPI) GetUncleByBlockHashAndIndex(hash common.Hash, idx hexutil.Uint) map[string]interface{} {
+func (e *PublicAPI) GetUncleByBlockHashAndIndex(_ common.Hash, _ hexutil.Uint) map[string]interface{} {
 	return nil
 }
 
 // GetUncleByBlockNumberAndIndex returns the uncle identified by number and index. Always returns nil.
-func (e *PublicAPI) GetUncleByBlockNumberAndIndex(number, idx hexutil.Uint) map[string]interface{} {
+func (e *PublicAPI) GetUncleByBlockNumberAndIndex(_, _ hexutil.Uint) map[string]interface{} {
 	return nil
 }
 
 // GetUncleCountByBlockHash returns the number of uncles in the block identified by hash. Always zero.
-func (e *PublicAPI) GetUncleCountByBlockHash(hash common.Hash) hexutil.Uint {
+func (e *PublicAPI) GetUncleCountByBlockHash(_ common.Hash) hexutil.Uint {
 	return 0
 }
 
 // GetUncleCountByBlockNumber returns the number of uncles in the block identified by number. Always zero.
-func (e *PublicAPI) GetUncleCountByBlockNumber(blockNum rpctypes.BlockNumber) hexutil.Uint {
+func (e *PublicAPI) GetUncleCountByBlockNumber(_ rpctypes.BlockNumber) hexutil.Uint {
 	return 0
 }
 

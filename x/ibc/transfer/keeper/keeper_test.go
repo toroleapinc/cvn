@@ -24,19 +24,19 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/server/config"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/utils"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	evm "github.com/cvn-network/cvn/v1/x/evm/types"
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/server/config"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/utils"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	evm "github.com/evmos/evmos/v13/x/evm/types"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/contracts"
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/contracts"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 
 	capabilitytypes "github.com/cosmos/cosmos-sdk/x/capability/types"
 	transfertypes "github.com/cosmos/ibc-go/v6/modules/apps/transfer/types"
@@ -50,7 +50,7 @@ type KeeperTestSuite struct {
 	suite.Suite
 
 	ctx              sdk.Context
-	app              *app.CVN
+	app              *app.Evmos
 	queryClientEvm   evm.QueryClient
 	queryClient      types.QueryClient
 	address          common.Address
@@ -95,7 +95,7 @@ func (suite *KeeperTestSuite) DoSetupTest(t require.TestingT) {
 	// init app
 	suite.app = app.Setup(false, feemarkettypes.DefaultGenesisState())
 	header := testutil.NewHeader(
-		1, time.Now().UTC(), "cvn_2032-1", suite.consAddress, nil, nil,
+		1, time.Now().UTC(), "evmos_9001-1", suite.consAddress, nil, nil,
 	)
 	suite.ctx = suite.app.BaseApp.NewContext(false, header)
 
@@ -171,7 +171,7 @@ func (suite *KeeperTestSuite) Commit() {
 //  4. Commit
 func (suite *KeeperTestSuite) CommitAndBeginBlockAfter(t time.Duration) {
 	var err error
-	suite.ctx, err = testutil.Commit(suite.ctx, suite.app, t, nil)
+	suite.ctx, err = testutil.CommitAndCreateNewCtx(suite.ctx, suite.app, t, nil)
 	suite.Require().NoError(err)
 	queryHelper := baseapp.NewQueryServerTestHelper(suite.ctx, suite.app.InterfaceRegistry())
 	evm.RegisterQueryServer(queryHelper, suite.app.EvmKeeper)
@@ -184,11 +184,13 @@ type MockChannelKeeper struct {
 	mock.Mock
 }
 
+//nolint:revive // allow unused parameters to indicate expected signature
 func (b *MockChannelKeeper) GetChannel(ctx sdk.Context, srcPort, srcChan string) (channel channeltypes.Channel, found bool) {
 	args := b.Called(mock.Anything, mock.Anything, mock.Anything)
 	return args.Get(0).(channeltypes.Channel), true
 }
 
+//nolint:revive // allow unused parameters to indicate expected signature
 func (b *MockChannelKeeper) GetNextSequenceSend(ctx sdk.Context, portID, channelID string) (uint64, bool) {
 	_ = b.Called(mock.Anything, mock.Anything, mock.Anything)
 	return 1, true
@@ -200,14 +202,16 @@ type MockICS4Wrapper struct {
 	mock.Mock
 }
 
-func (b *MockICS4Wrapper) WriteAcknowledgement(ctx sdk.Context, chanCap *capabilitytypes.Capability, packet exported.PacketI, ack exported.Acknowledgement) error {
+func (b *MockICS4Wrapper) WriteAcknowledgement(_ sdk.Context, _ *capabilitytypes.Capability, _ exported.PacketI, _ exported.Acknowledgement) error {
 	return nil
 }
 
+//nolint:revive // allow unused parameters to indicate expected signature
 func (b *MockICS4Wrapper) GetAppVersion(ctx sdk.Context, portID string, channelID string) (string, bool) {
 	return "", false
 }
 
+//nolint:revive // allow unused parameters to indicate expected signature
 func (b *MockICS4Wrapper) SendPacket(
 	ctx sdk.Context,
 	channelCap *capabilitytypes.Capability,

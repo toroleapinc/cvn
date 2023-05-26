@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package app
 
 import (
@@ -107,60 +110,61 @@ import (
 	icahosttypes "github.com/cosmos/ibc-go/v6/modules/apps/27-interchain-accounts/host/types"
 	icatypes "github.com/cosmos/ibc-go/v6/modules/apps/27-interchain-accounts/types"
 
-	ethante "github.com/cvn-network/cvn/v1/app/ante/evm"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/ethereum/eip712"
-	srvflags "github.com/cvn-network/cvn/v1/server/flags"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm"
-	evmkeeper "github.com/cvn-network/cvn/v1/x/evm/keeper"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
-	"github.com/cvn-network/cvn/v1/x/feemarket"
-	feemarketkeeper "github.com/cvn-network/cvn/v1/x/feemarket/keeper"
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
+	ethante "github.com/evmos/evmos/v13/app/ante/evm"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/ethereum/eip712"
+	srvflags "github.com/evmos/evmos/v13/server/flags"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm"
+	evmkeeper "github.com/evmos/evmos/v13/x/evm/keeper"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
+	"github.com/evmos/evmos/v13/x/feemarket"
+	feemarketkeeper "github.com/evmos/evmos/v13/x/feemarket/keeper"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
 
 	// unnamed import of statik for swagger UI support
-	_ "github.com/cvn-network/cvn/v1/client/docs/statik"
+	_ "github.com/evmos/evmos/v13/client/docs/statik"
 
-	"github.com/cvn-network/cvn/v1/app/ante"
-	v10 "github.com/cvn-network/cvn/v1/app/upgrades/v10"
-	v11 "github.com/cvn-network/cvn/v1/app/upgrades/v11"
-	v12 "github.com/cvn-network/cvn/v1/app/upgrades/v12"
-	v8 "github.com/cvn-network/cvn/v1/app/upgrades/v8"
-	v81 "github.com/cvn-network/cvn/v1/app/upgrades/v8_1"
-	v82 "github.com/cvn-network/cvn/v1/app/upgrades/v8_2"
-	v9 "github.com/cvn-network/cvn/v1/app/upgrades/v9"
-	v91 "github.com/cvn-network/cvn/v1/app/upgrades/v9_1"
-	"github.com/cvn-network/cvn/v1/x/claims"
-	claimskeeper "github.com/cvn-network/cvn/v1/x/claims/keeper"
-	claimstypes "github.com/cvn-network/cvn/v1/x/claims/types"
-	"github.com/cvn-network/cvn/v1/x/epochs"
-	epochskeeper "github.com/cvn-network/cvn/v1/x/epochs/keeper"
-	epochstypes "github.com/cvn-network/cvn/v1/x/epochs/types"
-	"github.com/cvn-network/cvn/v1/x/erc20"
-	erc20client "github.com/cvn-network/cvn/v1/x/erc20/client"
-	erc20keeper "github.com/cvn-network/cvn/v1/x/erc20/keeper"
-	erc20types "github.com/cvn-network/cvn/v1/x/erc20/types"
-	"github.com/cvn-network/cvn/v1/x/incentives"
-	incentivesclient "github.com/cvn-network/cvn/v1/x/incentives/client"
-	incentiveskeeper "github.com/cvn-network/cvn/v1/x/incentives/keeper"
-	incentivestypes "github.com/cvn-network/cvn/v1/x/incentives/types"
-	"github.com/cvn-network/cvn/v1/x/inflation"
-	inflationkeeper "github.com/cvn-network/cvn/v1/x/inflation/keeper"
-	inflationtypes "github.com/cvn-network/cvn/v1/x/inflation/types"
-	"github.com/cvn-network/cvn/v1/x/recovery"
-	recoverykeeper "github.com/cvn-network/cvn/v1/x/recovery/keeper"
-	recoverytypes "github.com/cvn-network/cvn/v1/x/recovery/types"
-	revenue "github.com/cvn-network/cvn/v1/x/revenue/v1"
-	revenuekeeper "github.com/cvn-network/cvn/v1/x/revenue/v1/keeper"
-	revenuetypes "github.com/cvn-network/cvn/v1/x/revenue/v1/types"
-	"github.com/cvn-network/cvn/v1/x/vesting"
-	vestingkeeper "github.com/cvn-network/cvn/v1/x/vesting/keeper"
-	vestingtypes "github.com/cvn-network/cvn/v1/x/vesting/types"
+	"github.com/evmos/evmos/v13/app/ante"
+	v10 "github.com/evmos/evmos/v13/app/upgrades/v10"
+	v11 "github.com/evmos/evmos/v13/app/upgrades/v11"
+	v12 "github.com/evmos/evmos/v13/app/upgrades/v12"
+	v13 "github.com/evmos/evmos/v13/app/upgrades/v13"
+	v8 "github.com/evmos/evmos/v13/app/upgrades/v8"
+	v81 "github.com/evmos/evmos/v13/app/upgrades/v8_1"
+	v82 "github.com/evmos/evmos/v13/app/upgrades/v8_2"
+	v9 "github.com/evmos/evmos/v13/app/upgrades/v9"
+	v91 "github.com/evmos/evmos/v13/app/upgrades/v9_1"
+	"github.com/evmos/evmos/v13/x/claims"
+	claimskeeper "github.com/evmos/evmos/v13/x/claims/keeper"
+	claimstypes "github.com/evmos/evmos/v13/x/claims/types"
+	"github.com/evmos/evmos/v13/x/epochs"
+	epochskeeper "github.com/evmos/evmos/v13/x/epochs/keeper"
+	epochstypes "github.com/evmos/evmos/v13/x/epochs/types"
+	"github.com/evmos/evmos/v13/x/erc20"
+	erc20client "github.com/evmos/evmos/v13/x/erc20/client"
+	erc20keeper "github.com/evmos/evmos/v13/x/erc20/keeper"
+	erc20types "github.com/evmos/evmos/v13/x/erc20/types"
+	"github.com/evmos/evmos/v13/x/incentives"
+	incentivesclient "github.com/evmos/evmos/v13/x/incentives/client"
+	incentiveskeeper "github.com/evmos/evmos/v13/x/incentives/keeper"
+	incentivestypes "github.com/evmos/evmos/v13/x/incentives/types"
+	"github.com/evmos/evmos/v13/x/inflation"
+	inflationkeeper "github.com/evmos/evmos/v13/x/inflation/keeper"
+	inflationtypes "github.com/evmos/evmos/v13/x/inflation/types"
+	"github.com/evmos/evmos/v13/x/recovery"
+	recoverykeeper "github.com/evmos/evmos/v13/x/recovery/keeper"
+	recoverytypes "github.com/evmos/evmos/v13/x/recovery/types"
+	revenue "github.com/evmos/evmos/v13/x/revenue/v1"
+	revenuekeeper "github.com/evmos/evmos/v13/x/revenue/v1/keeper"
+	revenuetypes "github.com/evmos/evmos/v13/x/revenue/v1/types"
+	"github.com/evmos/evmos/v13/x/vesting"
+	vestingkeeper "github.com/evmos/evmos/v13/x/vesting/keeper"
+	vestingtypes "github.com/evmos/evmos/v13/x/vesting/types"
 
 	// NOTE: override ICS20 keeper to support IBC transfers of ERC20 tokens
-	"github.com/cvn-network/cvn/v1/x/ibc/transfer"
-	transferkeeper "github.com/cvn-network/cvn/v1/x/ibc/transfer/keeper"
+	"github.com/evmos/evmos/v13/x/ibc/transfer"
+	transferkeeper "github.com/evmos/evmos/v13/x/ibc/transfer/keeper"
 
 	// Force-load the tracer engines to trigger registration due to Go-Ethereum v1.10.15 changes
 	_ "github.com/ethereum/go-ethereum/eth/tracers/js"
@@ -173,10 +177,10 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".cvnd")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".evmosd")
 
 	// manually update the power reduction by replacing micro (u) -> atto (a) evmos
-	sdk.DefaultPowerReduction = cvntypes.PowerReduction
+	sdk.DefaultPowerReduction = evmostypes.PowerReduction
 	// modify fee market parameter defaults through global
 	feemarkettypes.DefaultMinGasPrice = MainnetMinGasPrices
 	feemarkettypes.DefaultMinGasMultiplier = MainnetMinGasMultiplier
@@ -185,7 +189,7 @@ func init() {
 }
 
 // Name defines the application binary name
-const Name = "cvnd"
+const Name = "evmosd"
 
 var (
 	// DefaultNodeHome default home directories for the application daemon
@@ -250,20 +254,19 @@ var (
 
 	// module accounts that are allowed to receive tokens
 	allowedReceivingModAcc = map[string]bool{
-		distrtypes.ModuleName:      true,
 		incentivestypes.ModuleName: true,
 	}
 )
 
 var (
-	_ servertypes.Application = (*CVN)(nil)
-	_ ibctesting.TestingApp   = (*CVN)(nil)
+	_ servertypes.Application = (*Evmos)(nil)
+	_ ibctesting.TestingApp   = (*Evmos)(nil)
 )
 
-// CVN implements an extended ABCI application. It is an application
+// Evmos implements an extended ABCI application. It is an application
 // that may process transactions through Ethereum's EVM running atop of
 // Tendermint consensus.
-type CVN struct {
+type Evmos struct {
 	*baseapp.BaseApp
 
 	// encoding
@@ -323,8 +326,8 @@ type CVN struct {
 	tpsCounter *tpsCounter
 }
 
-// NewCVN returns a reference to a new initialized Ethermint application.
-func NewCVN(
+// NewEvmos returns a reference to a new initialized Ethermint application.
+func NewEvmos(
 	logger log.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
@@ -335,7 +338,7 @@ func NewCVN(
 	encodingConfig simappparams.EncodingConfig,
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
-) *CVN {
+) *Evmos {
 	appCodec := encodingConfig.Codec
 	cdc := encodingConfig.Amino
 	interfaceRegistry := encodingConfig.InterfaceRegistry
@@ -383,7 +386,7 @@ func NewCVN(
 		os.Exit(1)
 	}
 
-	app := &CVN{
+	app := &Evmos{
 		BaseApp:           bApp,
 		cdc:               cdc,
 		appCodec:          appCodec,
@@ -412,7 +415,7 @@ func NewCVN(
 
 	// use custom Ethermint account for contracts
 	app.AccountKeeper = authkeeper.NewAccountKeeper(
-		appCodec, keys[authtypes.StoreKey], app.GetSubspace(authtypes.ModuleName), cvntypes.ProtoAccount, maccPerms, sdk.GetConfig().GetBech32AccountAddrPrefix(),
+		appCodec, keys[authtypes.StoreKey], app.GetSubspace(authtypes.ModuleName), evmostypes.ProtoAccount, maccPerms, sdk.GetConfig().GetBech32AccountAddrPrefix(),
 	)
 	app.BankKeeper = bankkeeper.NewBaseKeeper(
 		appCodec, keys[banktypes.StoreKey], app.AccountKeeper, app.GetSubspace(banktypes.ModuleName), app.BlockedAddrs(),
@@ -445,11 +448,13 @@ func NewCVN(
 		app.GetSubspace(feemarkettypes.ModuleName),
 	)
 
-	app.EvmKeeper = evmkeeper.NewKeeper(
+	evmKeeper := evmkeeper.NewKeeper(
 		appCodec, keys[evmtypes.StoreKey], tkeys[evmtypes.TransientKey], authtypes.NewModuleAddress(govtypes.ModuleName),
 		app.AccountKeeper, app.BankKeeper, &stakingKeeper, app.FeeMarketKeeper,
 		tracer, app.GetSubspace(evmtypes.ModuleName),
 	)
+
+	app.EvmKeeper = evmKeeper
 
 	// Create IBC Keeper
 	app.IBCKeeper = ibckeeper.NewKeeper(
@@ -497,6 +502,11 @@ func NewCVN(
 			app.SlashingKeeper.Hooks(),
 			app.ClaimsKeeper.Hooks(),
 		),
+	)
+
+	// We call this after setting the hooks to ensure that the hooks are set on the keeper
+	evmKeeper.WithPrecompiles(
+		evmkeeper.AvailablePrecompiles(stakingKeeper, app.DistrKeeper, app.AuthzKeeper),
 	)
 
 	app.VestingKeeper = vestingkeeper.NewKeeper(
@@ -838,14 +848,14 @@ func NewCVN(
 }
 
 // Name returns the name of the App
-func (app *CVN) Name() string { return app.BaseApp.Name() }
+func (app *Evmos) Name() string { return app.BaseApp.Name() }
 
-func (app *CVN) setAnteHandler(txConfig client.TxConfig, maxGasWanted uint64) {
+func (app *Evmos) setAnteHandler(txConfig client.TxConfig, maxGasWanted uint64) {
 	options := ante.HandlerOptions{
 		Cdc:                    app.appCodec,
 		AccountKeeper:          app.AccountKeeper,
 		BankKeeper:             app.BankKeeper,
-		ExtensionOptionChecker: cvntypes.HasDynamicFeeExtensionOption,
+		ExtensionOptionChecker: evmostypes.HasDynamicFeeExtensionOption,
 		EvmKeeper:              app.EvmKeeper,
 		StakingKeeper:          app.StakingKeeper,
 		FeegrantKeeper:         app.FeeGrantKeeper,
@@ -865,7 +875,7 @@ func (app *CVN) setAnteHandler(txConfig client.TxConfig, maxGasWanted uint64) {
 	app.SetAnteHandler(ante.NewAnteHandler(options))
 }
 
-func (app *CVN) setPostHandler() {
+func (app *Evmos) setPostHandler() {
 	postHandler, err := posthandler.NewPostHandler(
 		posthandler.HandlerOptions{},
 	)
@@ -879,19 +889,19 @@ func (app *CVN) setPostHandler() {
 // BeginBlocker runs the Tendermint ABCI BeginBlock logic. It executes state changes at the beginning
 // of the new block for every registered module. If there is a registered fork at the current height,
 // BeginBlocker will schedule the upgrade plan and perform the state migration (if any).
-func (app *CVN) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+func (app *Evmos) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	// Perform any scheduled forks before executing the modules logic
 	app.ScheduleForkUpgrade(ctx)
 	return app.mm.BeginBlock(ctx, req)
 }
 
 // EndBlocker updates every end block
-func (app *CVN) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *Evmos) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.mm.EndBlock(ctx, req)
 }
 
 // The DeliverTx method is intentionally decomposed to calculate the transactions per second.
-func (app *CVN) DeliverTx(req abci.RequestDeliverTx) (res abci.ResponseDeliverTx) {
+func (app *Evmos) DeliverTx(req abci.RequestDeliverTx) (res abci.ResponseDeliverTx) {
 	defer func() {
 		// TODO: Record the count along with the code and or reason so as to display
 		// in the transactions per second live dashboards.
@@ -905,7 +915,7 @@ func (app *CVN) DeliverTx(req abci.RequestDeliverTx) (res abci.ResponseDeliverTx
 }
 
 // InitChainer updates at chain initialization
-func (app *CVN) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *Evmos) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState simapp.GenesisState
 	if err := json.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
@@ -917,12 +927,12 @@ func (app *CVN) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 }
 
 // LoadHeight loads state at a particular height
-func (app *CVN) LoadHeight(height int64) error {
+func (app *Evmos) LoadHeight(height int64) error {
 	return app.LoadVersion(height)
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
-func (app *CVN) ModuleAccountAddrs() map[string]bool {
+func (app *Evmos) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 
 	accs := make([]string, 0, len(maccPerms))
@@ -940,7 +950,7 @@ func (app *CVN) ModuleAccountAddrs() map[string]bool {
 
 // BlockedAddrs returns all the app's module account addresses that are not
 // allowed to receive external tokens.
-func (app *CVN) BlockedAddrs() map[string]bool {
+func (app *Evmos) BlockedAddrs() map[string]bool {
 	blockedAddrs := make(map[string]bool)
 
 	accs := make([]string, 0, len(maccPerms))
@@ -960,7 +970,7 @@ func (app *CVN) BlockedAddrs() map[string]bool {
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *CVN) LegacyAmino() *codec.LegacyAmino {
+func (app *Evmos) LegacyAmino() *codec.LegacyAmino {
 	return app.cdc
 }
 
@@ -968,47 +978,47 @@ func (app *CVN) LegacyAmino() *codec.LegacyAmino {
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *CVN) AppCodec() codec.Codec {
+func (app *Evmos) AppCodec() codec.Codec {
 	return app.appCodec
 }
 
 // InterfaceRegistry returns Evmos's InterfaceRegistry
-func (app *CVN) InterfaceRegistry() types.InterfaceRegistry {
+func (app *Evmos) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
 }
 
 // GetKey returns the KVStoreKey for the provided store key.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *CVN) GetKey(storeKey string) *storetypes.KVStoreKey {
+func (app *Evmos) GetKey(storeKey string) *storetypes.KVStoreKey {
 	return app.keys[storeKey]
 }
 
 // GetTKey returns the TransientStoreKey for the provided store key.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *CVN) GetTKey(storeKey string) *storetypes.TransientStoreKey {
+func (app *Evmos) GetTKey(storeKey string) *storetypes.TransientStoreKey {
 	return app.tkeys[storeKey]
 }
 
 // GetMemKey returns the MemStoreKey for the provided mem key.
 //
 // NOTE: This is solely used for testing purposes.
-func (app *CVN) GetMemKey(storeKey string) *storetypes.MemoryStoreKey {
+func (app *Evmos) GetMemKey(storeKey string) *storetypes.MemoryStoreKey {
 	return app.memKeys[storeKey]
 }
 
 // GetSubspace returns a param subspace for a given module name.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *CVN) GetSubspace(moduleName string) paramstypes.Subspace {
+func (app *Evmos) GetSubspace(moduleName string) paramstypes.Subspace {
 	subspace, _ := app.ParamsKeeper.GetSubspace(moduleName)
 	return subspace
 }
 
 // RegisterAPIRoutes registers all application module routes with the provided
 // API server.
-func (app *CVN) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
+func (app *Evmos) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
 	clientCtx := apiSvr.ClientCtx
 
 	// Register new tx routes from grpc-gateway.
@@ -1027,12 +1037,12 @@ func (app *CVN) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig
 	}
 }
 
-func (app *CVN) RegisterTxService(clientCtx client.Context) {
+func (app *Evmos) RegisterTxService(clientCtx client.Context) {
 	authtx.RegisterTxService(app.BaseApp.GRPCQueryRouter(), clientCtx, app.BaseApp.Simulate, app.interfaceRegistry)
 }
 
 // RegisterTendermintService implements the Application.RegisterTendermintService method.
-func (app *CVN) RegisterTendermintService(clientCtx client.Context) {
+func (app *Evmos) RegisterTendermintService(clientCtx client.Context) {
 	tmservice.RegisterTendermintService(
 		clientCtx,
 		app.BaseApp.GRPCQueryRouter(),
@@ -1043,39 +1053,39 @@ func (app *CVN) RegisterTendermintService(clientCtx client.Context) {
 
 // RegisterNodeService registers the node gRPC service on the provided
 // application gRPC query router.
-func (app *CVN) RegisterNodeService(clientCtx client.Context) {
+func (app *Evmos) RegisterNodeService(clientCtx client.Context) {
 	node.RegisterNodeService(clientCtx, app.GRPCQueryRouter())
 }
 
 // IBC Go TestingApp functions
 
 // GetBaseApp implements the TestingApp interface.
-func (app *CVN) GetBaseApp() *baseapp.BaseApp {
+func (app *Evmos) GetBaseApp() *baseapp.BaseApp {
 	return app.BaseApp
 }
 
 // GetStakingKeeper implements the TestingApp interface.
-func (app *CVN) GetStakingKeeper() ibctestingtypes.StakingKeeper {
+func (app *Evmos) GetStakingKeeper() ibctestingtypes.StakingKeeper {
 	return app.StakingKeeper
 }
 
 // GetStakingKeeperSDK implements the TestingApp interface.
-func (app *CVN) GetStakingKeeperSDK() stakingkeeper.Keeper {
+func (app *Evmos) GetStakingKeeperSDK() stakingkeeper.Keeper {
 	return app.StakingKeeper
 }
 
 // GetIBCKeeper implements the TestingApp interface.
-func (app *CVN) GetIBCKeeper() *ibckeeper.Keeper {
+func (app *Evmos) GetIBCKeeper() *ibckeeper.Keeper {
 	return app.IBCKeeper
 }
 
 // GetScopedIBCKeeper implements the TestingApp interface.
-func (app *CVN) GetScopedIBCKeeper() capabilitykeeper.ScopedKeeper {
+func (app *Evmos) GetScopedIBCKeeper() capabilitykeeper.ScopedKeeper {
 	return app.ScopedIBCKeeper
 }
 
 // GetTxConfig implements the TestingApp interface.
-func (app *CVN) GetTxConfig() client.TxConfig {
+func (app *Evmos) GetTxConfig() client.TxConfig {
 	cfg := encoding.MakeConfig(ModuleBasics)
 	return cfg.TxConfig
 }
@@ -1131,7 +1141,7 @@ func initParamsKeeper(
 	return paramsKeeper
 }
 
-func (app *CVN) setupUpgradeHandlers() {
+func (app *Evmos) setupUpgradeHandlers() {
 	// v8 upgrade handler
 	app.UpgradeKeeper.SetUpgradeHandler(
 		v8.UpgradeName,
@@ -1204,6 +1214,15 @@ func (app *CVN) setupUpgradeHandlers() {
 		),
 	)
 
+	// v13 upgrade handler
+	app.UpgradeKeeper.SetUpgradeHandler(
+		v13.UpgradeName,
+		v13.CreateUpgradeHandler(
+			app.mm, app.configurator,
+			*app.EvmKeeper,
+		),
+	)
+
 	// When a planned update height is reached, the old binary will panic
 	// writing on disk the height and name of the update that triggered it
 	// This will read that value, and execute the preparations for the upgrade.
@@ -1245,6 +1264,8 @@ func (app *CVN) setupUpgradeHandlers() {
 			Added: []string{icahosttypes.SubModuleName, recoverytypes.StoreKey},
 		}
 	case v12.UpgradeName:
+		// no store upgrades
+	case v13.UpgradeName:
 		// no store upgrades
 	}
 

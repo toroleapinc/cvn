@@ -6,11 +6,11 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	evmante "github.com/cvn-network/cvn/v1/app/ante/evm"
-	"github.com/cvn-network/cvn/v1/testutil"
-	testutiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	evmante "github.com/evmos/evmos/v13/app/ante/evm"
+	"github.com/evmos/evmos/v13/testutil"
+	testutiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 var execTypes = []struct {

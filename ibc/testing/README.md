@@ -253,7 +253,8 @@ Here is a basic example of the testing package being used to simulate IBC functi
 
 If ICS 20 had its own simapp, its testing setup might include a `testing/app.go` file with the following contents:
 
-```gopackage transfertesting
+```go
+package transfertesting
 
 import (
 	"encoding/json"

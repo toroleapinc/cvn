@@ -15,10 +15,10 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/core/types"
 	ethparams "github.com/ethereum/go-ethereum/params"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 func (suite *AnteTestSuite) TestAnteHandler() {
@@ -365,7 +365,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					from, grantee, &banktypes.SendAuthorization{SpendLimit: gasAmount}, &expiresAt,
 				)
 				suite.Require().NoError(err)
-				builder, err := suite.CreateTestEIP712SingleMessageTxBuilder(from, privKey, suite.ctx.ChainID(), gas, gasAmount, msg)
+				builder, err := suite.CreateTestEIP712SingleMessageTxBuilder(privKey, suite.ctx.ChainID(), gas, gasAmount, msg)
 				suite.Require().NoError(err)
 
 				return builder.GetTx()
@@ -571,7 +571,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 				from := acc.GetAddress()
 				gas := uint64(200000)
 				amount := sdk.NewCoins(sdk.NewCoin(evmtypes.DefaultEVMDenom, sdkmath.NewInt(100*int64(gas))))
-				txBuilder, err := suite.CreateTestEIP712TxBuilderMsgSend(from, privKey, "cvn_8008-1", gas, amount)
+				txBuilder, err := suite.CreateTestEIP712TxBuilderMsgSend(from, privKey, "evmos_9001-1", gas, amount)
 				suite.Require().NoError(err)
 				return txBuilder.GetTx()
 			}, false, false, false,

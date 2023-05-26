@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package ibctesting
 
 import (
@@ -19,12 +22,12 @@ import (
 
 	ibcgotesting "github.com/cosmos/ibc-go/v6/testing"
 
-	evmosapp "github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/utils"
+	evmosapp "github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/utils"
 )
 
-var DefaultTestingAppInit = evmosapp.SetupTestingApp
+var DefaultTestingAppInit func() (ibcgotesting.TestingApp, map[string]json.RawMessage) = evmosapp.SetupTestingApp
 
 // SetupWithGenesisValSet initializes a new SimApp with a validator set and genesis accounts
 // that also act as delegators. For simplicity, each validator is bonded with a delegation
@@ -65,7 +68,7 @@ func SetupWithGenesisValSet(t *testing.T, valSet *tmtypes.ValidatorSet, genAccs 
 
 	// set validators and delegations
 	stakingParams := stakingtypes.DefaultParams()
-	// set bond demon to be acvnt
+	// set bond demon to be aevmos
 	stakingParams.BondDenom = utils.BaseDenom
 	stakingGenesis := stakingtypes.NewGenesisState(stakingParams, validators, delegations)
 	genesisState[stakingtypes.ModuleName] = app.AppCodec().MustMarshalJSON(stakingGenesis)

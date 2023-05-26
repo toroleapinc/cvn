@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package eip712
 
 import (
@@ -8,7 +10,7 @@ import (
 	cosmoskr "github.com/cosmos/cosmos-sdk/crypto/keyring"
 	"github.com/cosmos/cosmos-sdk/types/tx/signing"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
-	"github.com/cvn-network/cvn/v1/types"
+	"github.com/evmos/evmos/v13/types"
 )
 
 // PreprocessLedgerTx reformats Ledger-signed Cosmos transactions to match the fork expected by Ethermint

@@ -18,15 +18,15 @@ import (
 	"github.com/stretchr/testify/suite"
 	tmrpctypes "github.com/tendermint/tendermint/rpc/core/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/crypto/hd"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/indexer"
-	"github.com/cvn-network/cvn/v1/rpc/backend/mocks"
-	rpctypes "github.com/cvn-network/cvn/v1/rpc/types"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/utils"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/crypto/hd"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/indexer"
+	"github.com/evmos/evmos/v13/rpc/backend/mocks"
+	rpctypes "github.com/evmos/evmos/v13/rpc/types"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/utils"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 type BackendTestSuite struct {

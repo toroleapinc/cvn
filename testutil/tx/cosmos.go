@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package tx
 
 import (
@@ -11,8 +13,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/tx/signing"
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/utils"
 )
 
 var (
@@ -44,7 +46,7 @@ type CosmosTxArgs struct {
 // It returns the signed transaction and an error
 func PrepareCosmosTx(
 	ctx sdk.Context,
-	appEvmos *app.CVN,
+	appEvmos *app.Evmos,
 	args CosmosTxArgs,
 ) (authsigning.Tx, error) {
 	txBuilder := args.TxCfg.NewTxBuilder()
@@ -77,7 +79,7 @@ func PrepareCosmosTx(
 // the provided private key
 func signCosmosTx(
 	ctx sdk.Context,
-	appEvmos *app.CVN,
+	appEvmos *app.Evmos,
 	args CosmosTxArgs,
 	txBuilder client.TxBuilder,
 ) (authsigning.Tx, error) {

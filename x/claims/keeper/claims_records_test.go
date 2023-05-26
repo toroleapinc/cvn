@@ -3,13 +3,13 @@ package keeper_test
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cvn-network/cvn/v1/x/claims/types"
+	"github.com/evmos/evmos/v13/x/claims/types"
 )
 
 func (suite *KeeperTestSuite) TestsClaimsRecords() {
-	addr1, err := sdk.AccAddressFromBech32("cvn1yjnzmrrr5cqr5a4xe6wscl2mvw56wj8tptws4l")
+	addr1, err := sdk.AccAddressFromBech32("evmos1hf0468jjpe6m6vx38s97z2qqe8ldu0njdyf625")
 	suite.Require().NoError(err)
-	addr2, err := sdk.AccAddressFromBech32("cvn1ydc99lv22wxzjx0r30nzcj44gvw9fmsutt8ryr")
+	addr2, err := sdk.AccAddressFromBech32("evmos1sv9m0g7ycejwr3s369km58h5qe7xj77hvcxrms")
 	suite.Require().NoError(err)
 
 	cr1 := types.NewClaimsRecord(sdk.NewInt(1000))

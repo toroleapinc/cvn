@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
@@ -12,7 +15,7 @@ import (
 var (
 	// IBCTriggerAmt is the amount required to trigger a merge/migration of claims records
 	IBCTriggerAmt = "63743"
-	// GenesisDust is the amount of acvnt sent on genesis for accounts to be able to claim
+	// GenesisDust is the amount of aevmos sent on genesis for accounts to be able to claim
 	GenesisDust = int64(gomath.Pow10(15))
 )
 

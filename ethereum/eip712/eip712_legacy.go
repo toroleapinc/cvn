@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package eip712
 
 import (
@@ -343,16 +345,16 @@ func jsonNameFromTag(tag reflect.StructTag) string {
 
 // Unpack the given Any value with Type/Value deconstruction
 func unpackAny(cdc codectypes.AnyUnpacker, field reflect.Value) (reflect.Type, reflect.Value, error) {
-	any, ok := field.Interface().(*codectypes.Any)
+	anyData, ok := field.Interface().(*codectypes.Any)
 	if !ok {
 		return nil, reflect.Value{}, errorsmod.Wrapf(errortypes.ErrPackAny, "%T", field.Interface())
 	}
 
 	anyWrapper := &cosmosAnyWrapper{
-		Type: any.TypeUrl,
+		Type: anyData.TypeUrl,
 	}
 
-	if err := cdc.UnpackAny(any, &anyWrapper.Value); err != nil {
+	if err := cdc.UnpackAny(anyData, &anyWrapper.Value); err != nil {
 		return nil, reflect.Value{}, errorsmod.Wrap(err, "failed to unpack Any in msg struct")
 	}
 

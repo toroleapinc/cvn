@@ -15,10 +15,10 @@ import (
 	ethlogger "github.com/ethereum/go-ethereum/eth/tracers/logger"
 	ethparams "github.com/ethereum/go-ethereum/params"
 
-	"github.com/cvn-network/cvn/v1/server/config"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/server/config"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	"github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // Not valid Ethereum address

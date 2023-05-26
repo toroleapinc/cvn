@@ -13,18 +13,18 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/suite"
 
-	evm "github.com/cvn-network/cvn/v1/x/evm/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	evm "github.com/evmos/evmos/v13/x/evm/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/x/incentives/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/x/incentives/types"
 )
 
 type KeeperTestSuite struct {
 	suite.Suite
 
 	ctx              sdk.Context
-	app              *app.CVN
+	app              *app.Evmos
 	queryClientEvm   evm.QueryClient
 	queryClient      types.QueryClient
 	address          common.Address

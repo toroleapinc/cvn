@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package encoding
 
 import (
@@ -7,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/auth/tx"
 
-	enccodec "github.com/cvn-network/cvn/v1/encoding/codec"
+	enccodec "github.com/evmos/evmos/v13/encoding/codec"
 )
 
 // MakeConfig creates an EncodingConfig for testing

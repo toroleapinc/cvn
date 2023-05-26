@@ -3,8 +3,8 @@ package types_test
 import (
 	"testing"
 
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/x/incentives/types"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/x/incentives/types"
 
 	"github.com/stretchr/testify/require"
 )

@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package txpool
 
 import (
@@ -5,7 +7,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 
-	"github.com/cvn-network/cvn/v1/rpc/types"
+	"github.com/evmos/evmos/v13/rpc/types"
 )
 
 // PublicAPI offers and API for the transaction pool. It only operates on data that is non-confidential.

@@ -7,13 +7,13 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/claims/types"
-	vestingtypes "github.com/cvn-network/cvn/v1/x/vesting/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
+	testutil "github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/claims/types"
+	vestingtypes "github.com/evmos/evmos/v13/x/vesting/types"
 )
 
 func (suite *KeeperTestSuite) TestEndBlock() {
@@ -145,7 +145,7 @@ func (suite *KeeperTestSuite) TestClawbackEmptyAccounts() {
 			types.GenesisDust,
 			func() {
 				baseAccount := authtypes.NewBaseAccount(addr, nil, 0, 0)
-				ethAccount := cvntypes.EthAccount{
+				ethAccount := evmostypes.EthAccount{
 					BaseAccount: baseAccount,
 					CodeHash:    common.BytesToHash(crypto.Keccak256(nil)).String(),
 				}

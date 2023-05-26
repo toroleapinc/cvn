@@ -1,9 +1,12 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package utils
 
 import (
 	"strings"
 
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
 
 	errorsmod "cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
@@ -14,13 +17,12 @@ import (
 )
 
 const (
-	// TODO:[PROD] change these chain ids to unique values
 	// MainnetChainID defines the Evmos EIP155 chain ID for mainnet
-	MainnetChainID = "cvn_2032"
+	MainnetChainID = "evmos_9001"
 	// TestnetChainID defines the Evmos EIP155 chain ID for testnet
-	TestnetChainID = "cvn_2031"
+	TestnetChainID = "evmos_9000"
 	// BaseDenom defines the Evmos mainnet denomination
-	BaseDenom = "acvnt"
+	BaseDenom = "aevmos"
 )
 
 // IsMainnet returns true if the chain-id has the Evmos mainnet EIP155 chain prefix.
@@ -61,11 +63,11 @@ func IsSupportedKey(pubkey cryptotypes.PubKey) bool {
 	}
 }
 
-// GetCVNAddressFromBech32 returns the sdk.Account address of given address,
+// GetEvmosAddressFromBech32 returns the sdk.Account address of given address,
 // while also changing bech32 human readable prefix (HRP) to the value set on
 // the global sdk.Config (eg: `evmos`).
 // The function fails if the provided bech32 address is invalid.
-func GetCVNAddressFromBech32(address string) (sdk.AccAddress, error) {
+func GetEvmosAddressFromBech32(address string) (sdk.AccAddress, error) {
 	bech32Prefix := strings.SplitN(address, "1", 2)[0]
 	if bech32Prefix == address {
 		return nil, errorsmod.Wrapf(errortypes.ErrInvalidAddress, "invalid bech32 address: %s", address)

@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package evm
 
 import (
@@ -9,9 +11,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 	authante "github.com/cosmos/cosmos-sdk/x/auth/ante"
-	anteutils "github.com/cvn-network/cvn/v1/app/ante/utils"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	anteutils "github.com/evmos/evmos/v13/app/ante/utils"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // NewDynamicFeeChecker returns a `TxFeeChecker` that applies a dynamic fee to
@@ -45,7 +47,7 @@ func NewDynamicFeeChecker(k DynamicFeeEVMKeeper) anteutils.TxFeeChecker {
 		// get the priority tip cap from the extension option.
 		if hasExtOptsTx, ok := feeTx.(authante.HasExtensionOptionsTx); ok {
 			for _, opt := range hasExtOptsTx.GetExtensionOptions() {
-				if extOpt, ok := opt.GetCachedValue().(*cvntypes.ExtensionOptionDynamicFeeTx); ok {
+				if extOpt, ok := opt.GetCachedValue().(*evmostypes.ExtensionOptionDynamicFeeTx); ok {
 					maxPriorityPrice = extOpt.MaxPriorityPrice
 					break
 				}

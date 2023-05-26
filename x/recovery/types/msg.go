@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
@@ -19,11 +22,7 @@ func (m *MsgUpdateParams) ValidateBasic() error {
 		return errorsmod.Wrap(err, "invalid authority address")
 	}
 
-	if err := m.Params.Validate(); err != nil {
-		return err
-	}
-
-	return nil
+	return m.Params.Validate()
 }
 
 // GetSignBytes implements the LegacyMsg interface.

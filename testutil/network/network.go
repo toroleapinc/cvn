@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package network
 
 import (
@@ -48,13 +51,13 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/crypto/hd"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/crypto/hd"
 
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/server/config"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/server/config"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // package-wide network lock to only allow one test network at a time
@@ -107,14 +110,14 @@ func DefaultConfig() Config {
 		AccountRetriever:  authtypes.AccountRetriever{},
 		AppConstructor:    NewAppConstructor(encCfg),
 		GenesisState:      app.ModuleBasics.DefaultGenesis(encCfg.Codec),
-		TimeoutCommit:     2 * time.Second,
+		TimeoutCommit:     3 * time.Second,
 		ChainID:           fmt.Sprintf("evmos_%d-1", tmrand.Int63n(9999999999999)+1),
 		NumValidators:     4,
-		BondDenom:         "acvnt",
-		MinGasPrices:      fmt.Sprintf("0.000006%s", cvntypes.AttoEvmos),
-		AccountTokens:     sdk.TokensFromConsensusPower(1000000000000000000, cvntypes.PowerReduction),
-		StakingTokens:     sdk.TokensFromConsensusPower(500000000000000000, cvntypes.PowerReduction),
-		BondedTokens:      sdk.TokensFromConsensusPower(100000000000000000, cvntypes.PowerReduction),
+		BondDenom:         "aevmos",
+		MinGasPrices:      fmt.Sprintf("0.000006%s", evmostypes.AttoEvmos),
+		AccountTokens:     sdk.TokensFromConsensusPower(1000000000000000000, evmostypes.PowerReduction),
+		StakingTokens:     sdk.TokensFromConsensusPower(500000000000000000, evmostypes.PowerReduction),
+		BondedTokens:      sdk.TokensFromConsensusPower(100000000000000000, evmostypes.PowerReduction),
 		PruningStrategy:   pruningtypes.PruningOptionNothing,
 		CleanupDir:        true,
 		SigningAlgo:       string(hd.EthSecp256k1Type),
@@ -126,7 +129,7 @@ func DefaultConfig() Config {
 // NewAppConstructor returns a new Evmos AppConstructor
 func NewAppConstructor(encodingCfg params.EncodingConfig) AppConstructor {
 	return func(val Validator) servertypes.Application {
-		return app.NewCVN(
+		return app.NewEvmos(
 			val.Ctx.Logger, dbm.NewMemDB(), nil, true, make(map[int64]bool), val.Ctx.Config.RootDir, 0,
 			encodingCfg,
 			simapp.EmptyAppOptions{},
@@ -217,7 +220,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 	l.Log("acquiring test network lock")
 	lock.Lock()
 
-	if !cvntypes.IsValidChainID(cfg.ChainID) {
+	if !evmostypes.IsValidChainID(cfg.ChainID) {
 		return nil, fmt.Errorf("invalid chain-id: %s", cfg.ChainID)
 	}
 
@@ -332,7 +335,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 		ctx.Logger = logger
 
 		nodeDirName := fmt.Sprintf("node%d", i)
-		nodeDir := filepath.Join(network.BaseDir, nodeDirName, "cvnd")
+		nodeDir := filepath.Join(network.BaseDir, nodeDirName, "evmosd")
 		clientDir := filepath.Join(network.BaseDir, nodeDirName, "evmoscli")
 		gentxsDir := filepath.Join(network.BaseDir, "gentxs")
 
@@ -412,7 +415,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 
 		genFiles = append(genFiles, tmCfg.GenesisFile())
 		genBalances = append(genBalances, banktypes.Balance{Address: addr.String(), Coins: balances.Sort()})
-		genAccounts = append(genAccounts, &cvntypes.EthAccount{
+		genAccounts = append(genAccounts, &evmostypes.EthAccount{
 			BaseAccount: authtypes.NewBaseAccount(addr, nil, 0, 0),
 			CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).Hex(),
 		})
@@ -470,7 +473,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 			return nil, err
 		}
 
-		customAppTemplate, _ := config.AppConfig(cvntypes.AttoEvmos)
+		customAppTemplate, _ := config.AppConfig(evmostypes.AttoEvmos)
 		srvconfig.SetConfigTemplate(customAppTemplate)
 		srvconfig.WriteConfigFile(filepath.Join(nodeDir, "config/app.toml"), appCfg)
 

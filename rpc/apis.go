@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package rpc
 
 import (
@@ -8,16 +10,16 @@ import (
 
 	"github.com/ethereum/go-ethereum/rpc"
 
-	"github.com/cvn-network/cvn/v1/rpc/backend"
-	"github.com/cvn-network/cvn/v1/rpc/namespaces/ethereum/debug"
-	"github.com/cvn-network/cvn/v1/rpc/namespaces/ethereum/eth"
-	"github.com/cvn-network/cvn/v1/rpc/namespaces/ethereum/eth/filters"
-	"github.com/cvn-network/cvn/v1/rpc/namespaces/ethereum/miner"
-	"github.com/cvn-network/cvn/v1/rpc/namespaces/ethereum/net"
-	"github.com/cvn-network/cvn/v1/rpc/namespaces/ethereum/personal"
-	"github.com/cvn-network/cvn/v1/rpc/namespaces/ethereum/txpool"
-	"github.com/cvn-network/cvn/v1/rpc/namespaces/ethereum/web3"
-	"github.com/cvn-network/cvn/v1/types"
+	"github.com/evmos/evmos/v13/rpc/backend"
+	"github.com/evmos/evmos/v13/rpc/namespaces/ethereum/debug"
+	"github.com/evmos/evmos/v13/rpc/namespaces/ethereum/eth"
+	"github.com/evmos/evmos/v13/rpc/namespaces/ethereum/eth/filters"
+	"github.com/evmos/evmos/v13/rpc/namespaces/ethereum/miner"
+	"github.com/evmos/evmos/v13/rpc/namespaces/ethereum/net"
+	"github.com/evmos/evmos/v13/rpc/namespaces/ethereum/personal"
+	"github.com/evmos/evmos/v13/rpc/namespaces/ethereum/txpool"
+	"github.com/evmos/evmos/v13/rpc/namespaces/ethereum/web3"
+	"github.com/evmos/evmos/v13/types"
 
 	rpcclient "github.com/tendermint/tendermint/rpc/jsonrpc/client"
 )

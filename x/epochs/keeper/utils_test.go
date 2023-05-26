@@ -4,15 +4,14 @@ import (
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/testutil"
-	"github.com/cvn-network/cvn/v1/x/epochs/types"
-	evm "github.com/cvn-network/cvn/v1/x/evm/types"
-	"github.com/stretchr/testify/require"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/testutil"
+	"github.com/evmos/evmos/v13/x/epochs/types"
+	evm "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // Test helpers
-func (suite *KeeperTestSuite) DoSetupTest(t require.TestingT) {
+func (suite *KeeperTestSuite) DoSetupTest() {
 	checkTx := false
 
 	// init app
@@ -20,7 +19,7 @@ func (suite *KeeperTestSuite) DoSetupTest(t require.TestingT) {
 
 	// setup context
 	header := testutil.NewHeader(
-		1, time.Now().UTC(), "cvn_2032-1", suite.consAddress, nil, nil,
+		1, time.Now().UTC(), "evmos_9001-1", suite.consAddress, nil, nil,
 	)
 	suite.ctx = suite.app.BaseApp.NewContext(checkTx, header)
 

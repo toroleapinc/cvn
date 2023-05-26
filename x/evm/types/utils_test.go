@@ -12,12 +12,12 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/gogo/protobuf/proto"
+	proto "github.com/gogo/protobuf/proto"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/encoding"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/encoding"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
 	"github.com/stretchr/testify/require"
 )
@@ -34,9 +34,9 @@ func TestEvmDataEncoding(t *testing.T) {
 		Ret: ret,
 	}
 
-	any := codectypes.UnsafePackAny(data)
+	anyData := codectypes.UnsafePackAny(data)
 	txData := &sdk.TxMsgData{
-		MsgResponses: []*codectypes.Any{any},
+		MsgResponses: []*codectypes.Any{anyData},
 	}
 
 	txDataBz, err := proto.Marshal(txData)

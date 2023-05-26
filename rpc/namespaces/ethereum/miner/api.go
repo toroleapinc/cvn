@@ -1,8 +1,10 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package miner
 
 import (
 	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cvn-network/cvn/v1/rpc/backend"
+	"github.com/evmos/evmos/v13/rpc/backend"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"

@@ -4,11 +4,11 @@ import (
 	"math/big"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	ethante "github.com/cvn-network/cvn/v1/app/ante/evm"
-	"github.com/cvn-network/cvn/v1/testutil"
-	testutiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	ethante "github.com/evmos/evmos/v13/app/ante/evm"
+	"github.com/evmos/evmos/v13/testutil"
+	testutiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 func (suite *AnteTestSuite) TestEthSigVerificationDecorator() {

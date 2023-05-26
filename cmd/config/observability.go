@@ -1,4 +1,5 @@
-
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package config
 
@@ -12,7 +13,7 @@ func EnableObservability() error {
 	// }
 
 	// pe, err := prometheus.NewExporter(prometheus.Options{
-	// 	Namespace: "cvnd",
+	// 	Namespace: "evmosd",
 	// })
 	// if err != nil {
 	// 	return fmt.Errorf("cmd/config: failed to create the OpenCensus Prometheus exporter: %w", err)

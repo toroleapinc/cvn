@@ -14,13 +14,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/ante"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/cmd/config"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/ethereum/eip712"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/cmd/config"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/ethereum/eip712"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/utils"
 	"github.com/stretchr/testify/require"
 )
 
@@ -31,7 +31,7 @@ var (
 		encoding.MakeConfig(app.ModuleBasics).TxConfig,
 	)
 )
-var feePayerAddress = "cvn1ydc99lv22wxzjx0r30nzcj44gvw9fmsutt8ryr"
+var feePayerAddress = "evmos17xpfvakm2amg962yls6f84z3kell8c5ljcjw34"
 
 type TestCaseStruct struct {
 	txBuilder              client.TxBuilder
@@ -68,7 +68,7 @@ func TestLedgerPreprocessing(t *testing.T) {
 		require.True(t, len(hasExtOptsTx.GetExtensionOptions()) == 1)
 
 		expectedExt := types.ExtensionOptionsWeb3Tx{
-			TypedDataChainID: 2031,
+			TypedDataChainID: 9000,
 			FeePayer:         feePayerAddress,
 			FeePayerSig:      tc.expectedSignatureBytes,
 		}
@@ -203,7 +203,7 @@ func createPopulatedTestCase(t *testing.T) TestCaseStruct {
 
 	msgSend := banktypes.MsgSend{
 		FromAddress: feePayerAddress,
-		ToAddress:   "cvn1yjnzmrrr5cqr5a4xe6wscl2mvw56wj8tptws4l",
+		ToAddress:   "evmos12luku6uxehhak02py4rcz65zu0swh7wjun6msa",
 		Amount: sdk.NewCoins(
 			sdk.NewCoin(
 				utils.BaseDenom,

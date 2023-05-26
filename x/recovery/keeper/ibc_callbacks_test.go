@@ -8,9 +8,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
 	"github.com/stretchr/testify/mock"
 
 	transfertypes "github.com/cosmos/ibc-go/v6/modules/apps/transfer/types"
@@ -19,11 +19,11 @@ import (
 	ibcgotesting "github.com/cosmos/ibc-go/v6/testing"
 	ibcmock "github.com/cosmos/ibc-go/v6/testing/mock"
 
-	claimstypes "github.com/cvn-network/cvn/v1/x/claims/types"
-	incentivestypes "github.com/cvn-network/cvn/v1/x/incentives/types"
-	"github.com/cvn-network/cvn/v1/x/recovery/keeper"
-	"github.com/cvn-network/cvn/v1/x/recovery/types"
-	vestingtypes "github.com/cvn-network/cvn/v1/x/vesting/types"
+	claimstypes "github.com/evmos/evmos/v13/x/claims/types"
+	incentivestypes "github.com/evmos/evmos/v13/x/incentives/types"
+	"github.com/evmos/evmos/v13/x/recovery/keeper"
+	"github.com/evmos/evmos/v13/x/recovery/types"
+	vestingtypes "github.com/evmos/evmos/v13/x/vesting/types"
 )
 
 func (suite *KeeperTestSuite) TestOnRecvPacket() {
@@ -53,7 +53,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 	expAck := ibcmock.MockAcknowledgement
 
 	coins := sdk.NewCoins(
-		sdk.NewCoin("acvnt", sdk.NewInt(1000)),
+		sdk.NewCoin("aevmos", sdk.NewInt(1000)),
 		sdk.NewCoin(ibcAtomDenom, sdk.NewInt(1000)),
 		sdk.NewCoin(ibcOsmoDenom, sdk.NewInt(1000)),
 		sdk.NewCoin(erc20Denom, sdk.NewInt(1000)),
@@ -362,14 +362,14 @@ func (suite *KeeperTestSuite) TestGetIBCDenomDestinationIdentifiers() {
 	}{
 		{
 			"invalid native denom",
-			"acvnt",
+			"aevmos",
 			func() {},
 			true,
 			"", "",
 		},
 		{
 			"invalid IBC denom hash",
-			"ibc/acvnt",
+			"ibc/aevmos",
 			func() {},
 			true,
 			"", "",
@@ -585,7 +585,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacketFailTransfer() {
 
 			// Fund receiver account with EVMOS
 			coins := sdk.NewCoins(
-				sdk.NewCoin("acvnt", sdk.NewInt(1000)),
+				sdk.NewCoin("aevmos", sdk.NewInt(1000)),
 				sdk.NewCoin(ibcAtomDenom, sdk.NewInt(1000)),
 			)
 			err = testutil.FundAccount(suite.ctx, suite.app.BankKeeper, secpAddr, coins)

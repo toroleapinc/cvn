@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package ibc
 
 import (
@@ -8,7 +11,7 @@ import (
 	transfertypes "github.com/cosmos/ibc-go/v6/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v6/modules/core/04-channel/types"
 
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/utils"
 )
 
 // GetTransferSenderRecipient returns the sender and recipient sdk.AccAddresses
@@ -30,14 +33,14 @@ func GetTransferSenderRecipient(packet channeltypes.Packet) (
 
 	// validate the sender bech32 address from the counterparty chain
 	// and change the bech32 human readable prefix (HRP) of the sender to `evmos`
-	sender, err = utils.GetCVNAddressFromBech32(data.Sender)
+	sender, err = utils.GetEvmosAddressFromBech32(data.Sender)
 	if err != nil {
 		return nil, nil, "", "", errorsmod.Wrap(err, "invalid sender")
 	}
 
 	// validate the recipient bech32 address from the counterparty chain
 	// and change the bech32 human readable prefix (HRP) of the recipient to `evmos`
-	recipient, err = utils.GetCVNAddressFromBech32(data.Receiver)
+	recipient, err = utils.GetEvmosAddressFromBech32(data.Receiver)
 	if err != nil {
 		return nil, nil, "", "", errorsmod.Wrap(err, "invalid recipient")
 	}

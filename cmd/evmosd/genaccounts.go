@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package main
 
 import (
@@ -20,13 +23,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 
-	"github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
-	evmoskr "github.com/cvn-network/cvn/v1/crypto/keyring"
+	evmoskr "github.com/evmos/evmos/v13/crypto/keyring"
 
-	vestingcli "github.com/cvn-network/cvn/v1/x/vesting/client/cli"
-	vestingtypes "github.com/cvn-network/cvn/v1/x/vesting/types"
+	vestingcli "github.com/evmos/evmos/v13/x/vesting/client/cli"
+	vestingtypes "github.com/evmos/evmos/v13/x/vesting/types"
 )
 
 const (

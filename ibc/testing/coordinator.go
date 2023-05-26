@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package ibctesting
 
 import (
@@ -10,7 +13,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ibctesting "github.com/cosmos/ibc-go/v6/testing"
 	ibchelpers "github.com/cosmos/ibc-go/v6/testing/simapp/helpers"
-	"github.com/cvn-network/cvn/v1/app"
+	"github.com/evmos/evmos/v13/app"
 	"github.com/stretchr/testify/require"
 )
 
@@ -124,8 +127,8 @@ func SendMsgs(chain *ibctesting.TestChain, feeAmt int64, msgs ...sdk.Msg) (*sdk.
 	// ensure the chain has the latest time
 	chain.Coordinator.UpdateTimeForChain(chain)
 
-	if cvnChain, ok := chain.App.(*app.CVN); ok {
-		bondDenom = cvnChain.StakingKeeper.BondDenom(chain.GetContext())
+	if evmosChain, ok := chain.App.(*app.Evmos); ok {
+		bondDenom = evmosChain.StakingKeeper.BondDenom(chain.GetContext())
 	} else {
 		bondDenom = chain.GetSimApp().StakingKeeper.BondDenom(chain.GetContext())
 	}

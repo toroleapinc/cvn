@@ -1,9 +1,12 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:LGPL-3.0-only
+
 package types
 
 import (
 	"fmt"
 
-	"github.com/cvn-network/cvn/v1/x/revenue/v1/types"
+	"github.com/evmos/evmos/v13/x/revenue/v1/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"

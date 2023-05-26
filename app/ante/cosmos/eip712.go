@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package cosmos
 
 import (
@@ -14,14 +16,14 @@ import (
 	authante "github.com/cosmos/cosmos-sdk/x/auth/ante"
 	"github.com/cosmos/cosmos-sdk/x/auth/migrations/legacytx"
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/ethereum/eip712"
-	"github.com/cvn-network/cvn/v1/types"
 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/crypto/secp256k1"
 	"github.com/ethereum/go-ethereum/signer/core/apitypes"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/ethereum/eip712"
+	"github.com/evmos/evmos/v13/types"
 
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 var evmosCodec codec.ProtoCodecMarshaler

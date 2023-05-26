@@ -3,9 +3,9 @@ package types_test
 import (
 	"testing"
 
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/types"
 	"github.com/ethereum/go-ethereum/common"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/types"
 	"github.com/stretchr/testify/require"
 )
 

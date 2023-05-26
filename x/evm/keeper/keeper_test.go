@@ -6,10 +6,10 @@ import (
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm/keeper"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm/keeper"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
 	"github.com/ethereum/go-ethereum/common"
 
@@ -36,15 +36,15 @@ func (suite *KeeperTestSuite) TestWithChainID() {
 			true,
 		},
 		{
-			"success - CVN mainnet chain ID",
-			"cvn_2032-2",
-			2032,
+			"success - Evmos mainnet chain ID",
+			"evmos_9001-2",
+			9001,
 			false,
 		},
 		{
-			"success - CVN testnet chain ID",
-			"cvn_2031-4",
-			2031,
+			"success - Evmos testnet chain ID",
+			"evmos_9000-4",
+			9000,
 			false,
 		},
 	}
@@ -124,7 +124,7 @@ func (suite *KeeperTestSuite) TestGetAccountStorage() {
 			tc.malleate()
 			i := 0
 			suite.app.AccountKeeper.IterateAccounts(suite.ctx, func(account authtypes.AccountI) bool {
-				ethAccount, ok := account.(cvntypes.EthAccountI)
+				ethAccount, ok := account.(evmostypes.EthAccountI)
 				if !ok {
 					// ignore non EthAccounts
 					return false

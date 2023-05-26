@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package evm
 
 import (
@@ -6,7 +8,7 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/cvn-network/cvn/v1/types"
+	"github.com/evmos/evmos/v13/types"
 )
 
 // GasWantedDecorator keeps track of the gasWanted amount on the current block in transient store

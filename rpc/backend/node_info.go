@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package backend
 
 import (
@@ -15,14 +17,14 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	distributiontypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	rpctypes "github.com/cvn-network/cvn/v1/rpc/types"
-	"github.com/cvn-network/cvn/v1/server/config"
-	"github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	rpctypes "github.com/evmos/evmos/v13/rpc/types"
+	"github.com/evmos/evmos/v13/server/config"
+	"github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
@@ -234,7 +236,7 @@ func (b *Backend) ListAccounts() ([]common.Address, error) {
 
 // NewAccount will create a new account and returns the address for the new account.
 func (b *Backend) NewMnemonic(uid string,
-	language keyring.Language,
+	_ keyring.Language,
 	hdPath,
 	bip39Passphrase string,
 	algo keyring.SignatureAlgo,

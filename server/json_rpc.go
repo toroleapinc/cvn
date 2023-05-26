@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package server
 
 import (
@@ -10,12 +12,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/server/types"
-	"github.com/cvn-network/cvn/v1/rpc"
 	ethlog "github.com/ethereum/go-ethereum/log"
 	ethrpc "github.com/ethereum/go-ethereum/rpc"
+	"github.com/evmos/evmos/v13/rpc"
 
-	"github.com/cvn-network/cvn/v1/server/config"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
+	"github.com/evmos/evmos/v13/server/config"
+	evmostypes "github.com/evmos/evmos/v13/types"
 )
 
 // StartJSONRPC starts the JSON-RPC server
@@ -24,7 +26,7 @@ func StartJSONRPC(ctx *server.Context,
 	tmRPCAddr,
 	tmEndpoint string,
 	config *config.Config,
-	indexer cvntypes.EVMTxIndexer,
+	indexer evmostypes.EVMTxIndexer,
 ) (*http.Server, chan struct{}, error) {
 	tmWsClient := ConnectTmWS(tmRPCAddr, tmEndpoint, ctx.Logger)
 

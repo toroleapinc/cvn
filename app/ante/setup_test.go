@@ -9,12 +9,12 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/testutil"
-	"github.com/cvn-network/cvn/v1/utils"
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/testutil"
+	"github.com/evmos/evmos/v13/utils"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
@@ -26,7 +26,7 @@ type AnteTestSuite struct {
 
 	ctx       sdk.Context
 	clientCtx client.Context
-	app       *app.CVN
+	app       *app.Evmos
 	denom     string
 }
 

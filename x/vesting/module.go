@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package vesting
 
 import (
@@ -18,9 +21,9 @@ import (
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
-	"github.com/cvn-network/cvn/v1/x/vesting/client/cli"
-	"github.com/cvn-network/cvn/v1/x/vesting/keeper"
-	"github.com/cvn-network/cvn/v1/x/vesting/types"
+	"github.com/evmos/evmos/v13/x/vesting/client/cli"
+	"github.com/evmos/evmos/v13/x/vesting/keeper"
+	"github.com/evmos/evmos/v13/x/vesting/types"
 )
 
 var (
@@ -55,7 +58,7 @@ func (AppModuleBasic) DefaultGenesis(_ codec.JSONCodec) json.RawMessage {
 }
 
 // ValidateGenesis performs genesis state validation. Currently, this is a no-op.
-func (AppModuleBasic) ValidateGenesis(_ codec.JSONCodec, _ client.TxEncodingConfig, bz json.RawMessage) error {
+func (AppModuleBasic) ValidateGenesis(_ codec.JSONCodec, _ client.TxEncodingConfig, _ json.RawMessage) error {
 	return nil
 }
 

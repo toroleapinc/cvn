@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package testutil
 
 import (
@@ -6,16 +9,34 @@ import (
 
 	sdkmath "cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
+	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	distributionkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
 	distributiontypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	"github.com/cosmos/cosmos-sdk/x/staking"
+	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	"github.com/cosmos/cosmos-sdk/x/staking/teststaking"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/cvn-network/cvn/v1/app"
-	testutiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/app"
+	testutiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/utils"
 )
+
+// CreateValidator creates a validator with the provided public key and stake amount
+func CreateValidator(ctx sdk.Context, t *testing.T, pubKey cryptotypes.PubKey, sk stakingkeeper.Keeper, stakeAmt sdkmath.Int) {
+	zeroDec := sdk.ZeroDec()
+	stakingParams := sk.GetParams(ctx)
+	stakingParams.BondDenom = sk.BondDenom(ctx)
+	stakingParams.MinCommissionRate = zeroDec
+	sk.SetParams(ctx, stakingParams)
+
+	stakingHelper := teststaking.NewHelper(t, ctx, sk)
+	stakingHelper.Commission = stakingtypes.NewCommissionRates(zeroDec, zeroDec, zeroDec)
+	stakingHelper.Denom = sk.BondDenom(ctx)
+
+	valAddr := sdk.ValAddress(pubKey.Address())
+	stakingHelper.CreateValidator(valAddr, pubKey, stakeAmt, true)
+}
 
 // PrepareAccountsForDelegationRewards prepares the test suite for testing to withdraw delegation rewards.
 //
@@ -32,7 +53,7 @@ import (
 //   - Allocate rewards to the validator.
 //
 // The function returns the updated context along with a potential error.
-func PrepareAccountsForDelegationRewards(t *testing.T, ctx sdk.Context, app *app.CVN, addr sdk.AccAddress, balance sdkmath.Int, rewards ...sdkmath.Int) (sdk.Context, error) {
+func PrepareAccountsForDelegationRewards(t *testing.T, ctx sdk.Context, app *app.Evmos, addr sdk.AccAddress, balance sdkmath.Int, rewards ...sdkmath.Int) (sdk.Context, error) {
 	// Calculate the necessary amount of tokens to fund the account in order for the desired residual balance to
 	// be left after creating validators and delegating to them.
 	totalRewards := sdk.ZeroInt()
@@ -112,7 +133,8 @@ func PrepareAccountsForDelegationRewards(t *testing.T, ctx sdk.Context, app *app
 // GetTotalDelegationRewards returns the total delegation rewards that are currently
 // outstanding for the given address.
 func GetTotalDelegationRewards(ctx sdk.Context, distributionKeeper distributionkeeper.Keeper, addr sdk.AccAddress) (sdk.DecCoins, error) {
-	resp, err := distributionKeeper.DelegationTotalRewards(
+	querier := distributionkeeper.NewQuerier(distributionKeeper)
+	resp, err := querier.DelegationTotalRewards(
 		ctx,
 		&distributiontypes.QueryDelegationTotalRewardsRequest{
 			DelegatorAddress: addr.String(),

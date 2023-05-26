@@ -1,14 +1,17 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
 	"github.com/ethereum/go-ethereum/common"
+	evmostypes "github.com/evmos/evmos/v13/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
 // NewTokenPair returns an instance of TokenPair
-func NewTokenPair(erc20Address common.Address, denom string, enabled bool, contractOwner Owner) TokenPair {
+func NewTokenPair(erc20Address common.Address, denom string, contractOwner Owner) TokenPair {
 	return TokenPair{
 		Erc20Address:  erc20Address.String(),
 		Denom:         denom,
@@ -34,11 +37,7 @@ func (tp TokenPair) Validate() error {
 		return err
 	}
 
-	if err := cvntypes.ValidateAddress(tp.Erc20Address); err != nil {
-		return err
-	}
-
-	return nil
+	return evmostypes.ValidateAddress(tp.Erc20Address)
 }
 
 // IsNativeCoin returns true if the owner of the ERC20 contract is the

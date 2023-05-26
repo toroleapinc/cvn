@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package keys
 
 import (
@@ -7,9 +9,9 @@ import (
 	"fmt"
 	"sort"
 
-	cryptohd "github.com/cvn-network/cvn/v1/crypto/hd"
+	cryptohd "github.com/evmos/evmos/v13/crypto/hd"
 
-	"github.com/cosmos/go-bip39"
+	bip39 "github.com/cosmos/go-bip39"
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -181,8 +183,8 @@ func RunAddCmd(ctx client.Context, cmd *cobra.Command, args []string, inBuf *buf
 	// Get bip39 mnemonic
 	var mnemonic, bip39Passphrase string
 
-	recover, _ := cmd.Flags().GetBool(flagRecover)
-	if recover {
+	recoverKey, _ := cmd.Flags().GetBool(flagRecover)
+	if recoverKey {
 		mnemonic, err = input.GetString("Enter your bip39 mnemonic", inBuf)
 		if err != nil {
 			return err
@@ -243,7 +245,7 @@ func RunAddCmd(ctx client.Context, cmd *cobra.Command, args []string, inBuf *buf
 	}
 
 	// Recover key from seed passphrase
-	if recover {
+	if recoverKey {
 		// Hide mnemonic from output
 		showMnemonic = false
 		mnemonic = ""

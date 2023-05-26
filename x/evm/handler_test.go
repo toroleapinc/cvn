@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cvn-network/cvn/v1/utils"
-	"github.com/cvn-network/cvn/v1/x/evm/keeper"
+	"github.com/evmos/evmos/v13/utils"
+	"github.com/evmos/evmos/v13/x/evm/keeper"
 
 	sdkmath "cosmossdk.io/math"
 	"github.com/gogo/protobuf/proto"
@@ -19,7 +19,7 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
 
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
@@ -33,13 +33,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	"github.com/evmos/evmos/v13/x/evm/types"
 
 	"github.com/tendermint/tendermint/crypto/tmhash"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
@@ -53,7 +53,7 @@ type EvmTestSuite struct {
 
 	ctx     sdk.Context
 	handler sdk.Handler
-	app     *app.CVN
+	app     *app.Evmos
 	chainID *big.Int
 
 	signer    keyring.Signer
@@ -79,7 +79,7 @@ func (suite *EvmTestSuite) DoSetupTest(t require.TestingT) {
 	require.NoError(t, err)
 	consAddress := sdk.ConsAddress(priv.PubKey().Address())
 
-	suite.app = app.EthSetup(checkTx, func(app *app.CVN, genesis simapp.GenesisState) simapp.GenesisState {
+	suite.app = app.EthSetup(checkTx, func(app *app.Evmos, genesis simapp.GenesisState) simapp.GenesisState {
 		if suite.dynamicTxFee {
 			feemarketGenesis := feemarkettypes.DefaultGenesisState()
 			feemarketGenesis.Params.EnableHeight = 1
@@ -148,7 +148,7 @@ func (suite *EvmTestSuite) DoSetupTest(t require.TestingT) {
 	queryHelper := baseapp.NewQueryServerTestHelper(suite.ctx, suite.app.InterfaceRegistry())
 	types.RegisterQueryServer(queryHelper, suite.app.EvmKeeper)
 
-	acc := &cvntypes.EthAccount{
+	acc := &evmostypes.EthAccount{
 		BaseAccount: authtypes.NewBaseAccount(sdk.AccAddress(address.Bytes()), nil, 0, 0),
 		CodeHash:    common.BytesToHash(crypto.Keccak256(nil)).String(),
 	}
@@ -545,6 +545,7 @@ func (suite *EvmTestSuite) TestOutOfGasWhenDeployContract() {
 	suite.SignTx(tx)
 
 	defer func() {
+		//nolint:revive // allow empty code block that just contains TODO in test code
 		if r := recover(); r != nil {
 			// TODO: snapshotting logic
 		} else {
@@ -766,13 +767,13 @@ func (suite *EvmTestSuite) TestContractDeploymentRevert() {
 // DummyHook implements EvmHooks interface
 type DummyHook struct{}
 
-func (dh *DummyHook) PostTxProcessing(ctx sdk.Context, msg core.Message, receipt *ethtypes.Receipt) error {
+func (dh *DummyHook) PostTxProcessing(_ sdk.Context, _ core.Message, _ *ethtypes.Receipt) error {
 	return nil
 }
 
 // FailureHook implements EvmHooks interface
 type FailureHook struct{}
 
-func (dh *FailureHook) PostTxProcessing(ctx sdk.Context, msg core.Message, receipt *ethtypes.Receipt) error {
+func (dh *FailureHook) PostTxProcessing(_ sdk.Context, _ core.Message, _ *ethtypes.Receipt) error {
 	return errors.New("mock error")
 }

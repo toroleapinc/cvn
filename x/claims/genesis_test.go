@@ -12,13 +12,13 @@ import (
 	tmversion "github.com/tendermint/tendermint/proto/tendermint/version"
 	"github.com/tendermint/tendermint/version"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/utils"
-	"github.com/cvn-network/cvn/v1/x/claims"
-	"github.com/cvn-network/cvn/v1/x/claims/types"
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/utils"
+	"github.com/evmos/evmos/v13/x/claims"
+	"github.com/evmos/evmos/v13/x/claims/types"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
 )
 
 type GenesisTestSuite struct {
@@ -26,7 +26,7 @@ type GenesisTestSuite struct {
 
 	ctx sdk.Context
 
-	app     *app.CVN
+	app     *app.Evmos
 	genesis types.GenesisState
 }
 
@@ -78,8 +78,8 @@ func TestGenesisTestSuite(t *testing.T) {
 }
 
 var (
-	acc1 = sdk.MustAccAddressFromBech32("cvn1ydc99lv22wxzjx0r30nzcj44gvw9fmsutt8ryr")
-	acc2 = sdk.MustAccAddressFromBech32("cvn1yjnzmrrr5cqr5a4xe6wscl2mvw56wj8tptws4l")
+	acc1 = sdk.MustAccAddressFromBech32("evmos1qxx0fdsmruzuar2fay88lfw6sce6emamyu2s8h4d")
+	acc2 = sdk.MustAccAddressFromBech32("evmos1nsrs4t7dngkdltehkm3p6n8dp22sz3mct9uhc8")
 )
 
 func (suite *GenesisTestSuite) TestClaimInitGenesis() {
@@ -113,7 +113,7 @@ func (suite *GenesisTestSuite) TestClaimInitGenesis() {
 				},
 			},
 			func() {
-				coins := sdk.NewCoins(sdk.NewCoin("acvnt", sdk.NewInt(2_800)))
+				coins := sdk.NewCoins(sdk.NewCoin("aevmos", sdk.NewInt(2_800)))
 				err := testutil.FundModuleAccount(suite.ctx, suite.app.BankKeeper, types.ModuleName, coins)
 				suite.Require().NoError(err)
 			},
@@ -137,7 +137,7 @@ func (suite *GenesisTestSuite) TestClaimInitGenesis() {
 				},
 			},
 			func() {
-				coins := sdk.NewCoins(sdk.NewCoin("acvnt", sdk.NewInt(400)))
+				coins := sdk.NewCoins(sdk.NewCoin("aevmos", sdk.NewInt(400)))
 				err := testutil.FundModuleAccount(suite.ctx, suite.app.BankKeeper, types.ModuleName, coins)
 				suite.Require().NoError(err)
 			},
@@ -184,7 +184,7 @@ func (suite *GenesisTestSuite) TestClaimExportGenesis() {
 		},
 	}
 
-	coins := sdk.NewCoins(sdk.NewCoin("acvnt", sdk.NewInt(400)))
+	coins := sdk.NewCoins(sdk.NewCoin("aevmos", sdk.NewInt(400)))
 	err := testutil.FundModuleAccount(suite.ctx, suite.app.BankKeeper, types.ModuleName, coins)
 	suite.Require().NoError(err)
 

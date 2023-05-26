@@ -3,7 +3,7 @@ package types
 import (
 	"testing"
 
-	epochstypes "github.com/cvn-network/cvn/v1/x/epochs/types"
+	epochstypes "github.com/evmos/evmos/v13/x/epochs/types"
 	"github.com/stretchr/testify/suite"
 )
 

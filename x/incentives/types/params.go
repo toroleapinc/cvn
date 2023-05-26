@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
@@ -5,7 +8,7 @@ import (
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	epochstypes "github.com/cvn-network/cvn/v1/x/epochs/types"
+	epochstypes "github.com/evmos/evmos/v13/x/epochs/types"
 )
 
 // ParamsKey params store key

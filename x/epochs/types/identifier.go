@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
@@ -21,11 +24,8 @@ func ValidateEpochIdentifierInterface(i interface{}) error {
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
-	if err := ValidateEpochIdentifierString(v); err != nil {
-		return err
-	}
 
-	return nil
+	return ValidateEpochIdentifierString(v)
 }
 
 // ValidateEpochIdentifierInterface performs a stateless

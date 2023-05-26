@@ -3,9 +3,9 @@ package evm_test
 import (
 	"math/big"
 
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 func (suite *AnteTestSuite) TestSignatures() {

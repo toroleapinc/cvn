@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
@@ -7,7 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
-	"github.com/cvn-network/cvn/v1/x/recovery/types"
+	"github.com/evmos/evmos/v13/x/recovery/types"
 )
 
 // UpdateParams implements the gRPC MsgServer interface. When an UpdateParams

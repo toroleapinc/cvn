@@ -12,12 +12,12 @@ import (
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
 )
 
 func init() {
 	cfg := sdk.GetConfig()
-	cfg.SetBech32PrefixForAccount("cvn", "cvnpub")
+	cfg.SetBech32PrefixForAccount("evmos", "evmospub")
 }
 
 func TestIsSupportedKeys(t *testing.T) {
@@ -73,7 +73,7 @@ func TestIsSupportedKeys(t *testing.T) {
 	}
 }
 
-func TestGetCVNAddressFromBech32(t *testing.T) {
+func TestGetEvmosAddressFromBech32(t *testing.T) {
 	testCases := []struct {
 		name       string
 		address    string
@@ -99,27 +99,27 @@ func TestGetCVNAddressFromBech32(t *testing.T) {
 			true,
 		},
 		{
-			"cvn address",
-			"cvn1ydc99lv22wxzjx0r30nzcj44gvw9fmsutt8ryr",
-			"cvn1ydc99lv22wxzjx0r30nzcj44gvw9fmsutt8ryr",
+			"evmos address",
+			"evmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
+			"evmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
 			false,
 		},
 		{
 			"cosmos address",
 			"cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
-			"cvn1qql8ag4cluz6r4dz28p3w00dnc9w8ueualx5a2",
+			"evmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
 			false,
 		},
 		{
 			"osmosis address",
 			"osmo1qql8ag4cluz6r4dz28p3w00dnc9w8ueuhnecd2",
-			"cvn1qql8ag4cluz6r4dz28p3w00dnc9w8ueualx5a2",
+			"evmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
 			false,
 		},
 	}
 
 	for _, tc := range testCases {
-		addr, err := GetCVNAddressFromBech32(tc.address)
+		addr, err := GetEvmosAddressFromBech32(tc.address)
 		if tc.expError {
 			require.Error(t, err, tc.name)
 		} else {
@@ -137,7 +137,7 @@ func TestEvmosCoinDenom(t *testing.T) {
 	}{
 		{
 			"valid denom - native coin",
-			"acvnt",
+			"aevmos",
 			false,
 		},
 		{

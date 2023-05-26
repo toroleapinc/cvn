@@ -1,4 +1,5 @@
-
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package main
 
@@ -83,7 +84,6 @@ func InitCmd(mbm module.BasicManager, defaultNodeHome string) *cobra.Command {
 			config.P2P.MaxNumInboundPeers = 240
 			config.P2P.MaxNumOutboundPeers = 30
 
-			// TODO: [PROD] Update default seeds
 			// Set default seeds
 			seeds := []string{
 				"40f4fac63da8b1ce8f850b0fa0f79b2699d2ce72@seed.evmos.jerrychong.com:26656",                 // jerrychong
@@ -99,13 +99,14 @@ func InitCmd(mbm module.BasicManager, defaultNodeHome string) *cobra.Command {
 
 			chainID, _ := cmd.Flags().GetString(flags.FlagChainID)
 			if chainID == "" {
-				chainID = fmt.Sprintf("cvn_2031-%v", tmrand.Str(6))
+				chainID = fmt.Sprintf("evmos_9000-%v", tmrand.Str(6))
 			}
 
 			// Get bip39 mnemonic
 			var mnemonic string
-			recover, _ := cmd.Flags().GetBool(genutilcli.FlagRecover)
-			if recover {
+
+			recoverKey, _ := cmd.Flags().GetBool(genutilcli.FlagRecover)
+			if recoverKey {
 				inBuf := bufio.NewReader(cmd.InOrStdin())
 				value, err := input.GetString("Enter your bip39 mnemonic", inBuf)
 				if err != nil {

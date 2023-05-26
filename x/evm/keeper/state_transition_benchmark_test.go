@@ -7,11 +7,11 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/params"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 	"github.com/stretchr/testify/require"
 )
 

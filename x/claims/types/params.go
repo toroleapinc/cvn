@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
@@ -8,11 +11,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	channeltypes "github.com/cosmos/ibc-go/v6/modules/core/04-channel/types"
 	host "github.com/cosmos/ibc-go/v6/modules/core/24-host"
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/utils"
 )
 
 var (
-	// DefaultClaimsDenom is acvnt
+	// DefaultClaimsDenom is aevmos
 	DefaultClaimsDenom = utils.BaseDenom
 	// DefaultDurationUntilDecay is 1 month = 30.4375 days
 	DefaultDurationUntilDecay = 2629800 * time.Second

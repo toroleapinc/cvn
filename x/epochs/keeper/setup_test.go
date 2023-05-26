@@ -9,17 +9,17 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/suite"
 
-	evm "github.com/cvn-network/cvn/v1/x/evm/types"
+	evm "github.com/evmos/evmos/v13/x/evm/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/x/epochs/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/x/epochs/types"
 )
 
 type KeeperTestSuite struct {
 	suite.Suite
 
 	ctx            sdk.Context
-	app            *app.CVN
+	app            *app.Evmos
 	queryClientEvm evm.QueryClient
 	queryClient    types.QueryClient
 	consAddress    sdk.ConsAddress
@@ -37,5 +37,5 @@ func TestKeeperTestSuite(t *testing.T) {
 }
 
 func (suite *KeeperTestSuite) SetupTest() {
-	suite.DoSetupTest(suite.T())
+	suite.DoSetupTest()
 }

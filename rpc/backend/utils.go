@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package backend
 
 import (
@@ -22,8 +24,8 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmrpctypes "github.com/tendermint/tendermint/rpc/core/types"
 
-	"github.com/cvn-network/cvn/v1/rpc/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/rpc/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 	"github.com/tendermint/tendermint/proto/tendermint/crypto"
 )
 

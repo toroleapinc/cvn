@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package keeper
 
 import (
@@ -16,9 +18,9 @@ import (
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/tendermint/tendermint/libs/log"
 
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	"github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // Keeper grants access to the EVM module state and implements the go-ethereum StateDB interface.
@@ -56,6 +58,11 @@ type Keeper struct {
 	hooks types.EvmHooks
 	// Legacy subspace
 	ss paramstypes.Subspace
+
+	// precompiles defines the map of all available precompiled smart contracts.
+	// Some these precompiled contracts might not be active depending on the EVM
+	// parameters.
+	precompiles map[common.Address]vm.PrecompiledContract
 }
 
 // NewKeeper generates new evm module keeper
@@ -102,7 +109,7 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 
 // WithChainID sets the chain id to the local variable in the keeper
 func (k *Keeper) WithChainID(ctx sdk.Context) {
-	chainID, err := cvntypes.ParseChainID(ctx.ChainID())
+	chainID, err := evmostypes.ParseChainID(ctx.ChainID())
 	if err != nil {
 		panic(err)
 	}
@@ -111,8 +118,8 @@ func (k *Keeper) WithChainID(ctx sdk.Context) {
 		panic("chain id already set")
 	}
 
-	if !(chainID.Cmp(big.NewInt(2032)) == 0 || chainID.Cmp(big.NewInt(2031)) == 0) {
-		panic("EVM only supports Evmos chain identifiers (2031 or 2032)")
+	if !(chainID.Cmp(big.NewInt(9001)) == 0 || chainID.Cmp(big.NewInt(9000)) == 0) {
+		panic("EVM only supports Evmos chain identifiers (9000 or 9001)")
 	}
 
 	k.eip155ChainID = chainID
@@ -267,7 +274,7 @@ func (k *Keeper) GetAccountWithoutBalance(ctx sdk.Context, addr common.Address) 
 	}
 
 	codeHash := types.EmptyCodeHash
-	ethAcct, ok := acct.(cvntypes.EthAccountI)
+	ethAcct, ok := acct.(evmostypes.EthAccountI)
 	if ok {
 		codeHash = ethAcct.GetCodeHash().Bytes()
 	}

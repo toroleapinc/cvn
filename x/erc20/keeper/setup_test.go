@@ -12,12 +12,12 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	ibcgotesting "github.com/cosmos/ibc-go/v6/testing"
-	"github.com/cvn-network/cvn/v1/app"
-	ibctesting "github.com/cvn-network/cvn/v1/ibc/testing"
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
-	evm "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/evmos/evmos/v13/app"
+	ibctesting "github.com/evmos/evmos/v13/ibc/testing"
+	"github.com/evmos/evmos/v13/x/erc20/types"
+	evm "github.com/evmos/evmos/v13/x/evm/types"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -25,7 +25,7 @@ type KeeperTestSuite struct {
 	suite.Suite
 
 	ctx              sdk.Context
-	app              *app.CVN
+	app              *app.Evmos
 	queryClientEvm   evm.QueryClient
 	queryClient      types.QueryClient
 	address          common.Address
@@ -40,7 +40,7 @@ type KeeperTestSuite struct {
 	coordinator *ibcgotesting.Coordinator
 
 	// testing chains used for convenience and readability
-	CVNChain        *ibcgotesting.TestChain
+	EvmosChain      *ibcgotesting.TestChain
 	IBCOsmosisChain *ibcgotesting.TestChain
 	IBCCosmosChain  *ibcgotesting.TestChain
 

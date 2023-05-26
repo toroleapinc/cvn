@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package filters
 
 import (
@@ -7,7 +9,7 @@ import (
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cvn-network/cvn/v1/rpc/types"
+	"github.com/evmos/evmos/v13/rpc/types"
 
 	"github.com/tendermint/tendermint/libs/log"
 
@@ -20,7 +22,7 @@ import (
 	"github.com/ethereum/go-ethereum/eth/filters"
 	"github.com/ethereum/go-ethereum/rpc"
 
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // FilterAPI gathers

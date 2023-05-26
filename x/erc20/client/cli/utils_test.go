@@ -3,7 +3,7 @@ package cli
 import (
 	"testing"
 
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 	"github.com/stretchr/testify/require"
 )
 

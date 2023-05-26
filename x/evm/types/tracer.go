@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package types
 
 import (
@@ -5,11 +7,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/ethereum/go-ethereum/eth/tracers/logger"
-
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/core/vm"
+	"github.com/ethereum/go-ethereum/eth/tracers/logger"
 	"github.com/ethereum/go-ethereum/params"
 )
 
@@ -30,7 +31,7 @@ func NewTracer(tracer string, msg core.Message, cfg *params.ChainConfig, height 
 
 	switch tracer {
 	case TracerAccessList:
-		preCompiles := vm.ActivePrecompiles(cfg.Rules(big.NewInt(height), cfg.MergeNetsplitBlock != nil))
+		preCompiles := vm.DefaultActivePrecompiles(cfg.Rules(big.NewInt(height), cfg.MergeNetsplitBlock != nil))
 		return logger.NewAccessListTracer(msg.AccessList(), msg.From(), *msg.To(), preCompiles)
 	case TracerJSON:
 		return logger.NewJSONLogger(logCfg, os.Stderr)
@@ -60,6 +61,8 @@ func NewNoOpTracer() *NoOpTracer {
 }
 
 // CaptureStart implements vm.Tracer interface
+//
+//nolint:revive // allow unused parameters to indicate expected signature
 func (dt NoOpTracer) CaptureStart(env *vm.EVM,
 	from common.Address,
 	to common.Address,
@@ -70,25 +73,39 @@ func (dt NoOpTracer) CaptureStart(env *vm.EVM,
 }
 
 // CaptureState implements vm.Tracer interface
+//
+//nolint:revive // allow unused parameters to indicate expected signature
 func (dt NoOpTracer) CaptureState(pc uint64, op vm.OpCode, gas, cost uint64, scope *vm.ScopeContext, rData []byte, depth int, err error) {
 }
 
 // CaptureFault implements vm.Tracer interface
+//
+//nolint:revive // allow unused parameters to indicate expected signature
 func (dt NoOpTracer) CaptureFault(pc uint64, op vm.OpCode, gas, cost uint64, scope *vm.ScopeContext, depth int, err error) {
 }
 
 // CaptureEnd implements vm.Tracer interface
+//
+//nolint:revive // allow unused parameters to indicate expected signature
 func (dt NoOpTracer) CaptureEnd(output []byte, gasUsed uint64, tm time.Duration, err error) {}
 
 // CaptureEnter implements vm.Tracer interface
+//
+//nolint:revive // allow unused parameters to indicate expected signature
 func (dt NoOpTracer) CaptureEnter(typ vm.OpCode, from common.Address, to common.Address, input []byte, gas uint64, value *big.Int) {
 }
 
 // CaptureExit implements vm.Tracer interface
+//
+//nolint:revive // allow unused parameters to indicate expected signature
 func (dt NoOpTracer) CaptureExit(output []byte, gasUsed uint64, err error) {}
 
 // CaptureTxStart implements vm.Tracer interface
+//
+//nolint:revive // allow unused parameters to indicate expected signature
 func (dt NoOpTracer) CaptureTxStart(gasLimit uint64) {}
 
 // CaptureTxEnd implements vm.Tracer interface
+//
+//nolint:revive // allow unused parameters to indicate expected signature
 func (dt NoOpTracer) CaptureTxEnd(restGas uint64) {}

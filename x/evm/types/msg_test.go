@@ -14,15 +14,15 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/x/evm/types"
 )
 
 const invalidAddress = "0x0000"
@@ -133,7 +133,7 @@ func (suite *MsgsTestSuite) TestMsgEthereumTx_BuildTx() {
 func (suite *MsgsTestSuite) TestMsgEthereumTx_ValidateBasic() {
 	var (
 		hundredInt   = big.NewInt(100)
-		validChainID = big.NewInt(2031)
+		validChainID = big.NewInt(9000)
 		zeroInt      = big.NewInt(0)
 		minusOneInt  = big.NewInt(-1)
 		//nolint:all
@@ -431,7 +431,7 @@ func (suite *MsgsTestSuite) TestMsgEthereumTx_ValidateBasic() {
 			errMsg:     "failed to unpack tx data",
 		},
 		{
-			msg:        "invalid chain ID (neither 2031 nor 2032)",
+			msg:        "invalid chain ID (neither 9000 nor 9001)",
 			to:         suite.to.Hex(),
 			amount:     hundredInt,
 			gasLimit:   1000,
@@ -441,7 +441,7 @@ func (suite *MsgsTestSuite) TestMsgEthereumTx_ValidateBasic() {
 			accessList: &ethtypes.AccessList{},
 			chainID:    hundredInt,
 			expectPass: false,
-			errMsg:     "chain ID must be 2031 or 2032 on Evmos",
+			errMsg:     "chain ID must be 9000 or 9001 on Evmos",
 		},
 	}
 

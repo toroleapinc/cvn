@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package tests
 
 import (
@@ -17,11 +20,11 @@ var (
 	}
 	UatomIbcdenom = UatomDenomtrace.IBCDenom()
 
-	UcvntDenomtrace = transfertypes.DenomTrace{
+	UevmosDenomtrace = transfertypes.DenomTrace{
 		Path:      "transfer/channel-0",
-		BaseDenom: "acvnt",
+		BaseDenom: "aevmos",
 	}
-	UcvntIbcdenom = UcvntDenomtrace.IBCDenom()
+	UevmosIbcdenom = UevmosDenomtrace.IBCDenom()
 
 	UatomOsmoDenomtrace = transfertypes.DenomTrace{
 		Path:      "transfer/channel-0/transfer/channel-1",
@@ -29,9 +32,9 @@ var (
 	}
 	UatomOsmoIbcdenom = UatomOsmoDenomtrace.IBCDenom()
 
-	AcvntDenomtrace = transfertypes.DenomTrace{
+	AevmosDenomtrace = transfertypes.DenomTrace{
 		Path:      "transfer/channel-0",
-		BaseDenom: "acvnt",
+		BaseDenom: "aevmos",
 	}
-	AcvntIbcdenom = AcvntDenomtrace.IBCDenom()
+	AevmosIbcdenom = AevmosDenomtrace.IBCDenom()
 )

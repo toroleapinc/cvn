@@ -16,7 +16,6 @@ cp -r ./proto/ethermint "$SWAGGER_DIR/proto"
 # create temporary folder to store intermediate results from `buf generate`
 mkdir -p ./tmp-swagger-gen
 
-
 # step into swagger folder
 cd "$SWAGGER_DIR"
 

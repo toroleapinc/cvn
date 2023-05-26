@@ -6,11 +6,11 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	"github.com/evmos/evmos/v13/x/evm/types"
 )
 
 func (suite *EvmTestSuite) TestInitGenesis() {
@@ -118,7 +118,7 @@ func (suite *EvmTestSuite) TestInitGenesis() {
 		{
 			"ignore empty account code checking with non-empty codehash",
 			func() {
-				ethAcc := &cvntypes.EthAccount{
+				ethAcc := &evmostypes.EthAccount{
 					BaseAccount: authtypes.NewBaseAccount(address.Bytes(), nil, 0, 0),
 					CodeHash:    common.BytesToHash([]byte{1, 2, 3}).Hex(),
 				}

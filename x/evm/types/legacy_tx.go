@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package types
 
 import (
@@ -6,9 +8,9 @@ import (
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 
 	errorsmod "cosmossdk.io/errors"
-	"github.com/cvn-network/cvn/v1/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/evmos/evmos/v13/types"
 )
 
 func NewLegacyTx(tx *ethtypes.Transaction) (*LegacyTx, error) {
@@ -199,10 +201,10 @@ func (tx LegacyTx) Validate() error {
 		)
 	}
 
-	if !(chainID.Cmp(big.NewInt(2032)) == 0 || chainID.Cmp(big.NewInt(2031)) == 0) {
+	if !(chainID.Cmp(big.NewInt(9001)) == 0 || chainID.Cmp(big.NewInt(9000)) == 0) {
 		return errorsmod.Wrapf(
 			errortypes.ErrInvalidChainID,
-			"chain ID must be 2031 or 2032 on CVN, got %s", chainID,
+			"chain ID must be 9000 or 9001 on Evmos, got %s", chainID,
 		)
 	}
 
@@ -220,16 +222,16 @@ func (tx LegacyTx) Cost() *big.Int {
 }
 
 // EffectiveGasPrice is the same as GasPrice for LegacyTx
-func (tx LegacyTx) EffectiveGasPrice(baseFee *big.Int) *big.Int {
+func (tx LegacyTx) EffectiveGasPrice(_ *big.Int) *big.Int {
 	return tx.GetGasPrice()
 }
 
 // EffectiveFee is the same as Fee for LegacyTx
-func (tx LegacyTx) EffectiveFee(baseFee *big.Int) *big.Int {
+func (tx LegacyTx) EffectiveFee(_ *big.Int) *big.Int {
 	return tx.Fee()
 }
 
 // EffectiveCost is the same as Cost for LegacyTx
-func (tx LegacyTx) EffectiveCost(baseFee *big.Int) *big.Int {
+func (tx LegacyTx) EffectiveCost(_ *big.Int) *big.Int {
 	return tx.Cost()
 }

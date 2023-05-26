@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package app
 
 import (
@@ -21,11 +24,11 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/cvn-network/cvn/v1/encoding"
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
+	"github.com/evmos/evmos/v13/encoding"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
 
-	"github.com/cvn-network/cvn/v1/cmd/config"
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/cmd/config"
+	"github.com/evmos/evmos/v13/utils"
 )
 
 func init() {
@@ -67,7 +70,7 @@ func init() {
 func Setup(
 	isCheckTx bool,
 	feemarketGenesis *feemarkettypes.GenesisState,
-) *CVN {
+) *Evmos {
 	privVal := mock.NewPV()
 	pubKey, _ := privVal.GetPubKey()
 
@@ -85,7 +88,7 @@ func Setup(
 
 	db := dbm.NewMemDB()
 
-	app := NewCVN(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
+	app := NewEvmos(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
 	if !isCheckTx {
 		// init chain must be called to stop deliverState from being nil
 		genesisState := NewDefaultGenesisState()
@@ -119,7 +122,7 @@ func Setup(
 	return app
 }
 
-func GenesisStateWithValSet(app *CVN, genesisState simapp.GenesisState,
+func GenesisStateWithValSet(app *Evmos, genesisState simapp.GenesisState,
 	valSet *tmtypes.ValidatorSet, genAccs []authtypes.GenesisAccount,
 	balances ...banktypes.Balance,
 ) simapp.GenesisState {
@@ -186,6 +189,6 @@ func GenesisStateWithValSet(app *CVN, genesisState simapp.GenesisState,
 func SetupTestingApp() (ibctesting.TestingApp, map[string]json.RawMessage) {
 	db := dbm.NewMemDB()
 	cfg := encoding.MakeConfig(ModuleBasics)
-	app := NewCVN(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, cfg, simapp.EmptyAppOptions{})
+	app := NewEvmos(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, cfg, simapp.EmptyAppOptions{})
 	return app, NewDefaultGenesisState()
 }

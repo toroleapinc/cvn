@@ -5,15 +5,15 @@ import (
 
 	sdkmath "cosmossdk.io/math"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	testutiltx "github.com/cvn-network/cvn/v1/testutil/tx"
+	testutiltx "github.com/evmos/evmos/v13/testutil/tx"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/testutil"
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/testutil"
+	"github.com/evmos/evmos/v13/utils"
 )
 
 var _ = Describe("when sending a Cosmos transaction", func() {
@@ -34,7 +34,7 @@ var _ = Describe("when sending a Cosmos transaction", func() {
 
 			msg = &banktypes.MsgSend{
 				FromAddress: addr.String(),
-				ToAddress:   "cvn1ydc99lv22wxzjx0r30nzcj44gvw9fmsutt8ryr",
+				ToAddress:   "evmos1dx67l23hz9l0k9hcher8xz04uj7wf3yu26l2yn",
 				Amount:      sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(1e14), Denom: utils.BaseDenom}},
 			}
 
@@ -43,7 +43,7 @@ var _ = Describe("when sending a Cosmos transaction", func() {
 			)
 
 			var err error
-			s.ctx, err = testutil.Commit(s.ctx, s.app, time.Second*0, nil)
+			s.ctx, err = testutil.CommitAndCreateNewCtx(s.ctx, s.app, time.Second*0, nil)
 			Expect(err).To(BeNil())
 		})
 
@@ -69,7 +69,7 @@ var _ = Describe("when sending a Cosmos transaction", func() {
 
 			msg = &banktypes.MsgSend{
 				FromAddress: addr.String(),
-				ToAddress:   "cvn1ydc99lv22wxzjx0r30nzcj44gvw9fmsutt8ryr",
+				ToAddress:   "evmos1dx67l23hz9l0k9hcher8xz04uj7wf3yu26l2yn",
 				Amount:      sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(1e14), Denom: utils.BaseDenom}},
 			}
 
@@ -78,7 +78,7 @@ var _ = Describe("when sending a Cosmos transaction", func() {
 			)
 
 			var err error
-			s.ctx, err = testutil.Commit(s.ctx, s.app, time.Second*0, nil)
+			s.ctx, err = testutil.CommitAndCreateNewCtx(s.ctx, s.app, time.Second*0, nil)
 			Expect(err).To(BeNil())
 		})
 
@@ -106,7 +106,7 @@ var _ = Describe("when sending a Cosmos transaction", func() {
 
 			msg = &banktypes.MsgSend{
 				FromAddress: addr.String(),
-				ToAddress:   "cvn1ydc99lv22wxzjx0r30nzcj44gvw9fmsutt8ryr",
+				ToAddress:   "evmos1dx67l23hz9l0k9hcher8xz04uj7wf3yu26l2yn",
 				Amount:      sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(1), Denom: utils.BaseDenom}},
 			}
 
@@ -114,7 +114,7 @@ var _ = Describe("when sending a Cosmos transaction", func() {
 				s.T(), s.ctx, s.app, addr, balance, rewardsAmt,
 			)
 			var err error
-			s.ctx, err = testutil.Commit(s.ctx, s.app, time.Second*0, nil)
+			s.ctx, err = testutil.CommitAndCreateNewCtx(s.ctx, s.app, time.Second*0, nil)
 			Expect(err).To(BeNil())
 		})
 

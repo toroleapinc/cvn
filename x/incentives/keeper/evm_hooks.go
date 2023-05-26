@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
@@ -8,10 +11,10 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
-	"github.com/cvn-network/cvn/v1/x/incentives/types"
+	"github.com/evmos/evmos/v13/x/incentives/types"
 )
 
 var _ evmtypes.EvmHooks = Hooks{}
@@ -46,8 +49,8 @@ func (k Keeper) PostTxProcessing(ctx sdk.Context, msg core.Message, receipt *eth
 		return nil
 	}
 
-	ethAccount, ok := acc.(cvntypes.EthAccountI)
-	if ok && ethAccount.Type() == cvntypes.AccountTypeContract {
+	ethAccount, ok := acc.(evmostypes.EthAccountI)
+	if ok && ethAccount.Type() == evmostypes.AccountTypeContract {
 		return nil
 	}
 

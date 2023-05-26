@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/utils"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -20,18 +20,18 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/params"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	abci "github.com/tendermint/tendermint/abci/types"
@@ -43,7 +43,7 @@ type KeeperTestSuite struct {
 	suite.Suite
 
 	ctx         sdk.Context
-	app         *app.CVN
+	app         *app.Evmos
 	queryClient evmtypes.QueryClient
 	address     common.Address
 	consAddress sdk.ConsAddress
@@ -106,7 +106,7 @@ func (suite *KeeperTestSuite) SetupAppWithT(checkTx bool, t require.TestingT) {
 	require.NoError(t, err)
 	suite.consAddress = sdk.ConsAddress(priv.PubKey().Address())
 
-	suite.app = app.EthSetup(checkTx, func(app *app.CVN, genesis simapp.GenesisState) simapp.GenesisState {
+	suite.app = app.EthSetup(checkTx, func(app *app.Evmos, genesis simapp.GenesisState) simapp.GenesisState {
 		feemarketGenesis := feemarkettypes.DefaultGenesisState()
 		if suite.enableFeemarket {
 			feemarketGenesis.Params.EnableHeight = 1
@@ -153,7 +153,7 @@ func (suite *KeeperTestSuite) SetupAppWithT(checkTx bool, t require.TestingT) {
 		// Initialize the chain
 		suite.app.InitChain(
 			abci.RequestInitChain{
-				ChainId:         "cvn_2031-1",
+				ChainId:         "evmos_9000-1",
 				Validators:      []abci.ValidatorUpdate{},
 				ConsensusParams: app.DefaultConsensusParams,
 				AppStateBytes:   stateBytes,
@@ -162,7 +162,7 @@ func (suite *KeeperTestSuite) SetupAppWithT(checkTx bool, t require.TestingT) {
 	}
 
 	header := testutil.NewHeader(
-		1, time.Now().UTC(), "cvn_2031-1", suite.consAddress,
+		1, time.Now().UTC(), "evmos_9000-1", suite.consAddress,
 		tmhash.Sum([]byte("app")), tmhash.Sum([]byte("validators")),
 	)
 	suite.ctx = suite.app.NewContext(checkTx, header)
@@ -171,7 +171,7 @@ func (suite *KeeperTestSuite) SetupAppWithT(checkTx bool, t require.TestingT) {
 	evmtypes.RegisterQueryServer(queryHelper, suite.app.EvmKeeper)
 	suite.queryClient = evmtypes.NewQueryClient(queryHelper)
 
-	acc := &cvntypes.EthAccount{
+	acc := &evmostypes.EthAccount{
 		BaseAccount: authtypes.NewBaseAccount(sdk.AccAddress(suite.address.Bytes()), nil, 0, 0),
 		CodeHash:    common.BytesToHash(crypto.Keccak256(nil)).String(),
 	}

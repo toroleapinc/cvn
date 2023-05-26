@@ -1,17 +1,20 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	cvntypes "github.com/cvn-network/cvn/v1/types"
+	evmostypes "github.com/evmos/evmos/v13/types"
 
-	"github.com/cvn-network/cvn/v1/utils"
-	incentivestypes "github.com/cvn-network/cvn/v1/x/incentives/types"
-	"github.com/cvn-network/cvn/v1/x/inflation/types"
+	utils "github.com/evmos/evmos/v13/utils"
+	incentivestypes "github.com/evmos/evmos/v13/x/incentives/types"
+	"github.com/evmos/evmos/v13/x/inflation/types"
 )
 
 // 200M token at year 4 allocated to the team
-var teamAlloc = sdk.NewInt(200_000_000).Mul(cvntypes.PowerReduction)
+var teamAlloc = sdk.NewInt(200_000_000).Mul(evmostypes.PowerReduction)
 
 // MintAndAllocateInflation performs inflation minting and allocation
 func (k Keeper) MintAndAllocateInflation(
@@ -103,7 +106,7 @@ func (k Keeper) AllocateExponentialInflation(
 // GetAllocationProportion calculates the proportion of coins that is to be
 // allocated during inflation for a given distribution.
 func (k Keeper) GetProportions(
-	ctx sdk.Context,
+	_ sdk.Context,
 	coin sdk.Coin,
 	distribution sdk.Dec,
 ) sdk.Coin {

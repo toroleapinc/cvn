@@ -9,9 +9,9 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/cvn-network/cvn/v1/x/evm/keeper"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/x/evm/keeper"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	"github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // LogRecordHook records all the logs
@@ -19,7 +19,7 @@ type LogRecordHook struct {
 	Logs []*ethtypes.Log
 }
 
-func (dh *LogRecordHook) PostTxProcessing(ctx sdk.Context, msg core.Message, receipt *ethtypes.Receipt) error {
+func (dh *LogRecordHook) PostTxProcessing(_ sdk.Context, _ core.Message, receipt *ethtypes.Receipt) error {
 	dh.Logs = receipt.Logs
 	return nil
 }
@@ -27,7 +27,7 @@ func (dh *LogRecordHook) PostTxProcessing(ctx sdk.Context, msg core.Message, rec
 // FailureHook always fail
 type FailureHook struct{}
 
-func (dh FailureHook) PostTxProcessing(ctx sdk.Context, msg core.Message, receipt *ethtypes.Receipt) error {
+func (dh FailureHook) PostTxProcessing(_ sdk.Context, _ core.Message, _ *ethtypes.Receipt) error {
 	return errors.New("post tx processing failed")
 }
 
@@ -44,7 +44,7 @@ func (suite *KeeperTestSuite) TestEvmHooks() {
 			},
 			func(hook types.EvmHooks, result error) {
 				suite.Require().NoError(result)
-				suite.Require().Equal(1, len(hook.(*LogRecordHook).Logs))
+				suite.Require().Equal(1, len((hook.(*LogRecordHook).Logs)))
 			},
 		},
 		{

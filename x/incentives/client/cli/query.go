@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package cli
 
 import (
@@ -9,7 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/spf13/cobra"
 
-	"github.com/cvn-network/cvn/v1/x/incentives/types"
+	"github.com/evmos/evmos/v13/x/incentives/types"
 )
 
 // GetQueryCmd returns the parent command for all incentives CLI query commands.

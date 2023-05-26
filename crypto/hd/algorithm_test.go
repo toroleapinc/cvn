@@ -9,15 +9,13 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	hdwallet "github.com/miguelmota/go-ethereum-hdwallet"
-
 	amino "github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 
-	cryptocodec "github.com/cvn-network/cvn/v1/crypto/codec"
-	enccodec "github.com/cvn-network/cvn/v1/encoding/codec"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
+	cryptocodec "github.com/evmos/evmos/v13/crypto/codec"
+	enccodec "github.com/evmos/evmos/v13/encoding/codec"
+	evmostypes "github.com/evmos/evmos/v13/types"
 )
 
 var TestCodec amino.Codec
@@ -52,7 +50,7 @@ func TestKeyring(t *testing.T) {
 	require.Nil(t, info)
 
 	mockIn.Reset("password\npassword\n")
-	info, mnemonic, err := kr.NewMnemonic("foo", keyring.English, cvntypes.BIP44HDPath, keyring.DefaultBIP39Passphrase, EthSecp256k1)
+	info, mnemonic, err := kr.NewMnemonic("foo", keyring.English, evmostypes.BIP44HDPath, keyring.DefaultBIP39Passphrase, EthSecp256k1)
 	require.NoError(t, err)
 	require.NotEmpty(t, mnemonic)
 	require.Equal(t, "foo", info.Name)
@@ -61,7 +59,7 @@ func TestKeyring(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, string(EthSecp256k1Type), pubKey.Type())
 
-	hdPath := cvntypes.BIP44HDPath
+	hdPath := evmostypes.BIP44HDPath
 
 	bz, err := EthSecp256k1.Derive()(mnemonic, keyring.DefaultBIP39Passphrase, hdPath)
 	require.NoError(t, err)
@@ -75,11 +73,11 @@ func TestKeyring(t *testing.T) {
 	addr := common.BytesToAddress(privkey.PubKey().Address().Bytes())
 
 	os.Setenv(hdWalletFixEnv, "true")
-	wallet, err := hdwallet.NewFromMnemonic(mnemonic)
+	wallet, err := NewFromMnemonic(mnemonic)
 	os.Setenv(hdWalletFixEnv, "")
 	require.NoError(t, err)
 
-	path := hdwallet.MustParseDerivationPath(hdPath)
+	path := MustParseDerivationPath(hdPath)
 
 	account, err := wallet.Derive(path, false)
 	require.NoError(t, err)
@@ -87,7 +85,7 @@ func TestKeyring(t *testing.T) {
 }
 
 func TestDerivation(t *testing.T) {
-	bz, err := EthSecp256k1.Derive()(mnemonic, keyring.DefaultBIP39Passphrase, cvntypes.BIP44HDPath)
+	bz, err := EthSecp256k1.Derive()(mnemonic, keyring.DefaultBIP39Passphrase, evmostypes.BIP44HDPath)
 	require.NoError(t, err)
 	require.NotEmpty(t, bz)
 
@@ -102,14 +100,14 @@ func TestDerivation(t *testing.T) {
 
 	require.False(t, privkey.Equals(badPrivKey))
 
-	wallet, err := hdwallet.NewFromMnemonic(mnemonic)
+	wallet, err := NewFromMnemonic(mnemonic)
 	require.NoError(t, err)
 
-	path := hdwallet.MustParseDerivationPath(cvntypes.BIP44HDPath)
+	path := MustParseDerivationPath(evmostypes.BIP44HDPath)
 	account, err := wallet.Derive(path, false)
 	require.NoError(t, err)
 
-	badPath := hdwallet.MustParseDerivationPath("44'/60'/0'/0/0")
+	badPath := MustParseDerivationPath("44'/60'/0'/0/0")
 	badAccount, err := wallet.Derive(badPath, false)
 	require.NoError(t, err)
 

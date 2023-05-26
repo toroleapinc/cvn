@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package filters
 
 import (
@@ -6,8 +8,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/cvn-network/cvn/v1/rpc/backend"
-	"github.com/cvn-network/cvn/v1/rpc/types"
+	"github.com/evmos/evmos/v13/rpc/backend"
+	"github.com/evmos/evmos/v13/rpc/types"
 
 	"github.com/pkg/errors"
 	"github.com/tendermint/tendermint/libs/log"
@@ -92,7 +94,7 @@ const (
 
 // Logs searches the blockchain for matching log entries, returning all from the
 // first block that contains matches, updating the start of the filter accordingly.
-func (f *Filter) Logs(ctx context.Context, logLimit int, blockLimit int64) ([]*ethtypes.Log, error) {
+func (f *Filter) Logs(_ context.Context, logLimit int, blockLimit int64) ([]*ethtypes.Log, error) {
 	logs := []*ethtypes.Log{}
 	var err error
 

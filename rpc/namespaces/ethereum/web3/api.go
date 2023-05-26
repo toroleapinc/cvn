@@ -1,7 +1,9 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package web3
 
 import (
-	"github.com/cvn-network/cvn/v1/version"
+	"github.com/evmos/evmos/v13/version"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"

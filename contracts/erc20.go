@@ -1,13 +1,16 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package contracts
 
 import (
 	_ "embed" // embed compiled smart contract
 	"encoding/json"
 
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 )
 
 var (

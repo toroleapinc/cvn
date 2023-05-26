@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package cli
 
 import (
@@ -7,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
 
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 )
 
 // GetQueryCmd returns the parent command for all erc20 CLI query commands

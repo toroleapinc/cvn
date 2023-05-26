@@ -8,8 +8,8 @@
 ## USAGE RUNDOWN
 # Not for use on live nodes
 # For use when testing.
-# Assumes that ~/.cvnd doesn't exist
-# can be modified to suit your purposes if ~/.cvnd does already exist
+# Assumes that ~/.evmosd doesn't exist
+# can be modified to suit your purposes if ~/.evmosd does already exist
 
 
 set -uxe
@@ -31,13 +31,13 @@ go install ./...
 # go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=boltdb' -tags boltdb ./...
 
 # Initialize chain.
-cvnd init test --chain-id cvn_2031-1
+evmosd init test --chain-id evmos_9000-1
 
 # Get Genesis
 wget https://archive.evmos.org/mainnet/genesis.json
-mv genesis.json ~/.cvnd/config/
+mv genesis.json ~/.evmosd/config/
 
-# TODO: [PROD] Update trusted node
+
 # Get "trust_hash" and "trust_height".
 INTERVAL=1000
 LATEST_HEIGHT=$(curl -s https://evmos-rpc.polkachu.com/block | jq -r .result.block.header.height)
@@ -49,14 +49,14 @@ echo "trust_height: $BLOCK_HEIGHT"
 echo "trust_hash: $TRUST_HASH"
 
 # Export state sync variables.
-export CVND_STATESYNC_ENABLE=true
-export CVND_P2P_MAX_NUM_OUTBOUND_PEERS=200
-export CVND_STATESYNC_RPC_SERVERS="https://rpc.evmos.interbloc.org:443,https://evmos-rpc.polkachu.com:443,https://tendermint.bd.evmos.org:26657,https://rpc.evmos.posthuman.digital:443,https://rpc.evmos.testnet.run:443,https://rpc.evmos.bh.rocks:443"
-export CVND_STATESYNC_TRUST_HEIGHT=$BLOCK_HEIGHT
-export CVND_STATESYNC_TRUST_HASH=$TRUST_HASH
+export EVMOSD_STATESYNC_ENABLE=true
+export EVMOSD_P2P_MAX_NUM_OUTBOUND_PEERS=200
+export EVMOSD_STATESYNC_RPC_SERVERS="https://rpc.evmos.interbloc.org:443,https://evmos-rpc.polkachu.com:443,https://tendermint.bd.evmos.org:26657,https://rpc.evmos.posthuman.digital:443,https://rpc.evmos.testnet.run:443,https://rpc.evmos.bh.rocks:443"
+export EVMOSD_STATESYNC_TRUST_HEIGHT=$BLOCK_HEIGHT
+export EVMOSD_STATESYNC_TRUST_HASH=$TRUST_HASH
 
 # Fetch and set list of seeds from chain registry.
-export CVND_P2P_SEEDS=$(curl -s https://raw.githubusercontent.com/cosmos/chain-registry/master/evmos/chain.json | jq -r '[foreach .peers.seeds[] as $item (""; "\($item.id)@\($item.address)")] | join(",")')
+export EVMOSD_P2P_SEEDS=$(curl -s https://raw.githubusercontent.com/cosmos/chain-registry/master/evmos/chain.json | jq -r '[foreach .peers.seeds[] as $item (""; "\($item.id)@\($item.address)")] | join(",")')
 
 # Start chain.
-cvnd start --x-crisis-skip-assert-invariants 
+evmosd start --x-crisis-skip-assert-invariants 

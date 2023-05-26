@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package ibctesting
 
 import (
@@ -18,14 +21,14 @@ import (
 	ibcgotesting "github.com/cosmos/ibc-go/v6/testing"
 	"github.com/cosmos/ibc-go/v6/testing/mock"
 
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/utils"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/utils"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // ChainIDPrefix defines the default chain ID prefix for Evmos test chains
-var ChainIDPrefix = "cvn_2031-"
+var ChainIDPrefix = "evmos_9000-"
 
 func init() {
 	ibcgotesting.ChainIDPrefix = ChainIDPrefix
@@ -59,12 +62,12 @@ func NewTestChain(t *testing.T, coord *ibcgotesting.Coordinator, chainID string)
 
 	baseAcc := authtypes.NewBaseAccount(senderPrivKey.PubKey().Address().Bytes(), senderPrivKey.PubKey(), 0, 0)
 
-	acc := &cvntypes.EthAccount{
+	acc := &evmostypes.EthAccount{
 		BaseAccount: baseAcc,
 		CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).Hex(),
 	}
 
-	amount := sdk.TokensFromConsensusPower(1, cvntypes.PowerReduction)
+	amount := sdk.TokensFromConsensusPower(1, evmostypes.PowerReduction)
 
 	balance := banktypes.Balance{
 		Address: acc.GetAddress().String(),

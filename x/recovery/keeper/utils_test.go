@@ -9,12 +9,12 @@ import (
 	clienttypes "github.com/cosmos/ibc-go/v6/modules/core/02-client/types"
 	channeltypes "github.com/cosmos/ibc-go/v6/modules/core/04-channel/types"
 	ibcgotesting "github.com/cosmos/ibc-go/v6/testing"
-	"github.com/cvn-network/cvn/v1/app"
-	ibctesting "github.com/cvn-network/cvn/v1/ibc/testing"
-	"github.com/cvn-network/cvn/v1/utils"
-	claimstypes "github.com/cvn-network/cvn/v1/x/claims/types"
-	inflationtypes "github.com/cvn-network/cvn/v1/x/inflation/types"
-	"github.com/cvn-network/cvn/v1/x/recovery/types"
+	"github.com/evmos/evmos/v13/app"
+	ibctesting "github.com/evmos/evmos/v13/ibc/testing"
+	"github.com/evmos/evmos/v13/utils"
+	claimstypes "github.com/evmos/evmos/v13/x/claims/types"
+	inflationtypes "github.com/evmos/evmos/v13/x/inflation/types"
+	"github.com/evmos/evmos/v13/x/recovery/types"
 )
 
 func CreatePacket(amount, denom, sender, receiver, srcPort, srcChannel, dstPort, dstChannel string, seq, timeout uint64) channeltypes.Packet {
@@ -39,10 +39,10 @@ func CreatePacket(amount, denom, sender, receiver, srcPort, srcChannel, dstPort,
 func (suite *IBCTestingSuite) SetupTest() {
 	// initializes 3 test chains
 	suite.coordinator = ibctesting.NewCoordinator(suite.T(), 1, 2)
-	suite.CVNChain = suite.coordinator.GetChain(ibcgotesting.GetChainID(1))
+	suite.EvmosChain = suite.coordinator.GetChain(ibcgotesting.GetChainID(1))
 	suite.IBCOsmosisChain = suite.coordinator.GetChain(ibcgotesting.GetChainID(2))
 	suite.IBCCosmosChain = suite.coordinator.GetChain(ibcgotesting.GetChainID(3))
-	suite.coordinator.CommitNBlocks(suite.CVNChain, 2)
+	suite.coordinator.CommitNBlocks(suite.EvmosChain, 2)
 	suite.coordinator.CommitNBlocks(suite.IBCOsmosisChain, 2)
 	suite.coordinator.CommitNBlocks(suite.IBCCosmosChain, 2)
 
@@ -51,21 +51,21 @@ func (suite *IBCTestingSuite) SetupTest() {
 	suite.Require().True(ok)
 	coinEvmos := sdk.NewCoin(utils.BaseDenom, amt)
 	coins := sdk.NewCoins(coinEvmos)
-	err := suite.CVNChain.App.(*app.CVN).BankKeeper.MintCoins(suite.CVNChain.GetContext(), inflationtypes.ModuleName, coins)
+	err := suite.EvmosChain.App.(*app.Evmos).BankKeeper.MintCoins(suite.EvmosChain.GetContext(), inflationtypes.ModuleName, coins)
 	suite.Require().NoError(err)
 
 	// Fund sender address to pay fees
-	err = suite.CVNChain.App.(*app.CVN).BankKeeper.SendCoinsFromModuleToAccount(suite.CVNChain.GetContext(), inflationtypes.ModuleName, suite.CVNChain.SenderAccount.GetAddress(), coins)
+	err = suite.EvmosChain.App.(*app.Evmos).BankKeeper.SendCoinsFromModuleToAccount(suite.EvmosChain.GetContext(), inflationtypes.ModuleName, suite.EvmosChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
 	coinEvmos = sdk.NewCoin(utils.BaseDenom, sdk.NewInt(10000))
 	coins = sdk.NewCoins(coinEvmos)
-	err = suite.CVNChain.App.(*app.CVN).BankKeeper.MintCoins(suite.CVNChain.GetContext(), inflationtypes.ModuleName, coins)
+	err = suite.EvmosChain.App.(*app.Evmos).BankKeeper.MintCoins(suite.EvmosChain.GetContext(), inflationtypes.ModuleName, coins)
 	suite.Require().NoError(err)
-	err = suite.CVNChain.App.(*app.CVN).BankKeeper.SendCoinsFromModuleToAccount(suite.CVNChain.GetContext(), inflationtypes.ModuleName, suite.IBCOsmosisChain.SenderAccount.GetAddress(), coins)
+	err = suite.EvmosChain.App.(*app.Evmos).BankKeeper.SendCoinsFromModuleToAccount(suite.EvmosChain.GetContext(), inflationtypes.ModuleName, suite.IBCOsmosisChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
-	// Mint coins on the osmosis side which we'll use to unlock our acvnt
+	// Mint coins on the osmosis side which we'll use to unlock our aevmos
 	coinOsmo := sdk.NewCoin("uosmo", sdk.NewInt(10))
 	coins = sdk.NewCoins(coinOsmo)
 	err = suite.IBCOsmosisChain.GetSimApp().BankKeeper.MintCoins(suite.IBCOsmosisChain.GetContext(), minttypes.ModuleName, coins)
@@ -73,7 +73,7 @@ func (suite *IBCTestingSuite) SetupTest() {
 	err = suite.IBCOsmosisChain.GetSimApp().BankKeeper.SendCoinsFromModuleToAccount(suite.IBCOsmosisChain.GetContext(), minttypes.ModuleName, suite.IBCOsmosisChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
-	// Mint coins on the cosmos side which we'll use to unlock our acvnt
+	// Mint coins on the cosmos side which we'll use to unlock our aevmos
 	coinAtom := sdk.NewCoin("uatom", sdk.NewInt(10))
 	coins = sdk.NewCoins(coinAtom)
 	err = suite.IBCCosmosChain.GetSimApp().BankKeeper.MintCoins(suite.IBCCosmosChain.GetContext(), minttypes.ModuleName, coins)
@@ -95,23 +95,23 @@ func (suite *IBCTestingSuite) SetupTest() {
 	suite.Require().NoError(err)
 
 	claimparams := claimstypes.DefaultParams()
-	claimparams.AirdropStartTime = suite.CVNChain.GetContext().BlockTime()
+	claimparams.AirdropStartTime = suite.EvmosChain.GetContext().BlockTime()
 	claimparams.EnableClaims = true
-	err = suite.CVNChain.App.(*app.CVN).ClaimsKeeper.SetParams(suite.CVNChain.GetContext(), claimparams)
+	err = suite.EvmosChain.App.(*app.Evmos).ClaimsKeeper.SetParams(suite.EvmosChain.GetContext(), claimparams)
 	suite.Require().NoError(err)
 
 	params := types.DefaultParams()
 	params.EnableRecovery = true
-	err = suite.CVNChain.App.(*app.CVN).RecoveryKeeper.SetParams(suite.CVNChain.GetContext(), params)
+	err = suite.EvmosChain.App.(*app.Evmos).RecoveryKeeper.SetParams(suite.EvmosChain.GetContext(), params)
 	suite.Require().NoError(err)
 
-	evmParams := suite.CVNChain.App.(*app.CVN).EvmKeeper.GetParams(s.CVNChain.GetContext())
+	evmParams := suite.EvmosChain.App.(*app.Evmos).EvmKeeper.GetParams(s.EvmosChain.GetContext())
 	evmParams.EvmDenom = utils.BaseDenom
-	err = suite.CVNChain.App.(*app.CVN).EvmKeeper.SetParams(s.CVNChain.GetContext(), evmParams)
+	err = suite.EvmosChain.App.(*app.Evmos).EvmKeeper.SetParams(s.EvmosChain.GetContext(), evmParams)
 	suite.Require().NoError(err)
 
-	suite.pathOsmosisEvmos = ibctesting.NewTransferPath(suite.IBCOsmosisChain, suite.CVNChain) // clientID, connectionID, channelID empty
-	suite.pathCosmosEvmos = ibctesting.NewTransferPath(suite.IBCCosmosChain, suite.CVNChain)
+	suite.pathOsmosisEvmos = ibctesting.NewTransferPath(suite.IBCOsmosisChain, suite.EvmosChain) // clientID, connectionID, channelID empty
+	suite.pathCosmosEvmos = ibctesting.NewTransferPath(suite.IBCCosmosChain, suite.EvmosChain)
 	suite.pathOsmosisCosmos = ibctesting.NewTransferPath(suite.IBCCosmosChain, suite.IBCOsmosisChain)
 	ibctesting.SetupPath(suite.coordinator, suite.pathOsmosisEvmos) // clientID, connectionID, channelID filled
 	ibctesting.SetupPath(suite.coordinator, suite.pathCosmosEvmos)

@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package tx
 
 import (
@@ -14,10 +16,10 @@ import (
 	"github.com/ethereum/go-ethereum/signer/core/apitypes"
 
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
-	"github.com/cvn-network/cvn/v1/app"
-	cryptocodec "github.com/cvn-network/cvn/v1/crypto/codec"
-	"github.com/cvn-network/cvn/v1/ethereum/eip712"
-	"github.com/cvn-network/cvn/v1/types"
+	"github.com/evmos/evmos/v13/app"
+	cryptocodec "github.com/evmos/evmos/v13/crypto/codec"
+	"github.com/evmos/evmos/v13/ethereum/eip712"
+	"github.com/evmos/evmos/v13/types"
 )
 
 type EIP712TxArgs struct {
@@ -50,7 +52,7 @@ type legacyWeb3ExtensionArgs struct {
 // It returns the signed transaction and an error
 func CreateEIP712CosmosTx(
 	ctx sdk.Context,
-	appEvmos *app.CVN,
+	appEvmos *app.Evmos,
 	args EIP712TxArgs,
 ) (sdk.Tx, error) {
 	builder, err := PrepareEIP712CosmosTx(
@@ -66,7 +68,7 @@ func CreateEIP712CosmosTx(
 // It returns the tx builder with the signed transaction and an error
 func PrepareEIP712CosmosTx(
 	ctx sdk.Context,
-	appEvmos *app.CVN,
+	appEvmos *app.Evmos,
 	args EIP712TxArgs,
 ) (client.TxBuilder, error) {
 	txArgs := args.CosmosTxArgs
@@ -129,7 +131,7 @@ func PrepareEIP712CosmosTx(
 // the provided private key and the typed data
 func signCosmosEIP712Tx(
 	ctx sdk.Context,
-	appEvmos *app.CVN,
+	appEvmos *app.Evmos,
 	args EIP712TxArgs,
 	builder authtx.ExtensionOptionsTxBuilder,
 	chainID uint64,

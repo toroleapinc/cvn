@@ -9,10 +9,10 @@ import (
 	. "github.com/onsi/gomega"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
 
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 )

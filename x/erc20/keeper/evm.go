@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
@@ -8,16 +11,16 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/cvn-network/cvn/v1/server/config"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/evmos/evmos/v13/server/config"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
-	"github.com/cvn-network/cvn/v1/contracts"
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/contracts"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 )
 
 // DeployERC20Contract creates and deploys an ERC20 contract on the EVM with the

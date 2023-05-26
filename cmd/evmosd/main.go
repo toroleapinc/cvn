@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package main
 
 import (
@@ -7,8 +10,8 @@ import (
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	cmdcfg "github.com/cvn-network/cvn/v1/cmd/config"
+	"github.com/evmos/evmos/v13/app"
+	cmdcfg "github.com/evmos/evmos/v13/cmd/config"
 )
 
 func main() {
@@ -17,7 +20,7 @@ func main() {
 
 	rootCmd, _ := NewRootCmd()
 
-	if err := svrcmd.Execute(rootCmd, "cvnd", app.DefaultNodeHome); err != nil {
+	if err := svrcmd.Execute(rootCmd, "evmosd", app.DefaultNodeHome); err != nil {
 		switch e := err.(type) {
 		case server.ErrorCode:
 			os.Exit(e.Code)

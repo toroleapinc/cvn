@@ -4,8 +4,8 @@ import (
 	"math/big"
 	"testing"
 
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
 )

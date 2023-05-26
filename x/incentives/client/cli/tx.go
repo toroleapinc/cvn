@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package cli
 
 import (
@@ -14,7 +17,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/gov/client/cli"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 
-	"github.com/cvn-network/cvn/v1/x/incentives/types"
+	"github.com/evmos/evmos/v13/x/incentives/types"
 )
 
 // NewRegisterIncentiveProposalCmd implements the command to submit a register
@@ -89,7 +92,7 @@ func NewRegisterIncentiveProposalCmd() *cobra.Command {
 
 	cmd.Flags().String(cli.FlagTitle, "", "title of proposal")
 	cmd.Flags().String(cli.FlagDescription, "", "description of proposal")
-	cmd.Flags().String(cli.FlagDeposit, "1acvnt", "deposit of proposal")
+	cmd.Flags().String(cli.FlagDeposit, "1aevmos", "deposit of proposal")
 	if err := cmd.MarkFlagRequired(cli.FlagTitle); err != nil {
 		panic(err)
 	}
@@ -164,7 +167,7 @@ func NewCancelIncentiveProposalCmd() *cobra.Command {
 
 	cmd.Flags().String(cli.FlagTitle, "", "title of proposal")
 	cmd.Flags().String(cli.FlagDescription, "", "description of proposal")
-	cmd.Flags().String(cli.FlagDeposit, "1acvnt", "deposit of proposal")
+	cmd.Flags().String(cli.FlagDeposit, "1aevmos", "deposit of proposal")
 	if err := cmd.MarkFlagRequired(cli.FlagTitle); err != nil {
 		panic(err)
 	}

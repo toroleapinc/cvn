@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package types
 
 import (
@@ -17,7 +19,7 @@ import (
 
 	grpctypes "github.com/cosmos/cosmos-sdk/types/grpc"
 
-	"github.com/cvn-network/cvn/v1/types"
+	"github.com/evmos/evmos/v13/types"
 )
 
 // BlockNumber represents decoding hex string to block values

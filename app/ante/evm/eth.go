@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package evm
 
 import (
@@ -10,11 +13,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 
-	anteutils "github.com/cvn-network/cvn/v1/app/ante/utils"
-	"github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm/keeper"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	anteutils "github.com/evmos/evmos/v13/app/ante/utils"
+	"github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm/keeper"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"

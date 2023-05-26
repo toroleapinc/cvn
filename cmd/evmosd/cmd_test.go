@@ -9,13 +9,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/cvn-network/cvn/v1/app"
-	cvnd "github.com/cvn-network/cvn/v1/cmd/cvnd"
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/app"
+	evmosd "github.com/evmos/evmos/v13/cmd/evmosd"
+	"github.com/evmos/evmos/v13/utils"
 )
 
 func TestInitCmd(t *testing.T) {
-	rootCmd, _ := cvnd.NewRootCmd()
+	rootCmd, _ := evmosd.NewRootCmd()
 	rootCmd.SetArgs([]string{
 		"init",       // Test the init cmd
 		"evmos-test", // Moniker
@@ -23,12 +23,12 @@ func TestInitCmd(t *testing.T) {
 		fmt.Sprintf("--%s=%s", flags.FlagChainID, utils.TestnetChainID+"-1"),
 	})
 
-	err := svrcmd.Execute(rootCmd, "cvnd", app.DefaultNodeHome)
+	err := svrcmd.Execute(rootCmd, "evmosd", app.DefaultNodeHome)
 	require.NoError(t, err)
 }
 
 func TestAddKeyLedgerCmd(t *testing.T) {
-	rootCmd, _ := cvnd.NewRootCmd()
+	rootCmd, _ := evmosd.NewRootCmd()
 	rootCmd.SetArgs([]string{
 		"keys",
 		"add",
@@ -36,6 +36,6 @@ func TestAddKeyLedgerCmd(t *testing.T) {
 		fmt.Sprintf("--%s", flags.FlagUseLedger),
 	})
 
-	err := svrcmd.Execute(rootCmd, "CVND", app.DefaultNodeHome)
+	err := svrcmd.Execute(rootCmd, "EVMOSD", app.DefaultNodeHome)
 	require.Error(t, err)
 }

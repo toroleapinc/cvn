@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
@@ -5,13 +8,13 @@ import (
 	"math/big"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
-	"github.com/cvn-network/cvn/v1/contracts"
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/contracts"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 )
 
 var _ evmtypes.EvmHooks = Hooks{}
@@ -45,7 +48,7 @@ func (h Hooks) PostTxProcessing(ctx sdk.Context, msg core.Message, receipt *etht
 // `ConvertERC20` msg does not trigger the hook as it only calls `ApplyMessage`.
 func (k Keeper) PostTxProcessing(
 	ctx sdk.Context,
-	msg core.Message,
+	_ core.Message,
 	receipt *ethtypes.Receipt,
 ) error {
 	params := k.GetParams(ctx)

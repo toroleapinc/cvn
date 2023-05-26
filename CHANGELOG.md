@@ -35,6 +35,56 @@ Ref: https://keepachangelog.com/en/1.0.0/
 
 # Changelog
 
+## Unreleased
+
+### State Machine Breaking
+
+- (evm)[#1535](https://github.com/evmos/evmos/pull/1535) Add EVM extensions support
+
+### Improvements
+
+- (test) [#1486](https://github.com/evmos/evmos/pull/1486) Add benchmark tests for `DeductFeeDecorator` and `EthGasConsumeDecorator` ante handler decorators
+- (deps) [#1488](https://github.com/evmos/evmos/pull/1488) Bump btcd version to [`v0.23.3`](https://github.com/btcsuite/btcd/releases/tag/v0.23.3)
+- (deps) [#1492](https://github.com/evmos/evmos/pull/1492) Bump Cosmos SDK version to [`v0.46.11-alpha.ledger`](https://github.com/evmos/cosmos-sdk/releases/tag/v0.46.11-alpha.ledger) & use cometbft [`v0.34.27`](https://github.com/cometbft/cometbft/releases/tag/v0.34.27) replacement for Tendermint import
+- (deps) [#1571](https://github.com/evmos/evmos/pull/1571) Bump IBC-go version to [`v6.1.1`](https://github.com/cosmos/ibc-go/releases/tag/v6.1.1)
+
+### Bug Fixes
+
+- (ci) [#1475](https://github.com/evmos/evmos/pull/1475) Fix version of GitHub action to push to the [Buf Schema Registry](https://buf.build/evmos/evmos) upon releases
+- (ci) [#1546](https://github.com/evmos/evmos/pull/1546) Fix docker image push on release action
+- (deps) [#1567](https://github.com/evmos/evmos/pull/1567) Bump cosmos-sdk version to `v0.46.11-alpha.ledger.7`.
+  Fix memory leak in `cosmos/iavl` package.
+
+## [v12.1.3] - 2023-05-24
+
+### Improvements
+
+- (cli) [#1556](https://github.com/evmos/evmos/pull/1556) Add CLI subcommand to debug legacy EIP712 transaction data
+
+### Bug Fixes
+
+- (deps) [#1566](https://github.com/evmos/evmos/pull/1566) Bump cosmos-sdk version to `v0.46.10-ledger.3`.
+  Fix memory leak in `cosmos/iavl` package.
+
+## [v12.1.2] - 2023-04-14
+
+### Bug Fixes
+
+- (rpc) [#1431](https://github.com/evmos/evmos/pull/1431) Fix websocket connection id parsing
+
+## [v12.1.1] - 2023-04-14
+
+### Improvements
+
+- (config) [#1513](https://github.com/evmos/evmos/pull/1513) Set default `timeout_commit` to `3s`
+
+## [v12.1.0] - 2023-03-24
+
+### Improvements
+
+- (deps) [#1498](https://github.com/evmos/evmos/pull/1498) Bump Cosmos SDK version to [v0.46.10-ledger.1](https://github.com/evmos/cosmos-sdk/releases/tag/v0.46.10-ledger.1)
+- (lint) [#1487](https://github.com/evmos/evmos/pull/1487) Fix lint issues created by new `golangci-lint` version
+
 ## [v12.0.0] - 2023-03-23
 
 ### State Machine Breaking

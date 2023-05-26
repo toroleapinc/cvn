@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package debug
 
 import (
@@ -14,18 +16,18 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
 	stderrors "github.com/pkg/errors"
 
 	"github.com/cosmos/cosmos-sdk/server"
 
-	"github.com/cvn-network/cvn/v1/rpc/backend"
-	rpctypes "github.com/cvn-network/cvn/v1/rpc/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/consensus/ethash"
 	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/evmos/evmos/v13/rpc/backend"
+	rpctypes "github.com/evmos/evmos/v13/rpc/types"
 	"github.com/tendermint/tendermint/libs/log"
 )
 

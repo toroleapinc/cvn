@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package main
 
 // DONTCOVER
@@ -37,16 +40,16 @@ import (
 	govv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/cvn-network/cvn/v1/crypto/hd"
-	"github.com/cvn-network/cvn/v1/server/config"
-	srvflags "github.com/cvn-network/cvn/v1/server/flags"
+	"github.com/evmos/evmos/v13/crypto/hd"
+	"github.com/evmos/evmos/v13/server/config"
+	srvflags "github.com/evmos/evmos/v13/server/flags"
 
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
-	cmdcfg "github.com/cvn-network/cvn/v1/cmd/config"
-	evmoskr "github.com/cvn-network/cvn/v1/crypto/keyring"
-	"github.com/cvn-network/cvn/v1/testutil/network"
+	cmdcfg "github.com/evmos/evmos/v13/cmd/config"
+	evmoskr "github.com/evmos/evmos/v13/crypto/keyring"
+	"github.com/evmos/evmos/v13/testutil/network"
 )
 
 var (
@@ -126,7 +129,7 @@ or a similar setup where each node has a manually configurable IP address.
 Note, strict routability for addresses is turned off in the config file.
 
 Example:
-	cvnd testnet init-files --v 4 --output-dir ./.testnets --starting-ip-address 192.168.10.2
+	evmosd testnet init-files --v 4 --output-dir ./.testnets --starting-ip-address 192.168.10.2
 	`,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -153,7 +156,7 @@ Example:
 
 	addTestnetFlagsToCmd(cmd)
 	cmd.Flags().String(flagNodeDirPrefix, "node", "Prefix the directory name for each node with (node results in node0, node1, ...)")
-	cmd.Flags().String(flagNodeDaemonHome, "cvnd", "Home directory of the node's daemon configuration")
+	cmd.Flags().String(flagNodeDaemonHome, "evmosd", "Home directory of the node's daemon configuration")
 	cmd.Flags().String(flagStartingIPAddress, "192.168.0.1", "Starting IP address (192.168.0.1 results in persistent peers list ID0@192.168.0.1:46656, ID1@192.168.0.2:46656, ...)")
 	cmd.Flags().String(flags.FlagKeyringBackend, flags.DefaultKeyringBackend, "Select keyring's backend (os|file|test)")
 
@@ -170,7 +173,7 @@ and generate "v" directories, populated with necessary validator configuration f
 (private validator, genesis, config, etc.).
 
 Example:
-	cvnd testnet --v 4 --output-dir ./.testnets
+	evmosd testnet --v 4 --output-dir ./.testnets
 	`,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			args := startArgs{}
@@ -212,7 +215,7 @@ func initTestnetFiles(
 	args initArgs,
 ) error {
 	if args.chainID == "" {
-		args.chainID = fmt.Sprintf("cvn_%d-1", tmrand.Int63n(9999999999999)+1)
+		args.chainID = fmt.Sprintf("evmos_%d-1", tmrand.Int63n(9999999999999)+1)
 	}
 
 	nodeIDs := make([]string, args.numValidators)
@@ -293,18 +296,18 @@ func initTestnetFiles(
 			return err
 		}
 
-		accStakingTokens := sdk.TokensFromConsensusPower(5000, cvntypes.PowerReduction)
+		accStakingTokens := sdk.TokensFromConsensusPower(5000, evmostypes.PowerReduction)
 		coins := sdk.Coins{
 			sdk.NewCoin(cmdcfg.BaseDenom, accStakingTokens),
 		}
 
 		genBalances = append(genBalances, banktypes.Balance{Address: addr.String(), Coins: coins.Sort()})
-		genAccounts = append(genAccounts, &cvntypes.EthAccount{
+		genAccounts = append(genAccounts, &evmostypes.EthAccount{
 			BaseAccount: authtypes.NewBaseAccount(addr, nil, 0, 0),
 			CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).Hex(),
 		})
 
-		valTokens := sdk.TokensFromConsensusPower(100, cvntypes.PowerReduction)
+		valTokens := sdk.TokensFromConsensusPower(100, evmostypes.PowerReduction)
 		createValMsg, err := stakingtypes.NewMsgCreateValidator(
 			sdk.ValAddress(addr),
 			valPubKeys[i],

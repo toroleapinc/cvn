@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package main
 
 import (
@@ -35,24 +38,24 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/crisis"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 
-	evmosclient "github.com/cvn-network/cvn/v1/client"
-	"github.com/cvn-network/cvn/v1/client/debug"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/ethereum/eip712"
-	evmosserver "github.com/cvn-network/cvn/v1/server"
-	servercfg "github.com/cvn-network/cvn/v1/server/config"
-	srvflags "github.com/cvn-network/cvn/v1/server/flags"
+	evmosclient "github.com/evmos/evmos/v13/client"
+	"github.com/evmos/evmos/v13/client/debug"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/ethereum/eip712"
+	evmosserver "github.com/evmos/evmos/v13/server"
+	servercfg "github.com/evmos/evmos/v13/server/config"
+	srvflags "github.com/evmos/evmos/v13/server/flags"
 
-	"github.com/cvn-network/cvn/v1/app"
-	cmdcfg "github.com/cvn-network/cvn/v1/cmd/config"
-	evmoskr "github.com/cvn-network/cvn/v1/crypto/keyring"
+	"github.com/evmos/evmos/v13/app"
+	cmdcfg "github.com/evmos/evmos/v13/cmd/config"
+	evmoskr "github.com/evmos/evmos/v13/crypto/keyring"
 )
 
 const (
-	EnvPrefix = "CVN"
+	EnvPrefix = "EVMOS"
 )
 
-// NewRootCmd creates a new root command for cvnd. It is called once in the
+// NewRootCmd creates a new root command for evmosd. It is called once in the
 // main function.
 func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 	encodingConfig := encoding.MakeConfig(app.ModuleBasics)
@@ -73,7 +76,7 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 
 	rootCmd := &cobra.Command{
 		Use:   app.Name,
-		Short: "CVN Daemon",
+		Short: "Evmos Daemon",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			// set the default command outputs
 			cmd.SetOut(cmd.OutOrStdout())
@@ -256,7 +259,7 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 		cast.ToUint32(appOpts.Get(sdkserver.FlagStateSyncSnapshotKeepRecent)),
 	)
 
-	cvnApp := app.NewCVN(
+	evmosApp := app.NewEvmos(
 		logger, db, traceStore, true, skipUpgradeHeights,
 		cast.ToString(appOpts.Get(flags.FlagHome)),
 		cast.ToUint(appOpts.Get(sdkserver.FlagInvCheckPeriod)),
@@ -275,7 +278,7 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 		baseapp.SetIAVLDisableFastNode(cast.ToBool(appOpts.Get(sdkserver.FlagDisableIAVLFastNode))),
 	)
 
-	return cvnApp
+	return evmosApp
 }
 
 // appExport creates a new simapp (optionally at a given height)
@@ -284,30 +287,30 @@ func (a appCreator) appExport(
 	logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailAllowedAddrs []string,
 	appOpts servertypes.AppOptions,
 ) (servertypes.ExportedApp, error) {
-	var cvnApp *app.CVN
+	var evmosApp *app.Evmos
 	homePath, ok := appOpts.Get(flags.FlagHome).(string)
 	if !ok || homePath == "" {
 		return servertypes.ExportedApp{}, errors.New("application home not set")
 	}
 
 	if height != -1 {
-		cvnApp = app.NewCVN(logger, db, traceStore, false, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
+		evmosApp = app.NewEvmos(logger, db, traceStore, false, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
 
-		if err := cvnApp.LoadHeight(height); err != nil {
+		if err := evmosApp.LoadHeight(height); err != nil {
 			return servertypes.ExportedApp{}, err
 		}
 	} else {
-		cvnApp = app.NewCVN(logger, db, traceStore, true, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
+		evmosApp = app.NewEvmos(logger, db, traceStore, true, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
 	}
 
-	return cvnApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs)
+	return evmosApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs)
 }
 
 // initTendermintConfig helps to override default Tendermint Config values.
 // return tmcfg.DefaultConfig if no custom configuration is required for the application.
 func initTendermintConfig() *tmcfg.Config {
 	cfg := tmcfg.DefaultConfig()
-	cfg.Consensus.TimeoutCommit = time.Second
+	cfg.Consensus.TimeoutCommit = time.Second * 3
 	// use v0 since v1 severely impacts the node's performance
 	cfg.Mempool.Version = tmcfg.MempoolV0
 

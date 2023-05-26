@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package app
 
 import (
@@ -6,8 +9,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	v82 "github.com/cvn-network/cvn/v1/app/upgrades/v8_2"
-	"github.com/cvn-network/cvn/v1/utils"
+	v82 "github.com/evmos/evmos/v13/app/upgrades/v8_2"
+	"github.com/evmos/evmos/v13/utils"
 )
 
 // ScheduleForkUpgrade executes any necessary fork logic for based upon the current
@@ -18,7 +21,7 @@ import (
 //
 //  1. Release a non-breaking patch version so that the chain can set the scheduled upgrade plan at upgrade-height.
 //  2. Release the software defined in the upgrade-info
-func (app *CVN) ScheduleForkUpgrade(ctx sdk.Context) {
+func (app *Evmos) ScheduleForkUpgrade(ctx sdk.Context) {
 	// NOTE: there are no testnet forks for the existing versions
 	if !utils.IsMainnet(ctx.ChainID()) {
 		return

@@ -5,11 +5,11 @@ import (
 
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cvn-network/cvn/v1/x/evm/keeper"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	ethparams "github.com/ethereum/go-ethereum/params"
+	"github.com/evmos/evmos/v13/x/evm/keeper"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 func (suite *KeeperTestSuite) TestCheckSenderBalance() {

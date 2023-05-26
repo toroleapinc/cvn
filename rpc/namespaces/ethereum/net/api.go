@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package net
 
 import (
@@ -5,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cvn-network/cvn/v1/types"
+	"github.com/evmos/evmos/v13/types"
 	rpcclient "github.com/tendermint/tendermint/rpc/client"
 )
 

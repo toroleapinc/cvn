@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package server
 
 import (
@@ -6,7 +8,7 @@ import (
 	"time"
 
 	// TODO update import to local pkg when rpc pkg is migrated
-	"github.com/cvn-network/cvn/v1/server/config"
+	"github.com/evmos/evmos/v13/server/config"
 	"github.com/gorilla/mux"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/spf13/cobra"
@@ -16,7 +18,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/server/types"
 	"github.com/cosmos/cosmos-sdk/version"
 
-	tmcmd "github.com/tendermint/tendermint/cmd/tendermint/commands"
+	tmcmd "github.com/tendermint/tendermint/cmd/cometbft/commands"
 	tmlog "github.com/tendermint/tendermint/libs/log"
 	rpcclient "github.com/tendermint/tendermint/rpc/jsonrpc/client"
 )

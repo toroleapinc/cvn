@@ -5,7 +5,7 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/utils"
 
 	sdkmath "cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/baseapp"
@@ -21,14 +21,14 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
-	"github.com/cvn-network/cvn/v1/x/feemarket/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
+	"github.com/evmos/evmos/v13/x/feemarket/types"
 
 	"github.com/stretchr/testify/require"
 
@@ -51,7 +51,7 @@ func (suite *KeeperTestSuite) SetupApp(checkTx bool) {
 	suite.consAddress = sdk.ConsAddress(priv.PubKey().Address())
 
 	header := testutil.NewHeader(
-		1, time.Now().UTC(), "cvn_2031-1", suite.consAddress, nil, nil,
+		1, time.Now().UTC(), "evmos_9000-1", suite.consAddress, nil, nil,
 	)
 
 	suite.ctx = suite.app.BaseApp.NewContext(checkTx, header)
@@ -60,7 +60,7 @@ func (suite *KeeperTestSuite) SetupApp(checkTx bool) {
 	types.RegisterQueryServer(queryHelper, suite.app.FeeMarketKeeper)
 	suite.queryClient = types.NewQueryClient(queryHelper)
 
-	acc := &cvntypes.EthAccount{
+	acc := &evmostypes.EthAccount{
 		BaseAccount: authtypes.NewBaseAccount(sdk.AccAddress(suite.address.Bytes()), nil, 0, 0),
 		CodeHash:    common.BytesToHash(crypto.Keccak256(nil)).String(),
 	}
@@ -97,7 +97,7 @@ func (suite *KeeperTestSuite) Commit() {
 // Commit commits a block at a given time.
 func (suite *KeeperTestSuite) CommitAfter(t time.Duration) {
 	var err error
-	suite.ctx, err = testutil.Commit(suite.ctx, suite.app, t, nil)
+	suite.ctx, err = testutil.CommitAndCreateNewCtx(suite.ctx, suite.app, t, nil)
 	suite.Require().NoError(err)
 	queryHelper := baseapp.NewQueryServerTestHelper(suite.ctx, suite.app.InterfaceRegistry())
 	types.RegisterQueryServer(queryHelper, suite.app.FeeMarketKeeper)
@@ -147,7 +147,7 @@ func setupChain(localMinGasPricesStr string) {
 	// Initialize the app, so we can use SetMinGasPrices to set the
 	// validator-specific min-gas-prices setting
 	db := dbm.NewMemDB()
-	newapp := app.NewCVN(
+	newapp := app.NewEvmos(
 		log.NewNopLogger(),
 		db,
 		nil,
@@ -169,7 +169,7 @@ func setupChain(localMinGasPricesStr string) {
 	// Initialize the chain
 	newapp.InitChain(
 		abci.RequestInitChain{
-			ChainId:         "cvn_2031-1",
+			ChainId:         "evmos_9000-1",
 			Validators:      []abci.ValidatorUpdate{},
 			AppStateBytes:   stateBytes,
 			ConsensusParams: app.DefaultConsensusParams,

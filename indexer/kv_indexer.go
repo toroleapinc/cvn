@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package indexer
 
 import (
@@ -8,15 +10,15 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authante "github.com/cosmos/cosmos-sdk/x/auth/ante"
-	rpctypes "github.com/cvn-network/cvn/v1/rpc/types"
 	"github.com/ethereum/go-ethereum/common"
+	rpctypes "github.com/evmos/evmos/v13/rpc/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/libs/log"
 	tmtypes "github.com/tendermint/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 const (
@@ -27,7 +29,7 @@ const (
 	TxIndexKeyLength = 1 + 8 + 8
 )
 
-var _ cvntypes.EVMTxIndexer = &KVIndexer{}
+var _ evmostypes.EVMTxIndexer = &KVIndexer{}
 
 // KVIndexer implements a eth tx indexer on a KV db.
 type KVIndexer struct {
@@ -81,7 +83,7 @@ func (kv *KVIndexer) IndexBlock(block *tmtypes.Block, txResults []*abci.Response
 			ethMsg := msg.(*evmtypes.MsgEthereumTx)
 			txHash := common.HexToHash(ethMsg.Hash)
 
-			txResult := cvntypes.TxResult{
+			txResult := evmostypes.TxResult{
 				Height:     height,
 				TxIndex:    uint32(txIndex),
 				MsgIndex:   uint32(msgIndex),
@@ -131,7 +133,7 @@ func (kv *KVIndexer) FirstIndexedBlock() (int64, error) {
 }
 
 // GetByTxHash finds eth tx by eth tx hash
-func (kv *KVIndexer) GetByTxHash(hash common.Hash) (*cvntypes.TxResult, error) {
+func (kv *KVIndexer) GetByTxHash(hash common.Hash) (*evmostypes.TxResult, error) {
 	bz, err := kv.db.Get(TxHashKey(hash))
 	if err != nil {
 		return nil, errorsmod.Wrapf(err, "GetByTxHash %s", hash.Hex())
@@ -139,7 +141,7 @@ func (kv *KVIndexer) GetByTxHash(hash common.Hash) (*cvntypes.TxResult, error) {
 	if len(bz) == 0 {
 		return nil, fmt.Errorf("tx not found, hash: %s", hash.Hex())
 	}
-	var txKey cvntypes.TxResult
+	var txKey evmostypes.TxResult
 	if err := kv.clientCtx.Codec.Unmarshal(bz, &txKey); err != nil {
 		return nil, errorsmod.Wrapf(err, "GetByTxHash %s", hash.Hex())
 	}
@@ -147,7 +149,7 @@ func (kv *KVIndexer) GetByTxHash(hash common.Hash) (*cvntypes.TxResult, error) {
 }
 
 // GetByBlockAndIndex finds eth tx by block number and eth tx index
-func (kv *KVIndexer) GetByBlockAndIndex(blockNumber int64, txIndex int32) (*cvntypes.TxResult, error) {
+func (kv *KVIndexer) GetByBlockAndIndex(blockNumber int64, txIndex int32) (*evmostypes.TxResult, error) {
 	bz, err := kv.db.Get(TxIndexKey(blockNumber, txIndex))
 	if err != nil {
 		return nil, errorsmod.Wrapf(err, "GetByBlockAndIndex %d %d", blockNumber, txIndex)
@@ -210,7 +212,7 @@ func isEthTx(tx sdk.Tx) bool {
 }
 
 // saveTxResult index the txResult into the kv db batch
-func saveTxResult(codec codec.Codec, batch dbm.Batch, txHash common.Hash, txResult *cvntypes.TxResult) error {
+func saveTxResult(codec codec.Codec, batch dbm.Batch, txHash common.Hash, txResult *evmostypes.TxResult) error {
 	bz := codec.MustMarshal(txResult)
 	if err := batch.Set(TxHashKey(txHash), bz); err != nil {
 		return errorsmod.Wrap(err, "set tx-hash key")

@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
@@ -13,10 +16,10 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
-	inflationtypes "github.com/cvn-network/cvn/v1/x/inflation/types"
+	inflationtypes "github.com/evmos/evmos/v13/x/inflation/types"
 )
 
 // AccountKeeper defines the expected interface needed to retrieve account info.

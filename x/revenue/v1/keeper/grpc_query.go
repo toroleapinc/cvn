@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:LGPL-3.0-only
+
 package keeper
 
 import (
@@ -10,10 +13,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
 	"github.com/ethereum/go-ethereum/common"
+	evmostypes "github.com/evmos/evmos/v13/types"
 
-	"github.com/cvn-network/cvn/v1/x/revenue/v1/types"
+	"github.com/evmos/evmos/v13/x/revenue/v1/types"
 )
 
 var _ types.QueryServer = Keeper{}
@@ -69,7 +72,7 @@ func (k Keeper) Revenue(
 	}
 
 	// check if the contract is a non-zero hex address
-	if err := cvntypes.ValidateNonZeroAddress(req.ContractAddress); err != nil {
+	if err := evmostypes.ValidateNonZeroAddress(req.ContractAddress); err != nil {
 		return nil, status.Errorf(
 			codes.InvalidArgument,
 			"invalid format for contract %s, should be non-zero hex ('0x...')", req.ContractAddress,

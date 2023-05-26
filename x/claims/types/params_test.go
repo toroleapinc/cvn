@@ -7,7 +7,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cvn-network/cvn/v1/x/claims/types"
+	"github.com/evmos/evmos/v13/x/claims/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -140,7 +140,7 @@ func TestParamsvalidateDuration(t *testing.T) {
 }
 
 func TestParamsValidateDenom(t *testing.T) {
-	err := validateDenom("acvnt")
+	err := validateDenom("aevmos")
 	require.NoError(t, err)
 	err = validateDenom(false)
 	require.Error(t, err)

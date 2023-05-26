@@ -10,12 +10,12 @@ import (
 	. "github.com/onsi/gomega"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
-	"github.com/cvn-network/cvn/v1/x/revenue/v1/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
+	"github.com/evmos/evmos/v13/x/revenue/v1/types"
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
@@ -694,7 +694,6 @@ var _ = Describe("Fee distribution:", Ordered, func() {
 						s.app,
 						deployerKey,
 						factoryAddress,
-						s.queryClientEvm,
 					)
 					Expect(err).To(BeNil())
 					s.Commit()
@@ -795,7 +794,6 @@ var _ = Describe("Fee distribution:", Ordered, func() {
 						s.app,
 						deployerKey1,
 						factory1Address,
-						s.queryClientEvm,
 					)
 					Expect(err).To(BeNil())
 					s.Commit()
@@ -807,7 +805,6 @@ var _ = Describe("Fee distribution:", Ordered, func() {
 						s.app,
 						deployerKey1,
 						factory2Address,
-						s.queryClientEvm,
 					)
 					Expect(err).To(BeNil())
 					s.Commit()

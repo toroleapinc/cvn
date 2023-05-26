@@ -11,8 +11,8 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/x/evm/types"
 
 	"github.com/stretchr/testify/suite"
 )
@@ -36,7 +36,7 @@ type TxDataTestSuite struct {
 }
 
 func (suite *TxDataTestSuite) SetupTest() {
-	suite.sdkInt = sdkmath.NewInt(2032)
+	suite.sdkInt = sdkmath.NewInt(9001)
 	suite.uint64 = suite.sdkInt.Uint64()
 	suite.hexUint64 = hexutil.Uint64(100)
 	suite.bigInt = big.NewInt(1)

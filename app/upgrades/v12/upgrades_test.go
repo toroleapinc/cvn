@@ -10,20 +10,20 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/testutil"
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/testutil"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	v12 "github.com/cvn-network/cvn/v1/app/upgrades/v12"
-	"github.com/cvn-network/cvn/v1/utils"
+	"github.com/evmos/evmos/v13/app"
+	v12 "github.com/evmos/evmos/v13/app/upgrades/v12"
+	"github.com/evmos/evmos/v13/utils"
 )
 
 type UpgradeTestSuite struct {
 	suite.Suite
 
 	ctx         sdk.Context
-	app         *app.CVN
+	app         *app.Evmos
 	consAddress sdk.ConsAddress
 }
 

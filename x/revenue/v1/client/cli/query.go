@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:LGPL-3.0-only
+
 package cli
 
 import (
@@ -10,7 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/version"
 
-	"github.com/cvn-network/cvn/v1/x/revenue/v1/types"
+	"github.com/evmos/evmos/v13/x/revenue/v1/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

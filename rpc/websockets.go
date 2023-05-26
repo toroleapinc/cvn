@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package rpc
 
 import (
@@ -9,6 +11,7 @@ import (
 	"math/big"
 	"net"
 	"net/http"
+	"strconv"
 	"sync"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -26,11 +29,11 @@ import (
 	rpcclient "github.com/tendermint/tendermint/rpc/jsonrpc/client"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"github.com/cvn-network/cvn/v1/rpc/ethereum/pubsub"
-	rpcfilters "github.com/cvn-network/cvn/v1/rpc/namespaces/ethereum/eth/filters"
-	"github.com/cvn-network/cvn/v1/rpc/types"
-	"github.com/cvn-network/cvn/v1/server/config"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/rpc/ethereum/pubsub"
+	rpcfilters "github.com/evmos/evmos/v13/rpc/namespaces/ethereum/eth/filters"
+	"github.com/evmos/evmos/v13/rpc/types"
+	"github.com/evmos/evmos/v13/server/config"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 type WebsocketsServer interface {
@@ -211,8 +214,16 @@ func (s *websocketsServer) readLoop(wsConn *wsConn) {
 			continue
 		}
 
-		connID, ok := msg["id"].(float64)
-		if !ok {
+		var connID float64
+		switch id := msg["id"].(type) {
+		case string:
+			connID, err = strconv.ParseFloat(id, 64)
+		case float64:
+			connID = id
+		default:
+			err = fmt.Errorf("unknown type")
+		}
+		if err != nil {
 			s.sendErrResponse(
 				wsConn,
 				fmt.Errorf("invalid type for connection ID: %T", msg["id"]).Error(),
@@ -667,7 +678,7 @@ func (api *pubSubAPI) subscribePendingTransactions(wsConn *wsConn, subID rpc.ID)
 	return unsubFn, nil
 }
 
-func (api *pubSubAPI) subscribeSyncing(wsConn *wsConn, subID rpc.ID) (pubsub.UnsubscribeFunc, error) {
+func (api *pubSubAPI) subscribeSyncing(_ *wsConn, _ rpc.ID) (pubsub.UnsubscribeFunc, error) {
 	return nil, errors.New("syncing subscription is not implemented")
 }
 

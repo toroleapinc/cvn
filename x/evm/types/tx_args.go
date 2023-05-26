@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package types
 
 import (
@@ -135,7 +137,7 @@ func (args *TransactionArgs) ToTransaction() *MsgEthereumTx {
 		}
 	}
 
-	any, err := PackTxData(data)
+	anyData, err := PackTxData(data)
 	if err != nil {
 		return nil
 	}
@@ -145,7 +147,7 @@ func (args *TransactionArgs) ToTransaction() *MsgEthereumTx {
 	}
 
 	msg := MsgEthereumTx{
-		Data: any,
+		Data: anyData,
 		From: from,
 	}
 	msg.Hash = msg.AsTransaction().Hash().Hex()

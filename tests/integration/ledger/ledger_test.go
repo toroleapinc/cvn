@@ -9,12 +9,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	"github.com/cosmos/cosmos-sdk/simapp/params"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/crypto/hd"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/tests/integration/ledger/mocks"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/crypto/hd"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/tests/integration/ledger/mocks"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
 
 	"github.com/spf13/cobra"
 
@@ -174,7 +174,7 @@ var _ = Describe("Ledger CLI and keyring functionality: ", func() {
 						s.app.BankKeeper,
 						s.accAddr,
 						sdk.NewCoins(
-							sdk.NewCoin("acvnt", sdk.NewInt(100000000000000)),
+							sdk.NewCoin("aevmos", sdk.NewInt(100000000000000)),
 						),
 					)
 					s.Require().NoError(err)
@@ -199,7 +199,7 @@ var _ = Describe("Ledger CLI and keyring functionality: ", func() {
 					cmd.SetArgs([]string{
 						ledgerKey,
 						receiverAccAddr.String(),
-						sdk.NewCoin("acvnt", sdk.NewInt(1000)).String(),
+						sdk.NewCoin("aevmos", sdk.NewInt(1000)).String(),
 						s.FormatFlag(flags.FlagUseLedger),
 						s.FormatFlag(flags.FlagSkipConfirmation),
 					})
@@ -217,7 +217,7 @@ var _ = Describe("Ledger CLI and keyring functionality: ", func() {
 					cmd.SetArgs([]string{
 						ledgerKey,
 						receiverAccAddr.String(),
-						sdk.NewCoin("acvnt", sdk.NewInt(1000)).String(),
+						sdk.NewCoin("aevmos", sdk.NewInt(1000)).String(),
 						s.FormatFlag(flags.FlagUseLedger),
 						s.FormatFlag(flags.FlagSkipConfirmation),
 					})

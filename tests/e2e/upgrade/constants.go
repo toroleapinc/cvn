@@ -1,9 +1,11 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package upgrade
 
 // The constants used in the upgrade tests are defined here
 const (
 	// the defaultChainID used for testing
-	defaultChainID = "cvn_2031-1"
+	defaultChainID = "evmos_9000-1"
 
 	// LocalVersionTag defines the docker image ImageTag when building locally
 	LocalVersionTag = "latest"

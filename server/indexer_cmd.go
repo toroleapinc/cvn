@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package server
 
 import (
@@ -7,7 +9,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cvn-network/cvn/v1/indexer"
+	"github.com/evmos/evmos/v13/indexer"
 	tmnode "github.com/tendermint/tendermint/node"
 	sm "github.com/tendermint/tendermint/state"
 	tmstore "github.com/tendermint/tendermint/store"

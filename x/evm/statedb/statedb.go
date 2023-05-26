@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package statedb
 
 import (
@@ -202,7 +204,7 @@ func (s *StateDB) HasSuicided(addr common.Address) bool {
 // AddPreimage performs a no-op since the EnablePreimageRecording flag is disabled
 // on the vm.Config during state transitions. No store trie preimages are written
 // to the database.
-func (s *StateDB) AddPreimage(hash common.Hash, preimage []byte) {}
+func (s *StateDB) AddPreimage(_ common.Hash, _ []byte) {}
 
 // getStateObject retrieves a state object given by the address, returning nil if
 // the object is not found.

@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package backend
 
 import (
@@ -6,9 +8,9 @@ import (
 	"math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	rpctypes "github.com/cvn-network/cvn/v1/rpc/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
+	rpctypes "github.com/evmos/evmos/v13/rpc/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 	"github.com/pkg/errors"
 	tmrpctypes "github.com/tendermint/tendermint/rpc/core/types"
 )

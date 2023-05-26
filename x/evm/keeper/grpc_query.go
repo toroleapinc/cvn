@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package keeper
 
 import (
@@ -24,9 +26,9 @@ import (
 	"github.com/ethereum/go-ethereum/core/vm"
 	ethparams "github.com/ethereum/go-ethereum/params"
 
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	"github.com/evmos/evmos/v13/x/evm/types"
 )
 
 var _ types.QueryServer = Keeper{}
@@ -41,7 +43,7 @@ func (k Keeper) Account(c context.Context, req *types.QueryAccountRequest) (*typ
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := cvntypes.ValidateAddress(req.Address); err != nil {
+	if err := evmostypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument, err.Error(),
 		)
@@ -64,7 +66,7 @@ func (k Keeper) CosmosAccount(c context.Context, req *types.QueryCosmosAccountRe
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := cvntypes.ValidateAddress(req.Address); err != nil {
+	if err := evmostypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument, err.Error(),
 		)
@@ -129,7 +131,7 @@ func (k Keeper) Balance(c context.Context, req *types.QueryBalanceRequest) (*typ
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := cvntypes.ValidateAddress(req.Address); err != nil {
+	if err := evmostypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument,
 			types.ErrZeroAddress.Error(),
@@ -151,7 +153,7 @@ func (k Keeper) Storage(c context.Context, req *types.QueryStorageRequest) (*typ
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := cvntypes.ValidateAddress(req.Address); err != nil {
+	if err := evmostypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument,
 			types.ErrZeroAddress.Error(),
@@ -177,7 +179,7 @@ func (k Keeper) Code(c context.Context, req *types.QueryCodeRequest) (*types.Que
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := cvntypes.ValidateAddress(req.Address); err != nil {
+	if err := evmostypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument,
 			types.ErrZeroAddress.Error(),
@@ -275,9 +277,9 @@ func (k Keeper) EstimateGas(c context.Context, req *types.EthCallRequest) (*type
 
 	// Binary search the gas requirement, as it may be higher than the amount used
 	var (
-		lo  = ethparams.TxGas - 1
-		hi  uint64
-		cap uint64
+		lo     = ethparams.TxGas - 1
+		hi     uint64
+		gasCap uint64
 	)
 
 	// Determine the highest gas limit can be used during the estimation.
@@ -299,7 +301,8 @@ func (k Keeper) EstimateGas(c context.Context, req *types.EthCallRequest) (*type
 	if req.GasCap != 0 && hi > req.GasCap {
 		hi = req.GasCap
 	}
-	cap = hi
+
+	gasCap = hi
 	cfg, err := k.EVMConfig(ctx, GetProposerAddress(ctx, req.ProposerAddress), chainID)
 	if err != nil {
 		return nil, status.Error(codes.Internal, "failed to load evm config")
@@ -355,7 +358,7 @@ func (k Keeper) EstimateGas(c context.Context, req *types.EthCallRequest) (*type
 	}
 
 	// Reject the transaction as invalid if it still fails at the highest allowance
-	if hi == cap {
+	if hi == gasCap {
 		failed, result, err := executable(hi)
 		if err != nil {
 			return nil, err
@@ -369,7 +372,7 @@ func (k Keeper) EstimateGas(c context.Context, req *types.EthCallRequest) (*type
 				return nil, errors.New(result.VmError)
 			}
 			// Otherwise, the specified gas cap is too low
-			return nil, fmt.Errorf("gas required exceeds allowance (%d)", cap)
+			return nil, fmt.Errorf("gas required exceeds allowance (%d)", gasCap)
 		}
 	}
 	return &types.EstimateGasResponse{Gas: hi}, nil
@@ -621,7 +624,7 @@ func (k Keeper) BaseFee(c context.Context, _ *types.QueryBaseFeeRequest) (*types
 // getChainID parse chainID from current context if not provided
 func getChainID(ctx sdk.Context, chainID int64) (*big.Int, error) {
 	if chainID == 0 {
-		return cvntypes.ParseChainID(ctx.ChainID())
+		return evmostypes.ParseChainID(ctx.ChainID())
 	}
 	return big.NewInt(chainID), nil
 }

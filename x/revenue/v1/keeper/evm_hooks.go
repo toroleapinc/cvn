@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:LGPL-3.0-only
+
 package keeper
 
 import (
@@ -7,9 +10,9 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 
-	"github.com/cvn-network/cvn/v1/x/revenue/v1/types"
+	"github.com/evmos/evmos/v13/x/revenue/v1/types"
 )
 
 var _ evmtypes.EvmHooks = Hooks{}

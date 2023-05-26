@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
@@ -8,8 +11,8 @@ import (
 	channeltypes "github.com/cosmos/ibc-go/v6/modules/core/04-channel/types"
 	"github.com/cosmos/ibc-go/v6/modules/core/exported"
 
-	"github.com/cvn-network/cvn/v1/ibc"
-	"github.com/cvn-network/cvn/v1/x/claims/types"
+	"github.com/evmos/evmos/v13/ibc"
+	"github.com/evmos/evmos/v13/x/claims/types"
 )
 
 // OnAcknowledgementPacket performs an IBC send callback. Once a user submits an

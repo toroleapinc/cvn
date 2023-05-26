@@ -1,9 +1,11 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package hd
 
 import (
+	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcutil/hdkeychain"
-	"github.com/tyler-smith/go-bip39"
+	bip39 "github.com/tyler-smith/go-bip39"
 
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -12,7 +14,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
 )
 
 const (

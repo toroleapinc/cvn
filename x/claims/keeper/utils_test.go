@@ -10,20 +10,20 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/contracts"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/utils"
-	"github.com/cvn-network/cvn/v1/x/claims/types"
-	evm "github.com/cvn-network/cvn/v1/x/evm/types"
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
-	incentivestypes "github.com/cvn-network/cvn/v1/x/incentives/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/contracts"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/utils"
+	"github.com/evmos/evmos/v13/x/claims/types"
+	evm "github.com/evmos/evmos/v13/x/evm/types"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
+	incentivestypes "github.com/evmos/evmos/v13/x/incentives/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -41,7 +41,7 @@ func (suite *KeeperTestSuite) DoSetupTest(t require.TestingT) {
 
 	suite.app = app.Setup(false, feemarkettypes.DefaultGenesisState())
 	header := testutil.NewHeader(
-		1, time.Now().UTC(), "cvn_2032-1", consAddress, nil, nil,
+		1, time.Now().UTC(), "evmos_9001-1", consAddress, nil, nil,
 	)
 	suite.ctx = suite.app.BaseApp.NewContext(false, header)
 
@@ -94,7 +94,7 @@ func (suite *KeeperTestSuite) Commit() {
 // Commit commits a block at a given time.
 func (suite *KeeperTestSuite) CommitAfter(t time.Duration) {
 	var err error
-	suite.ctx, err = testutil.Commit(suite.ctx, suite.app, t, nil)
+	suite.ctx, err = testutil.CommitAndCreateNewCtx(suite.ctx, suite.app, t, nil)
 	suite.Require().NoError(err)
 
 	queryHelper := baseapp.NewQueryServerTestHelper(suite.ctx, suite.app.InterfaceRegistry())
@@ -107,8 +107,8 @@ func (suite *KeeperTestSuite) CommitAfter(t time.Duration) {
 	suite.queryClientEvm = evm.NewQueryClient(queryHelperEvm)
 }
 
-func newEthAccount(baseAccount *authtypes.BaseAccount) cvntypes.EthAccount {
-	return cvntypes.EthAccount{
+func newEthAccount(baseAccount *authtypes.BaseAccount) evmostypes.EthAccount {
+	return evmostypes.EthAccount{
 		BaseAccount: baseAccount,
 		CodeHash:    common.BytesToHash(crypto.Keccak256(nil)).String(),
 	}
@@ -128,7 +128,7 @@ func govProposal(priv *ethsecp256k1.PrivKey) (uint64, error) {
 		"Test", "TTT", uint8(18),
 	)
 	s.Require().NoError(err)
-	s.ctx, err = testutil.Commit(s.ctx, s.app, time.Second*0, nil)
+	s.ctx, err = testutil.CommitAndCreateNewCtx(s.ctx, s.app, time.Second*0, nil)
 	s.Require().NoError(err)
 	content := incentivestypes.NewRegisterIncentiveProposal(
 		"test",

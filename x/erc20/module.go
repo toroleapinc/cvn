@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package erc20
 
 import (
@@ -18,9 +21,9 @@ import (
 	"github.com/spf13/cobra"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/cvn-network/cvn/v1/x/erc20/client/cli"
-	"github.com/cvn-network/cvn/v1/x/erc20/keeper"
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/x/erc20/client/cli"
+	"github.com/evmos/evmos/v13/x/erc20/keeper"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 )
 
 // type check to ensure the interface is properly implemented
@@ -58,7 +61,7 @@ func (AppModuleBasic) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	return cdc.MustMarshalJSON(types.DefaultGenesisState())
 }
 
-func (b AppModuleBasic) ValidateGenesis(cdc codec.JSONCodec, config client.TxEncodingConfig, bz json.RawMessage) error {
+func (b AppModuleBasic) ValidateGenesis(cdc codec.JSONCodec, _ client.TxEncodingConfig, bz json.RawMessage) error {
 	var genesisState types.GenesisState
 	if err := cdc.UnmarshalJSON(bz, &genesisState); err != nil {
 		return fmt.Errorf("failed to unmarshal %s genesis state: %w", types.ModuleName, err)
@@ -113,7 +116,7 @@ func (AppModule) Name() string {
 	return types.ModuleName
 }
 
-func (am AppModule) RegisterInvariants(ir sdk.InvariantRegistry) {}
+func (am AppModule) RegisterInvariants(_ sdk.InvariantRegistry) {}
 
 func (am AppModule) NewHandler() sdk.Handler {
 	return NewHandler(&am.keeper)
@@ -127,7 +130,7 @@ func (am AppModule) QuerierRoute() string {
 	return types.RouterKey
 }
 
-func (am AppModule) LegacyQuerierHandler(amino *codec.LegacyAmino) sdk.Querier {
+func (am AppModule) LegacyQuerierHandler(_ *codec.LegacyAmino) sdk.Querier {
 	return nil
 }
 
@@ -166,20 +169,20 @@ func (am AppModule) ExportGenesis(ctx sdk.Context, cdc codec.JSONCodec) json.Raw
 	return cdc.MustMarshalJSON(gs)
 }
 
-func (am AppModule) GenerateGenesisState(input *module.SimulationState) {
+func (am AppModule) GenerateGenesisState(_ *module.SimulationState) {
 }
 
-func (am AppModule) ProposalContents(simState module.SimulationState) []simtypes.WeightedProposalContent {
+func (am AppModule) ProposalContents(_ module.SimulationState) []simtypes.WeightedProposalContent {
 	return []simtypes.WeightedProposalContent{}
 }
 
-func (am AppModule) RandomizedParams(r *rand.Rand) []simtypes.ParamChange {
+func (am AppModule) RandomizedParams(_ *rand.Rand) []simtypes.ParamChange {
 	return []simtypes.ParamChange{}
 }
 
-func (am AppModule) RegisterStoreDecoder(decoderRegistry sdk.StoreDecoderRegistry) {
+func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {
 }
 
-func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
+func (am AppModule) WeightedOperations(_ module.SimulationState) []simtypes.WeightedOperation {
 	return []simtypes.WeightedOperation{}
 }

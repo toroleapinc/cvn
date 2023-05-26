@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
@@ -5,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/cvn-network/cvn/v1/x/incentives/types"
+	"github.com/evmos/evmos/v13/x/incentives/types"
 )
 
 // GetIncentivesGasMeters - get all registered GasMeters per Incentive

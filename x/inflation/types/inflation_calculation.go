@@ -1,9 +1,12 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	cvntypes "github.com/cvn-network/cvn/v1/types"
+	evmostypes "github.com/evmos/evmos/v13/types"
 )
 
 // CalculateEpochProvisions returns mint provision per epoch
@@ -41,7 +44,7 @@ func CalculateEpochMintProvision(
 
 	// Multiply epochMintProvision with power reduction (10^18 for evmos) as the
 	// calculation is based on `evmos` and the issued tokens need to be given in
-	// `acvnt`
-	epochProvision = epochProvision.Mul(sdk.NewDecFromInt(cvntypes.PowerReduction))
+	// `aevmos`
+	epochProvision = epochProvision.Mul(sdk.NewDecFromInt(evmostypes.PowerReduction))
 	return epochProvision
 }

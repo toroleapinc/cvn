@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package types
 
 import (
@@ -8,7 +10,7 @@ import (
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
 	"github.com/cosmos/cosmos-sdk/types/tx"
-	"github.com/gogo/protobuf/proto"
+	proto "github.com/gogo/protobuf/proto"
 )
 
 var (

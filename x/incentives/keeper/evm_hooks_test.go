@@ -10,12 +10,12 @@ import (
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	evm "github.com/cvn-network/cvn/v1/x/evm/types"
-	"github.com/cvn-network/cvn/v1/x/incentives/types"
-	vestingtypes "github.com/cvn-network/cvn/v1/x/vesting/types"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	evm "github.com/evmos/evmos/v13/x/evm/types"
+	"github.com/evmos/evmos/v13/x/incentives/types"
+	vestingtypes "github.com/evmos/evmos/v13/x/vesting/types"
 )
 
 func (suite *KeeperTestSuite) TestEvmHooksStoreTxGasUsed() {
@@ -40,7 +40,7 @@ func (suite *KeeperTestSuite) TestEvmHooksStoreTxGasUsed() {
 			"from address is not an EOA",
 			func(contractAddr common.Address) {
 				// set a contract account for the address
-				contract := &cvntypes.EthAccount{
+				contract := &evmostypes.EthAccount{
 					BaseAccount: authtypes.NewBaseAccount(sdk.AccAddress(suite.address.Bytes()), nil, 0, 0),
 					CodeHash:    common.BytesToHash(crypto.Keccak256([]byte{0, 1, 2, 2})).String(),
 				}
@@ -54,7 +54,7 @@ func (suite *KeeperTestSuite) TestEvmHooksStoreTxGasUsed() {
 		{
 			"correct execution - one tx",
 			func(contractAddr common.Address) {
-				acc := &cvntypes.EthAccount{
+				acc := &evmostypes.EthAccount{
 					BaseAccount: authtypes.NewBaseAccount(sdk.AccAddress(suite.address.Bytes()), nil, 0, 0),
 					CodeHash:    common.BytesToHash(crypto.Keccak256(nil)).String(),
 				}
@@ -94,7 +94,7 @@ func (suite *KeeperTestSuite) TestEvmHooksStoreTxGasUsed() {
 		{
 			"correct execution - two tx",
 			func(contractAddr common.Address) {
-				acc := &cvntypes.EthAccount{
+				acc := &evmostypes.EthAccount{
 					BaseAccount: authtypes.NewBaseAccount(sdk.AccAddress(suite.address.Bytes()), nil, 0, 0),
 					CodeHash:    common.BytesToHash(crypto.Keccak256(nil)).String(),
 				}

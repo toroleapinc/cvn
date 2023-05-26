@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
@@ -11,7 +14,7 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	porttypes "github.com/cosmos/ibc-go/v6/modules/core/05-port/types"
 
-	"github.com/cvn-network/cvn/v1/x/claims/types"
+	"github.com/evmos/evmos/v13/x/claims/types"
 )
 
 // Keeper struct

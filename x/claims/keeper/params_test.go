@@ -1,7 +1,7 @@
 package keeper_test
 
 import (
-	"github.com/cvn-network/cvn/v1/x/claims/types"
+	"github.com/evmos/evmos/v13/x/claims/types"
 )
 
 func (suite *KeeperTestSuite) TestParams() {

@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
@@ -12,8 +15,8 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/cvn-network/cvn/v1/contracts"
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/contracts"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 )
 
 var _ types.MsgServer = &Keeper{}

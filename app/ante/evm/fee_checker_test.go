@@ -10,10 +10,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
-	"github.com/cvn-network/cvn/v1/encoding"
-	"github.com/cvn-network/cvn/v1/types"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/params"
+	"github.com/evmos/evmos/v13/encoding"
+	"github.com/evmos/evmos/v13/types"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 )
@@ -25,19 +25,19 @@ type MockEVMKeeper struct {
 	EnableLondonHF bool
 }
 
-func (m MockEVMKeeper) GetBaseFee(ctx sdk.Context, ethCfg *params.ChainConfig) *big.Int {
+func (m MockEVMKeeper) GetBaseFee(_ sdk.Context, _ *params.ChainConfig) *big.Int {
 	if m.EnableLondonHF {
 		return m.BaseFee
 	}
 	return nil
 }
 
-func (m MockEVMKeeper) GetParams(ctx sdk.Context) evmtypes.Params {
+func (m MockEVMKeeper) GetParams(_ sdk.Context) evmtypes.Params {
 	return evmtypes.DefaultParams()
 }
 
 func (m MockEVMKeeper) ChainID() *big.Int {
-	return big.NewInt(2031)
+	return big.NewInt(9000)
 }
 
 func TestSDKTxFeeChecker(t *testing.T) {
@@ -98,7 +98,7 @@ func TestSDKTxFeeChecker(t *testing.T) {
 				txBuilder.SetFeeAmount(sdk.NewCoins(sdk.NewCoin(evmtypes.DefaultEVMDenom, sdk.NewInt(10))))
 				return txBuilder.GetTx()
 			},
-			"10acvnt",
+			"10aevmos",
 			0,
 			true,
 		},
@@ -140,7 +140,7 @@ func TestSDKTxFeeChecker(t *testing.T) {
 				txBuilder.SetFeeAmount(sdk.NewCoins(sdk.NewCoin(evmtypes.DefaultEVMDenom, sdk.NewInt(10))))
 				return txBuilder.GetTx()
 			},
-			"10acvnt",
+			"10aevmos",
 			0,
 			true,
 		},
@@ -156,7 +156,7 @@ func TestSDKTxFeeChecker(t *testing.T) {
 				txBuilder.SetFeeAmount(sdk.NewCoins(sdk.NewCoin(evmtypes.DefaultEVMDenom, sdk.NewInt(10).Mul(evmtypes.DefaultPriorityReduction).Add(sdk.NewInt(10)))))
 				return txBuilder.GetTx()
 			},
-			"10000010acvnt",
+			"10000010aevmos",
 			10,
 			true,
 		},
@@ -176,7 +176,7 @@ func TestSDKTxFeeChecker(t *testing.T) {
 				txBuilder.SetExtensionOptions(option)
 				return txBuilder.GetTx()
 			},
-			"10acvnt",
+			"10aevmos",
 			0,
 			true,
 		},
@@ -198,7 +198,7 @@ func TestSDKTxFeeChecker(t *testing.T) {
 				txBuilder.SetExtensionOptions(option)
 				return txBuilder.GetTx()
 			},
-			"5000010acvnt",
+			"5000010aevmos",
 			5,
 			true,
 		},

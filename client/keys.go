@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package client
 
 import (
@@ -10,8 +12,8 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
-	clientkeys "github.com/cvn-network/cvn/v1/client/keys"
-	"github.com/cvn-network/cvn/v1/crypto/hd"
+	clientkeys "github.com/evmos/evmos/v13/client/keys"
+	"github.com/evmos/evmos/v13/crypto/hd"
 )
 
 // KeyCommands registers a sub-tree of commands to interact with

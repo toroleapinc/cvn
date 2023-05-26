@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package keeper
 
 import (
@@ -9,10 +11,10 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	"github.com/evmos/evmos/v13/x/evm/types"
 )
 
 var _ statedb.Keeper = &Keeper{}
@@ -117,7 +119,7 @@ func (k *Keeper) SetAccount(ctx sdk.Context, addr common.Address, account stated
 
 	codeHash := common.BytesToHash(account.CodeHash)
 
-	if ethAcct, ok := acct.(cvntypes.EthAccountI); ok {
+	if ethAcct, ok := acct.(evmostypes.EthAccountI); ok {
 		if err := ethAcct.SetCodeHash(codeHash); err != nil {
 			return err
 		}
@@ -187,7 +189,7 @@ func (k *Keeper) DeleteAccount(ctx sdk.Context, addr common.Address) error {
 	}
 
 	// NOTE: only Ethereum accounts (contracts) can be selfdestructed
-	_, ok := acct.(cvntypes.EthAccountI)
+	_, ok := acct.(evmostypes.EthAccountI)
 	if !ok {
 		return errorsmod.Wrapf(types.ErrInvalidAccount, "type %T, address %s", acct, addr)
 	}

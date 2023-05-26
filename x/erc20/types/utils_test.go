@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -60,37 +60,37 @@ func TestEqualMetadata(t *testing.T) {
 		{
 			"equal metadata",
 			banktypes.Metadata{
-				Base:        "acvnt",
-				Display:     "cvnt",
-				Name:        "Cvnt",
-				Symbol:      "CVNT",
-				Description: "CVNT, staking and governance denom of CVN",
+				Base:        "aevmos",
+				Display:     "evmos",
+				Name:        "Evmos",
+				Symbol:      "EVMOS",
+				Description: "EVM, staking and governance denom of Evmos",
 				DenomUnits: []*banktypes.DenomUnit{
 					{
-						Denom:    "acvnt",
+						Denom:    "aevmos",
 						Exponent: 0,
-						Aliases:  []string{"atto cvnt"},
+						Aliases:  []string{"atto evmos"},
 					},
 					{
-						Denom:    "cvnt",
+						Denom:    "evmos",
 						Exponent: 18,
 					},
 				},
 			},
 			banktypes.Metadata{
-				Base:        "acvnt",
-				Display:     "cvnt",
-				Name:        "Cvnt",
-				Symbol:      "CVNT",
-				Description: "CVNT, staking and governance denom of CVN",
+				Base:        "aevmos",
+				Display:     "evmos",
+				Name:        "Evmos",
+				Symbol:      "EVMOS",
+				Description: "EVM, staking and governance denom of Evmos",
 				DenomUnits: []*banktypes.DenomUnit{
 					{
-						Denom:    "acvnt",
+						Denom:    "aevmos",
 						Exponent: 0,
-						Aliases:  []string{"atto cvnt"},
+						Aliases:  []string{"atto evmos"},
 					},
 					{
-						Denom:    "cvnt",
+						Denom:    "evmos",
 						Exponent: 18,
 					},
 				},
@@ -100,44 +100,44 @@ func TestEqualMetadata(t *testing.T) {
 		{
 			"different base field",
 			banktypes.Metadata{
-				Base: "acvnt",
+				Base: "aevmos",
 			},
 			banktypes.Metadata{
-				Base: "tacvnt",
+				Base: "taevmos",
 			},
 			true,
 		},
 		{
 			"different denom units length",
 			banktypes.Metadata{
-				Base:        "acvnt",
-				Display:     "cvnt",
-				Name:        "Cvnt",
-				Symbol:      "CVNT",
-				Description: "CVNT, staking and governance denom of CVN",
+				Base:        "aevmos",
+				Display:     "evmos",
+				Name:        "Evmos",
+				Symbol:      "EVMOS",
+				Description: "EVM, staking and governance denom of Evmos",
 				DenomUnits: []*banktypes.DenomUnit{
 					{
-						Denom:    "acvnt",
+						Denom:    "aevmos",
 						Exponent: 0,
-						Aliases:  []string{"atto cvnt"},
+						Aliases:  []string{"atto evmos"},
 					},
 					{
-						Denom:    "cvnt",
+						Denom:    "evmos",
 						Exponent: 18,
 					},
 				},
 			},
 			banktypes.Metadata{
-				Base:        "acvnt",
-				Display:     "cvnt",
-				Name:        "Cvnt",
-				Symbol:      "CVNT",
-				Description: "CVNT, staking and governance denom of CVN",
+				Base:        "aevmos",
+				Display:     "evmos",
+				Name:        "Evmos",
+				Symbol:      "EVMOS",
+				Description: "EVM, staking and governance denom of Evmos",
 				DenomUnits: []*banktypes.DenomUnit{
 					{
-						Denom:    "acvnt",
+						Denom:    "aevmos",
 						Exponent: 0,
-						Aliases:  []string{"atto cvnt"},
+						Aliases:  []string{"atto evmos"},
 					},
 				},
 			},
@@ -146,47 +146,47 @@ func TestEqualMetadata(t *testing.T) {
 		{
 			"different denom units",
 			banktypes.Metadata{
-				Base:        "acvnt",
-				Display:     "cvnt",
-				Name:        "Cvnt",
-				Symbol:      "CVNT",
-				Description: "CVNT, staking and governance denom of CVN",
+				Base:        "aevmos",
+				Display:     "evmos",
+				Name:        "Evmos",
+				Symbol:      "EVMOS",
+				Description: "EVM, staking and governance denom of Evmos",
 				DenomUnits: []*banktypes.DenomUnit{
 					{
-						Denom:    "acvnt",
+						Denom:    "aevmos",
 						Exponent: 0,
-						Aliases:  []string{"atto cvnt"},
+						Aliases:  []string{"atto evmos"},
 					},
 					{
-						Denom:    "ucvnt",
+						Denom:    "uevmos",
 						Exponent: 12,
-						Aliases:  []string{"micro cvnt"},
+						Aliases:  []string{"micro evmos"},
 					},
 					{
-						Denom:    "cvnt",
+						Denom:    "evmos",
 						Exponent: 18,
 					},
 				},
 			},
 			banktypes.Metadata{
-				Base:        "acvnt",
-				Display:     "cvnt",
-				Name:        "Cvnt",
-				Symbol:      "CVNT",
-				Description: "acvnt, staking and governance denom of CVN",
+				Base:        "aevmos",
+				Display:     "evmos",
+				Name:        "Evmos",
+				Symbol:      "EVMOS",
+				Description: "EVM, staking and governance denom of Evmos",
 				DenomUnits: []*banktypes.DenomUnit{
 					{
-						Denom:    "acvnt",
+						Denom:    "aevmos",
 						Exponent: 0,
-						Aliases:  []string{"atto cvnt"},
+						Aliases:  []string{"atto evmos"},
 					},
 					{
-						Denom:    "Ucvnt",
+						Denom:    "Uevmos",
 						Exponent: 12,
-						Aliases:  []string{"micro cvnt"},
+						Aliases:  []string{"micro evmos"},
 					},
 					{
-						Denom:    "cvnt",
+						Denom:    "evmos",
 						Exponent: 18,
 					},
 				},
@@ -221,25 +221,25 @@ func TestEqualAliases(t *testing.T) {
 		{
 			"different lengths",
 			[]string{},
-			[]string{"atto cvnt"},
+			[]string{"atto evmos"},
 			false,
 		},
 		{
 			"different values",
-			[]string{"attocvnt"},
-			[]string{"atto cvnt"},
+			[]string{"attoevmos"},
+			[]string{"atto evmos"},
 			false,
 		},
 		{
 			"same values, unsorted",
-			[]string{"atto cvnt", "acvnt"},
-			[]string{"acvnt", "atto cvnt"},
+			[]string{"atto evmos", "aevmos"},
+			[]string{"aevmos", "atto evmos"},
 			false,
 		},
 		{
 			"same values, sorted",
-			[]string{"acvnt", "atto cvnt"},
-			[]string{"acvnt", "atto cvnt"},
+			[]string{"aevmos", "atto evmos"},
+			[]string{"aevmos", "atto evmos"},
 			true,
 		},
 	}

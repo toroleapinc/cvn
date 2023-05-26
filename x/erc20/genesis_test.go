@@ -13,19 +13,19 @@ import (
 	tmversion "github.com/tendermint/tendermint/proto/tendermint/version"
 	"github.com/tendermint/tendermint/version"
 
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/utils"
-	feemarkettypes "github.com/cvn-network/cvn/v1/x/feemarket/types"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/utils"
+	feemarkettypes "github.com/evmos/evmos/v13/x/feemarket/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/x/erc20"
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/x/erc20"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 )
 
 type GenesisTestSuite struct {
 	suite.Suite
 	ctx     sdk.Context
-	app     *app.CVN
+	app     *app.Evmos
 	genesis types.GenesisState
 }
 

@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
@@ -6,7 +9,7 @@ import (
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	evm "github.com/cvn-network/cvn/v1/x/evm/types"
+	evm "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 var ParamsKey = []byte("Params")
@@ -61,11 +64,8 @@ func validateMintDenom(i interface{}) error {
 	if strings.TrimSpace(v) == "" {
 		return errors.New("mint denom cannot be blank")
 	}
-	if err := sdk.ValidateDenom(v); err != nil {
-		return err
-	}
 
-	return nil
+	return sdk.ValidateDenom(v)
 }
 
 func validateExponentialCalculation(i interface{}) error {

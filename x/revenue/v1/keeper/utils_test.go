@@ -10,14 +10,14 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
-	"github.com/cvn-network/cvn/v1/testutil"
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
-	"github.com/cvn-network/cvn/v1/utils"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
-	"github.com/cvn-network/cvn/v1/x/revenue/v1/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/testutil"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
+	"github.com/evmos/evmos/v13/utils"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
+	"github.com/evmos/evmos/v13/x/revenue/v1/types"
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
@@ -37,7 +37,7 @@ func (suite *KeeperTestSuite) SetupApp() {
 	require.NoError(t, err)
 	suite.consAddress = sdk.ConsAddress(privCons.PubKey().Address())
 	header := testutil.NewHeader(
-		1, time.Now().UTC(), "cvn_2032-1", suite.consAddress, nil, nil,
+		1, time.Now().UTC(), "evmos_9001-1", suite.consAddress, nil, nil,
 	)
 	suite.ctx = suite.app.BaseApp.NewContext(false, header)
 	queryHelper := baseapp.NewQueryServerTestHelper(suite.ctx, suite.app.InterfaceRegistry())
@@ -90,7 +90,7 @@ func (suite *KeeperTestSuite) Commit() {
 // Commit commits a block at a given time.
 func (suite *KeeperTestSuite) CommitAfter(t time.Duration) {
 	var err error
-	suite.ctx, err = testutil.Commit(suite.ctx, suite.app, t, nil)
+	suite.ctx, err = testutil.CommitAndCreateNewCtx(suite.ctx, suite.app, t, nil)
 	suite.Require().NoError(err)
 	queryHelper := baseapp.NewQueryServerTestHelper(suite.ctx, suite.app.InterfaceRegistry())
 

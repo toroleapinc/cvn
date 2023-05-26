@@ -1,10 +1,13 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package inflation
 
 import (
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cvn-network/cvn/v1/x/inflation/keeper"
-	"github.com/cvn-network/cvn/v1/x/inflation/types"
+	"github.com/evmos/evmos/v13/x/inflation/keeper"
+	"github.com/evmos/evmos/v13/x/inflation/types"
 )
 
 // InitGenesis import module genesis

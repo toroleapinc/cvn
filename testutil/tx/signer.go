@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package tx
 
 import (
@@ -10,7 +12,7 @@ import (
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cvn-network/cvn/v1/crypto/ethsecp256k1"
+	"github.com/evmos/evmos/v13/crypto/ethsecp256k1"
 )
 
 // NewAddrKey generates an Ethereum address and its corresponding private key.

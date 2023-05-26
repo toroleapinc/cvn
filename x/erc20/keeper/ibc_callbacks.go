@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package keeper
 
 import (
@@ -13,14 +16,14 @@ import (
 	"github.com/cosmos/ibc-go/v6/modules/core/exported"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/cvn-network/cvn/v1/ibc"
-	"github.com/cvn-network/cvn/v1/x/erc20/types"
+	"github.com/evmos/evmos/v13/ibc"
+	"github.com/evmos/evmos/v13/x/erc20/types"
 )
 
 // OnRecvPacket performs the ICS20 middleware receive callback for automatically
 // converting an IBC Coin to their ERC20 representation.
 // For the conversion to succeed, the IBC denomination must have previously been
-// registered via governance. Note that the native staking denomination (e.g. "acvnt"),
+// registered via governance. Note that the native staking denomination (e.g. "aevmos"),
 // is excluded from the conversion.
 //
 // CONTRACT: This middleware MUST be executed transfer after the ICS20 OnRecvPacket

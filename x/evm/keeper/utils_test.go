@@ -7,14 +7,14 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cvn-network/cvn/v1/server/config"
-	"github.com/cvn-network/cvn/v1/testutil"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/evmos/evmos/v13/server/config"
+	"github.com/evmos/evmos/v13/testutil"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -27,7 +27,7 @@ func (suite *KeeperTestSuite) EvmDenom() string {
 // Commit and begin new block
 func (suite *KeeperTestSuite) Commit() {
 	var err error
-	suite.ctx, err = testutil.Commit(suite.ctx, suite.app, 0*time.Second, nil)
+	suite.ctx, err = testutil.CommitAndCreateNewCtx(suite.ctx, suite.app, 0*time.Second, nil)
 	suite.Require().NoError(err)
 
 	queryHelper := baseapp.NewQueryServerTestHelper(suite.ctx, suite.app.InterfaceRegistry())

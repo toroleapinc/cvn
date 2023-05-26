@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package cli
 
 import (
@@ -12,8 +14,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	rpctypes "github.com/cvn-network/cvn/v1/rpc/types"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	rpctypes "github.com/evmos/evmos/v13/rpc/types"
+	"github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // GetTxCmd returns the transaction commands for this module

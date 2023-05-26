@@ -1,11 +1,14 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package types
 
 import (
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	cvntypes "github.com/cvn-network/cvn/v1/types"
 	"github.com/ethereum/go-ethereum/common"
+	evmostypes "github.com/evmos/evmos/v13/types"
 )
 
 // NewIncentive returns an instance of Incentive
@@ -24,7 +27,7 @@ func NewIncentive(
 
 // Validate performs a stateless validation of a Incentive
 func (i Incentive) Validate() error {
-	if err := cvntypes.ValidateAddress(i.Contract); err != nil {
+	if err := evmostypes.ValidateAddress(i.Contract); err != nil {
 		return err
 	}
 

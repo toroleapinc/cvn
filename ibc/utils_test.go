@@ -3,7 +3,7 @@ package ibc
 import (
 	"testing"
 
-	"github.com/cvn-network/cvn/v1/x/claims/types"
+	"github.com/evmos/evmos/v13/x/claims/types"
 	"github.com/stretchr/testify/require"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -11,7 +11,7 @@ import (
 	transfertypes "github.com/cosmos/ibc-go/v6/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v6/modules/core/04-channel/types"
 	ibctesting "github.com/cosmos/ibc-go/v6/testing"
-	teststypes "github.com/cvn-network/cvn/v1/types/tests"
+	teststypes "github.com/evmos/evmos/v13/types/tests"
 )
 
 func init() {
@@ -255,9 +255,9 @@ func TestGetReceivedCoin(t *testing.T) {
 			"channel-0",
 			"transfer",
 			"channel-0",
-			"transfer/channel-0/acvnt",
+			"transfer/channel-0/aevmos",
 			"10",
-			sdk.Coin{Denom: "acvnt", Amount: sdk.NewInt(10)},
+			sdk.Coin{Denom: "aevmos", Amount: sdk.NewInt(10)},
 		},
 		{
 			"transfer 2x ibc wrapped coin to destination which is its source",
@@ -295,16 +295,16 @@ func TestGetSentCoin(t *testing.T) {
 		expCoin   sdk.Coin
 	}{
 		{
-			"get unwrapped acvnt coin",
-			"acvnt",
+			"get unwrapped aevmos coin",
+			"aevmos",
 			"10",
-			sdk.Coin{Denom: "acvnt", Amount: sdk.NewInt(10)},
+			sdk.Coin{Denom: "aevmos", Amount: sdk.NewInt(10)},
 		},
 		{
-			"get ibc wrapped acvnt coin",
-			"transfer/channel-0/acvnt",
+			"get ibc wrapped aevmos coin",
+			"transfer/channel-0/aevmos",
 			"10",
-			sdk.Coin{Denom: teststypes.AcvntIbcdenom, Amount: sdk.NewInt(10)},
+			sdk.Coin{Denom: teststypes.AevmosIbcdenom, Amount: sdk.NewInt(10)},
 		},
 		{
 			"get ibc wrapped uosmo coin",

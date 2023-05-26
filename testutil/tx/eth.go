@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package tx
 
 import (
@@ -16,17 +18,17 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/cvn-network/cvn/v1/app"
-	"github.com/cvn-network/cvn/v1/server/config"
-	"github.com/cvn-network/cvn/v1/utils"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/app"
+	"github.com/evmos/evmos/v13/server/config"
+	"github.com/evmos/evmos/v13/utils"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 // PrepareEthTx creates an ethereum tx and signs it with the provided messages and private key.
 // It returns the signed transaction and an error
 func PrepareEthTx(
 	txCfg client.TxConfig,
-	appEvmos *app.CVN,
+	appEvmos *app.Evmos,
 	priv cryptotypes.PrivKey,
 	msgs ...sdk.Msg,
 ) (authsigning.Tx, error) {
@@ -89,7 +91,7 @@ func PrepareEthTx(
 // Should this not be the case, just pass in zero.
 func CreateEthTx(
 	ctx sdk.Context,
-	appEvmos *app.CVN,
+	appEvmos *app.Evmos,
 	privKey cryptotypes.PrivKey,
 	from sdk.AccAddress,
 	dest sdk.AccAddress,

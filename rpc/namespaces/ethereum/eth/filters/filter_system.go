@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package filters
 
 import (
@@ -22,8 +24,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cvn-network/cvn/v1/rpc/ethereum/pubsub"
-	evmtypes "github.com/cvn-network/cvn/v1/x/evm/types"
+	"github.com/evmos/evmos/v13/rpc/ethereum/pubsub"
+	evmtypes "github.com/evmos/evmos/v13/x/evm/types"
 )
 
 var (
@@ -165,9 +167,9 @@ func (es *EventSystem) SubscribeLogs(crit filters.FilterCriteria) (*Subscription
 	switch {
 	// only interested in new mined logs, mined logs within a specific block range, or
 	// logs from a specific block number to new mined blocks
-	case from == rpc.LatestBlockNumber && to == rpc.LatestBlockNumber,
-		from >= 0 && to >= 0 && to >= from,
-		from >= 0 && to == rpc.LatestBlockNumber:
+	case (from == rpc.LatestBlockNumber && to == rpc.LatestBlockNumber),
+		(from >= 0 && to >= 0 && to >= from),
+		(from >= 0 && to == rpc.LatestBlockNumber):
 		return es.subscribeLogs(crit)
 
 	default:

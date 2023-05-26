@@ -5,20 +5,20 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
 	"github.com/stretchr/testify/suite"
 )
 
 var (
-	address       = common.BigToAddress(big.NewInt(101))
-	address2      = common.BigToAddress(big.NewInt(102))
-	address3      = common.BigToAddress(big.NewInt(103))
-	blockHash     = common.BigToHash(big.NewInt(9999))
-	emptyTxConfig = statedb.NewEmptyTxConfig(blockHash)
+	address       common.Address   = common.BigToAddress(big.NewInt(101))
+	address2      common.Address   = common.BigToAddress(big.NewInt(102))
+	address3      common.Address   = common.BigToAddress(big.NewInt(103))
+	blockHash     common.Hash      = common.BigToHash(big.NewInt(9999))
+	emptyTxConfig statedb.TxConfig = statedb.NewEmptyTxConfig(blockHash)
 )
 
 type StateDBTestSuite struct {
@@ -439,6 +439,7 @@ func (suite *StateDBTestSuite) TestAccessList() {
 				Address:     address3,
 				StorageKeys: []common.Hash{value1},
 			}}
+
 			db.PrepareAccessList(address, &address2, vm.PrecompiledAddressesBerlin, al)
 
 			// check sender and dst

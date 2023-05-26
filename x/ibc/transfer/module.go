@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
+
 package transfer
 
 import (
@@ -8,7 +11,7 @@ import (
 	ibctransfer "github.com/cosmos/ibc-go/v6/modules/apps/transfer"
 	ibctransferkeeper "github.com/cosmos/ibc-go/v6/modules/apps/transfer/keeper"
 	"github.com/cosmos/ibc-go/v6/modules/apps/transfer/types"
-	"github.com/cvn-network/cvn/v1/x/ibc/transfer/keeper"
+	"github.com/evmos/evmos/v13/x/ibc/transfer/keeper"
 )
 
 var (

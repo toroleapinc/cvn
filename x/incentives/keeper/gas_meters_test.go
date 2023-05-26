@@ -3,10 +3,10 @@ package keeper_test
 import (
 	"fmt"
 
-	utiltx "github.com/cvn-network/cvn/v1/testutil/tx"
 	"github.com/ethereum/go-ethereum/common"
+	utiltx "github.com/evmos/evmos/v13/testutil/tx"
 
-	"github.com/cvn-network/cvn/v1/x/incentives/types"
+	"github.com/evmos/evmos/v13/x/incentives/types"
 )
 
 func (suite *KeeperTestSuite) TestGetIncentivesGasMeters() {

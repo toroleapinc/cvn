@@ -1,3 +1,5 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package keeper
 
 import (
@@ -8,9 +10,9 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	cvntypes "github.com/cvn-network/cvn/v1/types"
-	"github.com/cvn-network/cvn/v1/x/evm/statedb"
-	"github.com/cvn-network/cvn/v1/x/evm/types"
+	evmostypes "github.com/evmos/evmos/v13/types"
+	"github.com/evmos/evmos/v13/x/evm/statedb"
+	"github.com/evmos/evmos/v13/x/evm/types"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
@@ -41,7 +43,7 @@ func (k *Keeper) NewEVM(
 		Transfer:    core.Transfer,
 		GetHash:     k.GetHashFn(ctx),
 		Coinbase:    cfg.CoinBase,
-		GasLimit:    cvntypes.BlockGasLimit(ctx),
+		GasLimit:    evmostypes.BlockGasLimit(ctx),
 		BlockNumber: big.NewInt(ctx.BlockHeight()),
 		Time:        big.NewInt(ctx.BlockHeader().Time.Unix()),
 		Difficulty:  big.NewInt(0), // unused. Only required in PoW context
@@ -63,7 +65,7 @@ func (k *Keeper) NewEVM(
 //  3. The requested height is from a height greater than the latest one
 func (k Keeper) GetHashFn(ctx sdk.Context) vm.GetHashFunc {
 	return func(height uint64) common.Hash {
-		h, err := cvntypes.SafeInt64(height)
+		h, err := evmostypes.SafeInt64(height)
 		if err != nil {
 			k.Logger(ctx).Error("failed to cast height to int64", "error", err)
 			return common.Hash{}
@@ -316,6 +318,18 @@ func (k *Keeper) ApplyMessageWithConfig(ctx sdk.Context,
 	stateDB := statedb.New(ctx, k, txConfig)
 	evm := k.NewEVM(ctx, msg, cfg, tracer, stateDB)
 
+	// set the custom precompiles to the EVM (if any)
+	if cfg.Params.HasCustomPrecompiles() {
+		customPrecompiles := cfg.Params.GetActivePrecompilesAddrs()
+
+		activePrecompiles := make([]common.Address, len(vm.PrecompiledAddressesBerlin)+len(customPrecompiles))
+		copy(activePrecompiles[:len(vm.PrecompiledAddressesBerlin)], vm.PrecompiledAddressesBerlin)
+		copy(activePrecompiles[len(vm.PrecompiledAddressesBerlin):], customPrecompiles)
+
+		precompileMap := k.Precompiles(activePrecompiles...)
+		evm.WithPrecompiles(precompileMap, activePrecompiles)
+	}
+
 	leftoverGas := msg.Gas()
 
 	// Allow the tracer captures the tx level events, mainly the gas consumption.
@@ -347,7 +361,7 @@ func (k *Keeper) ApplyMessageWithConfig(ctx sdk.Context,
 	// access list preparation is moved from ante handler to here, because it's needed when `ApplyMessage` is called
 	// under contexts where ante handlers are not run, for example `eth_call` and `eth_estimateGas`.
 	if rules := cfg.ChainConfig.Rules(big.NewInt(ctx.BlockHeight()), cfg.ChainConfig.MergeNetsplitBlock != nil); rules.IsBerlin {
-		stateDB.PrepareAccessList(msg.From(), msg.To(), vm.ActivePrecompiles(rules), msg.AccessList())
+		stateDB.PrepareAccessList(msg.From(), msg.To(), evm.ActivePrecompiles(rules), msg.AccessList())
 	}
 
 	if contractCreation {
